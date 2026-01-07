@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProjectMaster Enterprise - Fortune 500 Project Management Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .role-selector {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .role-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #3498db;
+            background: transparent;
+            color: #3498db;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .role-btn.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .role-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        }
+
+        .main-container {
+            margin-top: 80px;
+            padding: 2rem;
+            min-height: calc(100vh - 80px);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .card-badge {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-critical { background: #e74c3c; color: white; }
+        .badge-high { background: #f39c12; color: white; }
+        .badge-medium { background: #f1c40f; color: #333; }
+        .badge-low { background: #27ae60; color: white; }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        .metric-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #ecf0f1;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .progress-success { background: #27ae60; }
+        .progress-warning { background: #f39c12; }
+        .progress-danger { background: #e74c3c; }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .action-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .stakeholder-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .stakeholder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .stakeholder-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: auto;
+        }
+
+        .status-online { background: #27ae60; }
+        .status-busy { background: #f39c12; }
+        .status-offline { background: #95a5a6; }
+
+        .hidden { display: none; }
+
+        .welcome-section {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 150px;
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 1200px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .role-selector {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">ProjectMaster Enterprise</div>
+        <div class="role-selector">
+            <button class="role-btn active" data-role="welcome">Overview</button>
+            <button class="role-btn" data-role="executive">C-Suite</button>
+            <button class="role-btn" data-role="manager">Project Manager</button>
+            <button class="role-btn" data-role="contributor">Team Member</button>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Welcome/Overview Section -->
+        <div id="welcome-view" class="view-section">
+            <div class="welcome-section">
+                <h1 class="welcome-title">Enterprise Project Management Excellence</h1>
+                <p class="welcome-subtitle">Empowering Fortune 500 companies to deliver complex, multi-million dollar initiatives on time and within budget</p>
+                
+                <div class="feature-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Executive Dashboards</h3>
+                        <p>Real-time portfolio insights for C-suite decision making</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Budget Management</h3>
+                        <p>Advanced financial tracking with approval workflows</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔗</div>
+                        <h3>Enterprise Integration</h3>
+                        <p>Seamless connectivity with Salesforce, SAP, and more</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Compliance & Audit</h3>
+                        <p>Complete audit trails and regulatory compliance tracking</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Executive View -->
+        <div id="executive-view" class="view-section hidden">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Portfolio Performance</h2>
+                        <span class="card-badge badge-high">Action Required</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Active Projects</span>
+                        <span class="metric-value">127</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Investment</span>
+                        <span class="metric-value">$847M</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">ROI Forecast</span>
+                        <span class="metric-value" style="color: #27ae60;">+23.4%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-success" style="width: 78%"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; color: #7f8c8d;">78% of strategic initiatives on track</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Risk Assessment</h2>
+                        <span class="card-badge badge-critical">Critical</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">High Risk Projects</span>
+                        <span class="metric-value" style="color: #e74c3c;">12</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Budget Overruns</span>
+                        <span class="metric-value" style="color: #f39c12;">$23.7M</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Delayed Deliverables</span>
+                        <span class="metric-value" style="color: #e74c3c;">34</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn">Risk Mitigation</button>
+                        <button class="action-btn">Executive Brief</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Resource Utilization</h2>
+                        <span class="card-badge badge-medium">Optimal</span>
+                    </div>
+                    <div class="chart-container">
+                        <div class="chart-bar" style="left: 10%; width: 15%; height: 85%;"></div>
+                        <div class="chart-bar" style="left: 30%; width: 15%; height: 92%;"></div>
+                        <div class="chart-bar" style="left: 50%; width: 15%; height: 78%;"></div>
+                        <div class="chart-bar" style="left: 70%; width: 15%; height: 65%;"></div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Capacity</span>
+                        <span class="metric-value">2,847 FTE</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Utilization</span>
+                        <span class="metric-value">87.3%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Manager View -->
+        <div id="manager-view" class="view-section hidden">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Projects</h2>
+                        <span class="card-badge badge-high">8 Active</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Digital Transformation</span>
+                        <span class="metric-value" style="color: #27ae60;">On Track</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-success" style="width: 67%"></div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Product Launch Q4</span>
+                        <span class="metric-value" style="color: #f39c12;">At Risk</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-warning" style="width: 45%"></div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Facility Expansion</span>
+                        <span class="metric-value" style="color: #e74c3c;">Delayed</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-danger" style="width: 23%"></div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Team Performance</h2>
+                        <span class="card-badge badge-low">Stable</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Team Members</span>
+                        <span class="metric-value">47</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Tasks Completed</span>
+                        <span class="metric-value">234 / 267</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Avg. Velocity</span>
+                        <span class="metric-value">23.7 pts/sprint</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn">Resource Planning</button>
+                        <button class="action-btn">Team Analytics</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Stakeholder Updates</h2>
+                        <span class="card-badge badge-medium">5 Pending</span>
+                    </div>
+                    <div class="stakeholder-list">
+                        <div class="stakeholder-item">
+                            <div class="stakeholder-info">
+                                <div class="avatar">JS</div>
+                                <div>
+                                    <div style="font-weight: 600;">John Smith</div>
+                                    <div style="color: #7f8c8d; font-size: 0.9rem;">VP Engineering</div>
+                                </div>
+                            </div>
+                            <div class="status-indicator status-online"></div>
+                        </div>
+                        <div class="stakeholder-item">
+                            <div class="stakeholder-info">
+                                <div class="avatar">MR</div>
+                                <div>
+                                    <div style="font-weight: 600;">Maria Rodriguez</div>
+                                    <div style="color: #7f8c8d; font-size: 0.9rem;">CFO</div>
+                                </div>
+                            </div>
+                            <div class="status-indicator status-busy"></div>
+                        </div>
+                        <div class="stakeholder-item">
+                            <div class="stakeholder-info">
+                                <div class="avatar">DL</div>
+                                <div>
+                                    <div style="font-weight: 600;">David Lee</div>
+                                    <div style="color: #7f8c8d; font-size: 0.9rem;">Director Operations</div>
+                                </div>
+                            </div>
+                            <div class="status-indicator status-offline"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Member View -->
+        <div id="contributor-view" class="view-section hidden">
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">My Tasks</h2>
+                        <span class="card-badge badge-medium">7 Due</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Due Today</span>
+                        <span class="metric-value" style="color: #e74c3c;">3</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">This Week</span>
+                        <span class="metric-value" style="color: #f39c12;">4</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Completed</span>
+                        <span class="metric-value" style="color: #27ae60;">67</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill progress-success" style="width: 89%"></div>
+                    </div>
+                    <p style="margin-top: 0.5rem; color: #7f8c8d;">89% completion rate this month</p>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Project Assignments</h2>
+                        <span class="card-badge badge-low">3 Active</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Digital Platform Redesign</span>
+                        <span class="metric-value">Frontend Dev</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Mobile App Launch</span>
+                        <span class="metric-value">UI/UX Design</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">API Integration</span>
+                        <span class="metric-value">Backend Dev</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn">Time Tracking</button>
+                        <button class="action-btn">Submit Update</button>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h2 class="card-title">Team Communication</h2>
+                        <span class="card-badge badge-high">New Messages</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Unread Messages</span>
+                        <span class="metric-value">12</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Meeting Invites</span>
+                        <span class="metric-value">3</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Document Reviews</span>
+                        <span class="metric-value">2</span>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="action-btn">Messages</button>
+                        <button class="action-btn">Calendar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Role switching functionality
+        const roleButtons = document.querySelectorAll('.role-btn');
+        const viewSections = document.querySelectorAll('.view-section');
+
+        roleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const role = button.getAttribute('data-role');
+                
+                // Update active button
+                roleButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                // Show/hide appropriate view
+                viewSections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                const targetView = document.getElementById(`${role}-view`);
+                if (targetView) {
+                    targetView.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Interactive elements
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.target.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    e.target.style.transform = '';
+                }, 150);
+                
+                // Simulate action feedback
+                const originalText = e.target.textContent;
+                e.target.textContent = 'Processing...';
+                setTimeout(() => {
+                    e.target.textContent = originalText;
+                }, 1000);
+            });
+        });
+
+        // Dynamic chart animation
+        function animateCharts() {
+            const chartBars = document.querySelectorAll('.chart-bar');
+            chartBars.forEach((bar, index) => {
+                setTimeout(() => {
+                    bar.style.opacity = '0';
+                    bar.style.height = '0%';
+                    setTimeout(() => {
+                        bar.style.opacity = '1';
+                        bar.style.height = ['85%', '92%', '78%', '65%'][index % 4];
+                    }, 100);
+                }, index * 200);
+            });
+        }
+
+        // Progress bar animations
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const targetWidth = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = targetWidth;
+                }, 300);
+            });
+        }
+
+        // Real-time updates simulation
+        function simulateRealTimeUpdates() {
+            const metrics = document.querySelectorAll('.metric-value');
+            setInterval(() => {
+                const randomMetric = metrics[Math.floor(Math.random() * metrics.length)];
+                randomMetric.style.animation = 'pulse 0.5s ease-in-out';
+                setTimeout(() => {
+                    randomMetric.style.animation = '';
+                }, 500);
+            }, 5000);
+        }
+
+        // Initialize animations
+        setTimeout(() => {
+            animateCharts();
+            animateProgressBars();
+        }, 500);
+
+        simulateRealTimeUpdates();
+
+        // Add CSS animation for pulse effect
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

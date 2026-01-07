@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Daily News - Local Journalism for Three Metropolitan Areas</title>
+    <style>
+        /* CSS Variables for easy theming and accessibility */
+        :root {
+            --primary-color: #1a365d;
+            --secondary-color: #2d5282;
+            --accent-color: #e53e3e;
+            --text-color: #2d3748;
+            --light-text: #718096;
+            --bg-color: #ffffff;
+            --border-color: #e2e8f0;
+            --hover-color: #f7fafc;
+            --font-size-base: 16px;
+            --font-size-large: 18px;
+            --font-size-small: 14px;
+        }
+
+        /* Accessibility themes */
+        .high-contrast {
+            --primary-color: #000000;
+            --secondary-color: #333333;
+            --accent-color: #ff0000;
+            --text-color: #000000;
+            --light-text: #444444;
+            --bg-color: #ffffff;
+            --border-color: #000000;
+        }
+
+        .large-text {
+            --font-size-base: 20px;
+            --font-size-large: 24px;
+            --font-size-small: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            font-size: var(--font-size-base);
+        }
+
+        /* Skip link for accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Header and Navigation */
+        .header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .language-toggle, .accessibility-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255,255,255,0.3);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: var(--font-size-small);
+            transition: background-color 0.2s;
+        }
+
+        .btn:hover, .btn:focus {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn.active {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            background: var(--secondary-color);
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu li {
+            white-space: nowrap;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.2s;
+        }
+
+        .nav-menu a:hover, .nav-menu a:focus {
+            border-bottom-color: white;
+        }
+
+        .nav-menu a.active {
+            border-bottom-color: var(--accent-color);
+        }
+
+        /* Breaking News Banner */
+        .breaking-news {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 0;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        .breaking-news strong {
+            margin-right: 1rem;
+        }
+
+        /* Main Content Area */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        .content-area {
+            min-width: 0;
+        }
+
+        /* Quick Access Tools */
+        .quick-tools {
+            background: var(--hover-color);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: var(--font-size-base);
+        }
+
+        .search-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .content-filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.25rem 0.75rem;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: var(--font-size-small);
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Featured Story Section */
+        .featured-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .view-all {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: var(--font-size-small);
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .main-story {
+            position: relative;
+        }
+
+        .story-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .story-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 2rem 1rem 1rem;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .story-category {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: var(--font-size-small);
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .story-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .story-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .story-meta {
+            font-size: var(--font-size-small);
+            color: var(--light-text);
+            display: flex;
+            gap: 1rem;
+        }
+
+        .story-overlay .story-meta {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .secondary-stories {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .story-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .story-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .story-content {
+            padding: 1rem;
+        }
+
+        .story-summary {
+            color: var(--light-text);
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        /* News Grid */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-section {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .news-section-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        .news-list {
+            list-style: none;
+        }
+
+        .news-item {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-item:last-child {
+            border-bottom: none;
+        }
+
+        .news-item:hover {
+            background: var(--hover-color);
+        }
+
+        .news-item-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .news-item-title a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .news-item-title a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .widget {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .widget-header {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            font-weight: bold;
+        }
+
+        .widget-content {
+            padding: 1rem;
+        }
+
+        .newsletter-signup {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .newsletter-input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: var(--font-size-base);
+        }
+
+        .newsletter-btn {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .trending-list {
+            list-style: none;
+        }
+
+        .trending-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .trending-item:last-child {
+            border-bottom: none;
+        }
+
+        .trending-number {
+            background: var(--accent-color);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: var(--font-size-small);
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .trending-title {
+            font-size: var(--font-size-small);
+            line-height: 1.3;
+        }
+
+        .trending-title a {
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .trending-title a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            display: block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.2s;
+        }
+
+        .social-link:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            margin-top: 2rem;
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+            font-size: var(--font-size-small);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header-controls {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 2rem;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .news-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .quick-tools {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-box {
+                min-width: auto;
+            }
+
+            .story-title {
+                font-size: 1.1rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .header, .main-nav, .breaking-news, .sidebar, .footer {
+                display: none;
+            }
+            
+            .main-container {
+                grid-template-columns: 1fr;
+                max-width: none;
+                padding: 0;
+            }
+            
+            .story-card, .news-section {
+                border: 1px solid #ccc;
+                break-inside: avoid;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Loading States */
+        .loading {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Focus styles for accessibility */
+        button:focus, a:focus, input:focus, select:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* High contrast and large text support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-color: #000000;
+                --secondary-color: #333333;
+                --border-color: #000000;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo">Metro Daily News</a>
+            <div class="header-controls">
+                <div class="language-toggle">
+                    <button class="btn active" onclick="setLanguage('en')" aria-label="English">EN</button>
+                    <button class="btn" onclick="setLanguage('es')" aria-label="Español">ES</button>
+                </div>
+                <div class="accessibility-controls">
+                    <button class="btn" onclick="toggleHighContrast()" aria-label="Toggle high contrast">A+</button>
+                    <button class="btn" onclick="toggleLargeText()" aria-label="Toggle large text">A++</button>
+                </div>
+                <a href="#" class="btn">Subscribe</a>
+                <a href="#" class="btn">Sign In</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#" onclick="filterContent('breaking')">Breaking</a></li>
+                <li><a href="#" onclick="filterContent('politics')">Politics</a></li>
+                <li><a href="#" onclick="filterContent('business')">Business</a></li>
+                <li><a href="#" onclick="filterContent('sports')">Sports</a></li>
+                <li><a href="#" onclick="filterContent('community')">Community</a></li>
+                <li><a href="#" onclick="filterContent('metro1')">Metro East</a></li>
+                <li><a href="#" onclick="filterContent('metro2')">Metro Central</a></li>
+                <li><a href="#" onclick="filterContent('metro3')">Metro West</a></li>
+                <li><a href="#">Podcasts</a></li>
+                <li><a href="#">Premium</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Breaking News Banner -->
+    <div class="breaking-news">
+        <strong>BREAKING:</strong> Metro Transit announces expanded weekend service starting next month
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-container" id="main-content">
+        <div class="content-area">
+            <!-- Quick Tools -->
+            <div class="quick-tools">
+                <div class="search-box">
+                    <input type="search" class="search-input" placeholder="Search news, topics, or dates..." aria-label="Search articles">
+                    <button class="search-btn" onclick="searchContent()">Search</button>
+                </div>
+                <div class="content-filters">
+                    <button class="filter-btn active" onclick="filterTime('today')">Today</button>
+                    <button class="filter-btn" onclick="filterTime('week')">This Week</button>
+                    <button class="filter-btn" onclick="filterTime('all')">All Time</button>
+                    <button class="filter-btn" onclick="filterType('video')">Video</button>
+                    <button class="filter-btn" onclick="filterType('podcast')">Podcast</button>
+                </div>
+            </div>
+
+            <!-- Featured Stories -->
+            <section class="featured-section">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Stories</h2>
+                    <a href="#" class="view-all">View All →</a>
+                </div>
+                <div class="featured-grid">
+                    <article class="main-story">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjI1MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxOCIgZmlsbD0iIzk5OSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkZlYXR1cmVkIEltYWdlPC90ZXh0Pjwvc3ZnPg==" alt="Featured story image" class="story-image">
+                        <div class="story-overlay">
+                            <span class="story-category">POLITICS</span>
+                            <h3 class="story-title">
+                                <a href="#">City Council Approves Historic Infrastructure Investment Plan</a>
+                            </h3>
+                            <div class="story-meta">
+                                <span>By Sarah Johnson</span>
+                                <span>2 hours ago</span>
+                                <span>5 min read</span>
+                            </div>
+                        </div>
+                    </article>
+                    <div class="secondary-stories">
+                        <article class="story-card">
+                            <div class="story-content">
+                                <span class="story-category">BUSINESS</span>
+                                <h4 class="story-title">
+                                    <a href="#">Tech Startup Announces 500 New Jobs in Metro Central</a>
+                                </h4>
+                                <p class="story-summary">Local technology company expanding operations with significant investment in downtown location.</p>
+                                <div class="story-meta">
+                                    <span>By Mike Chen</span>
+                                    <span>3 hours ago</span>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="story-card">
+                            <div class="story-content">
+                                <span class="story-category">SPORTS</span>
+                                <h4 class="story-title">
+                                    <a href="#">Metro United Advances to Championship Final</a>
+                                </h4>
+                                <p class="story-summary">Local soccer team secures spot in league championship after dramatic overtime victory.</p>
+                                <div class="story-meta">
+                                    <span>By Alex Rivera</span>
+                                    <span>4 hours ago</span>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- News Sections Grid -->
+            <section class="news-grid">
+                <div class="news-section">
+                    <div class="news-section-header">Latest Headlines</div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Metro East School Board Approves New Safety Measures</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Education • 1 hour ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Local Restaurant Week Brings Economic Boost</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Business • 2 hours ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Weather: Sunny Weekend Ahead for All Metro Areas</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Weather • 3 hours ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Community Garden Project Seeks Volunteers</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Community • 4 hours ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="news-section">
+                    <div class="news-section-header">Politics & Government</div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Mayor Announces New Housing Initiative</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Policy • 30 min ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">State Budget Hearing Scheduled for Next Week</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>State • 1 hour ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Local Election Registration Deadline Approaches</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Elections • 2 hours ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Public Transit Expansion Proposal Gains Support</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Transportation • 3 hours ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="news-section">
+                    <div class="news-section-header">Business & Economy</div>
+                    <ul class="news-list">
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Downtown Development Project Breaks Ground</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Development • 45 min ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Local Unemployment Rate Drops to 5-Year Low</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Jobs • 1 hour ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Chamber of Commerce Launches Small Business Program</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Small Business • 2 hours ago</span>
+                            </div>
+                        </li>
+                        <li class="news-item">
+                            <h4 class="news-item-title">
+                                <a href="#">Manufacturing Plant Expansion Creates 200 Jobs</a>
+                            </h4>
+                            <div class="story-meta">
+                                <span>Manufacturing • 4 hours ago</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <!-- Newsletter Signup -->
+            <div class="widget">
+                <div class="widget-header">Stay Informed</div>
+                <div class="widget-content">
+                    <form class="newsletter-signup" onsubmit="return subscribeNewsletter(event)">
+                        <p>Get daily headlines and breaking news alerts</p>
+                        <input type="email" class="newsletter-input" placeholder="Enter your email" required aria-label="Email address">
+                        <label>
+                            <input type="checkbox" required> I agree to receive news updates
+                        </label>
+                        <button type="submit" class="newsletter-btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Trending Stories -->
+            <div class="widget">
+                <div class="widget-header">Trending Now</div>
+                <div class="widget-content">
+                    <ol class="trending-list">
+                        <li class="trending-item">
+                            <span class="trending-number">1</span>
+                            <div class="trending-title">
+                                <a href="#">Metro Transit Service Expansion Plans Revealed</a>
+                            </div>
+                        </li>
+                        <li class="trending-item">
+                            <span class="trending-number">2</span>
+                            <div class="trending-title">
+                                <a href="#">Local Hospital Announces New Cancer Center</a>
+                            </div>
+                        </li>
+                        <li class="trending-item">
+                            <span class="trending-number">3</span>
+                            <div class="trending-title">
+                                <a href="#">High School Football Championship This Friday</a>
+                            </div>
+                        </li>
+                        <li class="trending-item">
+                            <span class="trending-number">4</span>
+                            <div class="trending-title">
+                                <a href="#">New Art Museum Opens in Metro Central</a>
+                            </div>
+                        </li>
+                        <li class="trending-item">
+                            <span class="trending-number">5</span>
+                            <div class="trending-title">
+                                <a href="#">City Parks Department Plans Summer Programs</a>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Weather Widget -->
+            <div class="widget">
+                <div class="widget-header">Weather</div>
+                <div class="widget-content">
+                    <div style="text-align: center;">
+                        <h3>Today: 72°F ☀️</h3>
+                        <p>Sunny with light winds</p>
+                        <p><strong>Weekend:</strong> Sunny, highs near 75°F</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="widget">
+                <div class="widget-header">Quick Links</div>
+                <div class="widget-content">
+                    <ul class="footer-links">
+                        <li><a href="#">Obituaries</a></li>
+                        <li><a href="#">Public Records</a></li>
+                        <li><a href="#">Event Calendar</a></li>
+                        <li><a href="#">Photo Galleries</a></li>
+                        <li><a href="#">Submit News Tip</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>About Metro Daily News</h3>
+                <p>Serving three metropolitan areas with local journalism since 1995. Committed to accurate, timely reporting on the issues that matter to our communities.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Facebook">f</a>
+                    <a href="#" class="social-link" aria-label="Twitter">t</a>
+                    <a href="#" class="social-link" aria-label="Instagram">i</a>
+                    <a href="#" class="social-link" aria-label="YouTube">y</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Sections</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Politics</a></li>
+                    <li><a href="#">Business</a></li>
+                    <li><a href="#">Sports</a></li>
+                    <li><a href="#">Community</a></li>
+                    <li><a href="#">Opinion</a></li>
+                    <li><a href="#">Podcasts</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Metro Areas</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Metro East</a></li>
+                    <li><a href="#">Metro Central</a></li>
+                    <li><a href="#">Metro West</a></li>
+                    <li><a href="#">Regional News</a></li>
+                    <li><a href="#">Local Events</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Services</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Subscribe</a></li>
+                    <li><a href="#">Newsletter</a></li>
+                    <li><a href="#">Mobile App</a></li>
+                    <li><a href="#">RSS Feeds</a></li>
+                    <li><a href="#">Archives</a></li>
+                    <li><a href="#">Advertise</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Metro Daily News. All rights reserved. | <a href="#" style="color: inherit;">Privacy Policy</a> | <a href="#" style="color: inherit;">Terms of Service</a> | <a href="#" style="color: inherit;">Contact</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Global state management
+        let currentLanguage = 'en';
+        let currentFilters = {
+            time: 'today',
+            category: 'all',
+            metro: 'all'
+        };
+
+        // Accessibility Functions
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isActive = document.body.classList.contains('high-contrast');
+            localStorage.setItem('highContrast', isActive);
+        }
+
+        function toggleLargeText() {
+            document.body.classList.toggle('large-text');
+            const isActive = document.body.classList.contains('large-text');
+            localStorage.setItem('largeText', isActive);
+        }
+
+        // Language switching
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.querySelectorAll('.language-toggle .btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // In a real implementation, this would load content in the selected language
+            if (lang === 'es') {
+                // Simulate Spanish content
+                document.querySelector('.logo').textContent = 'Metro Noticias Diarias';
+                document.querySelector('.breaking-news').innerHTML = '<strong>ÚLTIMA HORA:</strong> Metro Transit anuncia servicio extendido de fin de semana el próximo mes';
+            } else {
+                // English content
+                document.querySelector('.logo').textContent = 'Metro Daily News';
+                document.querySelector('.breaking-news').innerHTML = '<strong>BREAKING:</strong> Metro Transit announces expanded weekend service starting next month';
+            }
+            
+            localStorage.setItem('language', lang);
+        }
+
+        // Content filtering
+        function filterContent(category) {
+            currentFilters.category = category;
+            
+            // Update navigation active states
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Show loading state
+            document.querySelector('.content-area').classList.add('loading');
+            
+            // Simulate content loading
+            setTimeout(() => {
+                // In a real implementation, this would filter articles by category
+                updateContentDisplay();
+                document.querySelector('.content-area').classList.remove('loading');
+            }, 500);
+        }
+
+        function filterTime(timeFilter) {
+            currentFilters.time = timeFilter;
+            
+            // Update filter button states
+            document.querySelectorAll('.content-filters .filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            updateContentDisplay();
+        }
+
+        function filterType(type) {
+            // Toggle filter for content types
+            event.target.classList.toggle('active');
+            updateContentDisplay();
+        }
+
+        // Search functionality
+        function searchContent() {
+            const searchTerm = document.querySelector('.search-input').value;
+            if (searchTerm.trim()) {
+                // In a real implementation, this would perform search
+                alert(`Searching for: "${searchTerm}"`);
+                // Show search results
+                showSearchResults(searchTerm);
+            }
+        }
+
+        function showSearchResults(searchTerm) {
+            // Simulate search results display
+            const contentArea = document.querySelector('.content-area');
+            const searchResults = `
+                <section class="search-results">
+                    <div class="section-header">
+                        <h2 class="section-title">Search Results for "${searchTerm}"</h2>
+                        <span class="view-all">24 results found</span>
+                    </div>
+                    <div class="news-grid">
+                        <div class="news-section">
+                            <div class="news-section-header">Related Articles</div>
+                            <ul class="news-list">
+                                <li class="news-item">
+                                    <h4 class="news-item-title">
+                                        <a href="#">Sample search result article</a>
+                                    </h4>
+                                    <div class="story-meta">
+                                        <span>News • 2 hours ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            `;
+            contentArea.innerHTML = searchResults + contentArea.innerHTML;
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Simulate subscription
+            alert(`Thank you! Subscription confirmation sent to ${email}`);
+            event.target.reset();
+            return false;
+        }
+
+        // Content updates
+        function updateContentDisplay() {
+            // In a real implementation, this would fetch and display filtered content
+            // For demo purposes, we'll just show a subtle loading indication
+            
+            const sections = document.querySelectorAll('.news-section, .story-card');
+            sections.forEach(section => {
+                section.style.opacity = '0.8';
+                setTimeout(() => {
+                    section.style.opacity = '1';
+                }, 200);
+            });
+        }
+
+        // Lazy loading for images
+        function setupLazyLoading() {
+            if ('IntersectionObserver' in window) {
+                const imageObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            img.classList.remove('skeleton');
+                            observer.unobserve(img);
+                        }
+                    });
+                });
+
+                document.querySelectorAll('img[data-src]').forEach(img => {
+                    img.classList.add('skeleton');
+                    imageObserver.observe(img);
+                });
+            }
+        }
+
+        // Performance monitoring
+        function trackPageLoad() {
+            if ('performance' in window) {
+                window.addEventListener('load', () => {
+                    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                    if (loadTime > 3000) {
+                        console.warn('Page load time exceeds 3 seconds:', loadTime + 'ms');
+                    }
+                });
+            }
+        }
+
+        // Keyboard navigation support
+        function setupKeyboardNavigation() {
+            document.addEventListener('keydown', (e) => {
+                // Implement keyboard shortcuts for accessibility
+                if (e.ctrlKey || e.metaKey) {
+                    switch(e.key) {
+                        case 'k':
+                            e.preventDefault();
+                            document.querySelector('.search-input').focus();
+                            break;
+                        case 'h':
+                            e.preventDefault();
+                            window.location.href = '#';
+                            break;
+                    }
+                }
+            });
+        }
+
+        // Auto-refresh for breaking news
+        function setupAutoRefresh() {
+            // Check for new breaking news every 5 minutes
+            setInterval(() => {
+                // In a real implementation, this would check for new content
+                const breakingBanner = document.querySelector('.breaking-news');
+                if (Math.random() < 0.1) { // 10% chance of new breaking news
+                    breakingBanner.style.animation = 'pulse 2s infinite';
+                    setTimeout(() => {
+                        breakingBanner.style.animation = '';
+                    }, 10000);
+                }
+            }, 300000); // 5 minutes
+        }
+
+        // Initialize accessibility preferences
+        function initializePreferences() {
+            // Load saved preferences
+            if (localStorage.getItem('highContrast') === 'true') {
+                document.body.classList.add('high-contrast');
+            }
+            if (localStorage.getItem('largeText') === 'true') {
+                document.body.classList.add('large-text');
+            }
+            if (localStorage.getItem('language')) {
+                setLanguage(localStorage.getItem('language'));
+            }
+        }
+
+        // Event Listeners and Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            initializePreferences();
+            setupLazyLoading();
+            setupKeyboardNavigation();
+            setupAutoRefresh();
+            trackPageLoad();
+
+            // Add search on Enter key
+            document.querySelector('.search-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchContent();
+                }
+            });
+
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Service worker registration for offline support
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/sw.js').catch(err => {
+                    console.log('Service worker registration failed:', err);
+                });
+            }
+        });
+
+        // Error handling for failed content loads
+        window.addEventListener('error', (e) => {
+            console.error('Content load error:', e);
+            // In production, this would report to analytics
+        });
+
+        // Analytics tracking (placeholder)
+        function trackEvent(action, category, label) {
+            // In a real implementation, this would send to analytics
+            console.log('Analytics:', { action, category, label });
+        }
+
+        // Social sharing
+        function shareArticle(url, title) {
+            if (navigator.share) {
+                navigator.share({
+                    title: title,
+                    url: url
+                });
+            } else {
+                // Fallback for browsers without Web Share API
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Link copied to clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EventSpace - Virtual Events That Feel Human</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover, nav a:focus {
+            opacity: 0.8;
+            outline: 2px solid rgba(255,255,255,0.5);
+            outline-offset: 4px;
+        }
+
+        .cta-button {
+            background: rgba(255,255,255,0.2);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .cta-button:hover, .cta-button:focus {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+            outline: 2px solid rgba(255,255,255,0.8);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><polygon points="0,0 1000,0 1000,100 0,80"/></svg>') bottom repeat-x;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 3rem 0;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-feature p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .hero-cta {
+            margin-top: 2rem;
+        }
+
+        .primary-button {
+            background: #ff6b6b;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .primary-button:hover, .primary-button:focus {
+            background: #ff5252;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255,107,107,0.4);
+            outline: 3px solid rgba(255,107,107,0.3);
+        }
+
+        /* Main Content */
+        main {
+            padding: 4rem 0;
+        }
+
+        .section {
+            margin-bottom: 5rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        /* Problem Statement */
+        .problems {
+            background: #f8f9fa;
+            padding: 4rem 0;
+            margin: 4rem 0;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-left: 4px solid #ff6b6b;
+        }
+
+        .problem-card h3 {
+            color: #ff6b6b;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .problem-card p {
+            color: #666;
+        }
+
+        /* Solutions */
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .solution-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .solution-card:hover, .solution-card:focus-within {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-color: #667eea;
+        }
+
+        .solution-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .solution-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .solution-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            text-align: left;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        /* Accessibility Section */
+        .accessibility {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .accessibility h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .accessibility-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .accessibility-feature {
+            background: rgba(255,255,255,0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+        }
+
+        .accessibility-feature h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        /* Trust Section */
+        .trust {
+            background: #2c3e50;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .trust h2 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .trust-stat {
+            text-align: center;
+        }
+
+        .trust-stat .number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #3498db;
+            display: block;
+        }
+
+        .trust-stat .label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover, .footer-section a:focus {
+            color: #3498db;
+            outline: 2px solid #3498db;
+            outline-offset: 2px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .hero-features {
+                grid-template-columns: 1fr;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .solutions-grid,
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        /* Focus styles for accessibility */
+        *:focus {
+            outline: 3px solid #3498db;
+            outline-offset: 2px;
+        }
+
+        button:focus,
+        a:focus {
+            outline: 3px solid #3498db;
+            outline-offset: 3px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .hero {
+                background: #000;
+            }
+            
+            .solution-card {
+                border: 2px solid #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">EventSpace</div>
+                <nav>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#solutions">Solutions</a></li>
+                        <li><a href="#accessibility">Accessibility</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                    </ul>
+                </nav>
+                <a href="#demo" class="cta-button">Try Demo</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Virtual Events That Feel Human</h1>
+                <p class="hero-subtitle">
+                    From 50-person workshops to 5,000-attendee summits, EventSpace makes virtual conferences engaging, accessible, and effortless for everyone.
+                </p>
+                
+                <div class="hero-features">
+                    <div class="hero-feature">
+                        <h3>🎯 Smart & Simple</h3>
+                        <p>Professional results without complexity. Perfect for tech pros and first-time organizers alike.</p>
+                    </div>
+                    <div class="hero-feature">
+                        <h3>🌐 Truly Accessible</h3>
+                        <p>Built-in screen reader support, captions, and keyboard navigation for all users.</p>
+                    </div>
+                    <div class="hero-feature">
+                        <h3>🤝 Natural Networking</h3>
+                        <p>Connect attendees without awkward forced interactions or video fatigue.</p>
+                    </div>
+                    <div class="hero-feature">
+                        <h3>🛡️ Never Fail</h3>
+                        <p>Bulletproof reliability with smart recovery from common mistakes.</p>
+                    </div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#get-started" class="primary-button">Start Your Event Free</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <div class="container">
+            <section class="problems">
+                <div class="container">
+                    <h2>We Solve Real Problems</h2>
+                    <p class="section-subtitle">
+                        Virtual events shouldn't feel like work. We've identified and solved the pain points that make online conferences frustrating.
+                    </p>
+                    
+                    <div class="problems-grid">
+                        <div class="problem-card">
+                            <h3>Lost & Confused Attendees</h3>
+                            <p>People join wrong sessions, miss key content due to time zone confusion, and accidentally leave important presentations. Our smart navigation and timezone-aware scheduling keeps everyone on track.</p>
+                        </div>
+                        
+                        <div class="problem-card">
+                            <h3>Overwhelming Options for Organizers</h3>
+                            <p>Too many settings and features can paralyze decision-making. Our guided setup process and smart defaults get you professional results without the complexity.</p>
+                        </div>
+                        
+                        <div class="problem-card">
+                            <h3>Awkward Networking</h3>
+                            <p>Forced video interactions and "speed networking" sessions feel unnatural. Our optional, gradual engagement tools let introverts and extroverts connect comfortably.</p>
+                        </div>
+                        
+                        <div class="problem-card">
+                            <h3>Technical Anxiety</h3>
+                            <p>Speakers fear mid-presentation failures. Attendees struggle with unfamiliar interfaces. Our foolproof design and instant recovery options eliminate technical stress.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section" id="solutions">
+                <h2>Our Approach</h2>
+                <p class="section-subtitle">
+                    Every feature is designed with real users in mind - from volunteer nonprofit organizers to enterprise conference managers, from digital natives to professionals new to virtual events.
+                </p>
+                
+                <div class="solutions-grid">
+                    <div class="solution-card">
+                        <div class="solution-icon">🎪</div>
+                        <h3>Effortless Event Creation</h3>
+                        <p>Set up professional conferences in minutes, not hours. Our guided wizard adapts to your experience level and event size.</p>
+                        <ul class="feature-list">
+                            <li>One-click templates for common event types</li>
+                            <li>Smart scheduling with automatic timezone conversion</li>
+                            <li>Drag-and-drop session management</li>
+                            <li>Preview mode to test attendee experience</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-icon">🧭</div>
+                        <h3>Intelligent Navigation</h3>
+                        <p>Attendees never get lost. Our smart interface adapts to user behavior and prevents common mistakes.</p>
+                        <ul class="feature-list">
+                            <li>"Where should I be?" dashboard</li>
+                            <li>Gentle reminders for upcoming sessions</li>
+                            <li>One-click session switching</li>
+                            <li>Breadcrumb trail to retrace steps</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-icon">🤝</div>
+                        <h3>Comfortable Networking</h3>
+                        <p>Connect naturally without pressure. Choose your engagement level and communication style.</p>
+                        <ul class="feature-list">
+                            <li>Text-first networking lounges</li>
+                            <li>Optional video "coffee chats"</li>
+                            <li>Interest-based matchmaking</li>
+                            <li>Private messaging with privacy controls</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-icon">🛡️</div>
+                        <h3>Bulletproof Reliability</h3>
+                        <p>Technical issues become minor hiccups, not event-ending disasters.</p>
+                        <ul class="feature-list">
+                            <li>Automatic session recording backup</li>
+                            <li>One-click presentation recovery</li>
+                            <li>Graceful handling of connection drops</li>
+                            <li>24/7 white-glove technical support</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-icon">📊</div>
+                        <h3>Insights That Matter</h3>
+                        <p>Understand what worked without drowning in data. Clear, actionable analytics for better future events.</p>
+                        <ul class="feature-list">
+                            <li>Attendance patterns and engagement metrics</li>
+                            <li>Session popularity and drop-off points</li>
+                            <li>Networking activity and connections made</li>
+                            <li>Post-event survey integration</li>
+                        </ul>
+                    </div>
+
+                    <div class="solution-card">
+                        <div class="solution-icon">🎯</div>
+                        <h3>Flexible Scale</h3>
+                        <p>From intimate workshops to massive summits, the same intuitive experience scales seamlessly.</p>
+                        <ul class="feature-list">
+                            <li>Automatic infrastructure scaling</li>
+                            <li>Breakout room management</li>
+                            <li>Virtual exhibit halls</li>
+                            <li>Multi-track programming</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="accessibility" id="accessibility">
+                <div class="container">
+                    <h2>Accessible by Design</h2>
+                    <p>True inclusion means everyone can participate fully, regardless of ability, technology, or experience level.</p>
+                    
+                    <div class="accessibility-features">
+                        <div class="accessibility-feature">
+                            <h3>🔊 Screen Reader Optimized</h3>
+                            <p>Full NVDA, JAWS, and VoiceOver compatibility with descriptive labels and logical navigation order.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>⌨️ Keyboard Navigation</h3>
+                            <p>Every feature accessible via keyboard shortcuts. No mouse required for any functionality.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>📝 Live Captions</h3>
+                            <p>AI-powered real-time captions with speaker identification and easy-to-read formatting.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>🎨 Visual Flexibility</h3>
+                            <p>High contrast modes, customizable font sizes, and motion reduction for comfortable viewing.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>🌐 Language Support</h3>
+                            <p>Multi-language interface with real-time translation for global accessibility.</p>
+                        </div>
+                        
+                        <div class="accessibility-feature">
+                            <h3>📱 Device Agnostic</h3>
+                            <p>Consistent experience across desktop, tablet, and mobile with optimized touch interfaces.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="trust">
+                <div class="container">
+                    <h2>Trusted by Organizations Worldwide</h2>
+                    <p class="section-subtitle">
+                        From nonprofit fundraisers to Fortune 500 conferences, EventSpace delivers reliable results.
+                    </p>
+                    
+                    <div class="trust-stats">
+                        <div class="trust-stat">
+                            <span class="number">99.9%</span>
+                            <span class="label">Uptime Guarantee</span>
+                        </div>
+                        <div class="trust-stat">
+                            <span class="number">2.3M+</span>
+                            <span class="label">Events Hosted</span>
+                        </div>
+                        <div class="trust-stat">
+                            <span class="number">50M+</span>
+                            <span class="label">Attendees Served</span>
+                        </div>
+                        <div class="trust-stat">
+                            <span class="number">4.9/5</span>
+                            <span class="label">User Satisfaction</span>
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 2rem; opacity: 0.9;">
+                        "EventSpace made our first virtual fundraiser feel like our best in-person event. The accessibility features meant everyone could participate fully." 
+                        <br><strong>- Sarah Chen, Nonprofit Director</strong>
+                    </p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Product</h3>
+                    <ul>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#integrations">Integrations</a></li>
+                        <li><a href="#security">Security</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#help">Help Center</a></li>
+                        <li><a href="#guides">Event Planning Guides</a></li>
+                        <li><a href="#webinars">Training Webinars</a></li>
+                        <li><a href="#community">Community Forum</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#press">Press</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="#twitter">Twitter</a></li>
+                        <li><a href="#linkedin">LinkedIn</a></li>
+                        <li><a href="#youtube">YouTube</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 EventSpace. All rights reserved. | <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a> | <a href="#accessibility">Accessibility Statement</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.solution-card, .problem-card, .accessibility-feature').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', function(e) {
+            // Skip to main content on Tab from header
+            if (e.key === 'Tab' && document.activeElement.tagName === 'HEADER') {
+                e.preventDefault();
+                document.querySelector('main').focus();
+            }
+        });
+
+        // Dynamic header background on scroll
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const header = document.querySelector('header');
+            
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                // Scrolling down
+                header.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                header.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        // Accessibility: Focus management for modal-like interactions
+        function trapFocus(element) {
+            const focusableElements = element.querySelectorAll(
+                'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            );
+            const firstFocusableElement = focusableElements[0];
+            const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+            element.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey) {
+                        if (document.activeElement === firstFocusableElement) {
+                            lastFocusableElement.focus();
+                            e.preventDefault();
+                        }
+                    } else {
+                        if (document.activeElement === lastFocusableElement) {
+                            firstFocusableElement.focus();
+                            e.preventDefault();
+                        }
+                    }
+                }
+            });
+        }
+
+        // Enhanced button interactions
+        document.querySelectorAll('.primary-button, .cta-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255,255,255,0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = (e.clientX - e.target.offsetLeft) + 'px';
+                ripple.style.top = (e.clientY - e.target.offsetTop) + 'px';
+                ripple.style.width = ripple.style.height = '20px';
+                
+                this.style.position = 'relative';
+                this.style.overflow = 'hidden';
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Performance optimization: Debounced scroll handler
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+
+        // Announce page load to screen readers
+        window.addEventListener('load', function() {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.style.position = 'absolute';
+            announcement.style.left = '-10000px';
+            announcement.textContent = 'EventSpace homepage loaded. Navigate using headings or tab through interactive elements.';
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                announcement.remove();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City of Riverside - Official Website</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #003366;
+            --secondary-blue: #0066cc;
+            --accent-orange: #ff6600;
+            --emergency-red: #cc0000;
+            --success-green: #006600;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --background-light: #f8f9fa;
+            --border-color: #dddddd;
+            --shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: white;
+        }
+
+        /* Accessibility utilities */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Header and navigation */
+        .header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .utilities {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .lang-toggle {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+
+        .lang-toggle:hover, .lang-toggle:focus {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .accessibility-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .font-size-btn {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+            padding: 0.25rem 0.5rem;
+            cursor: pointer;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
+        .font-size-btn:hover, .font-size-btn:focus {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        /* Emergency alert banner */
+        .emergency-banner {
+            background: var(--emergency-red);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .emergency-banner.active {
+            display: block;
+        }
+
+        .emergency-banner button {
+            background: white;
+            color: var(--emergency-red);
+            border: none;
+            padding: 0.5rem 1rem;
+            margin-left: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Main navigation */
+        .main-nav {
+            background: var(--secondary-blue);
+            padding: 0.5rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-list a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .nav-list a:hover, .nav-list a:focus {
+            border-bottom-color: var(--accent-orange);
+        }
+
+        /* Main content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero section */
+        .hero {
+            background: linear-gradient(135deg, var(--background-light) 0%, #e8f4f8 100%);
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            border-radius: 8px;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Search section */
+        .search-section {
+            margin-bottom: 3rem;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            font-size: 1.1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--secondary-blue);
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary-blue);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Task-oriented sections */
+        .task-sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .task-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .task-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        .task-card h3 {
+            color: var(--primary-blue);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .task-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--secondary-blue);
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .task-links {
+            list-style: none;
+        }
+
+        .task-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .task-links a {
+            color: var(--secondary-blue);
+            text-decoration: none;
+            padding: 0.25rem 0;
+            display: block;
+            border-left: 3px solid transparent;
+            padding-left: 0.5rem;
+            transition: border-color 0.3s;
+        }
+
+        .task-links a:hover, .task-links a:focus {
+            border-left-color: var(--accent-orange);
+            text-decoration: underline;
+        }
+
+        /* Quick actions */
+        .quick-actions {
+            background: var(--background-light);
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 3rem;
+        }
+
+        .quick-actions h3 {
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: white;
+            border: 2px solid var(--secondary-blue);
+            color: var(--secondary-blue);
+            padding: 1rem;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .action-btn:hover, .action-btn:focus {
+            background: var(--secondary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* News and updates */
+        .news-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .news-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .news-header {
+            background: var(--primary-blue);
+            color: white;
+            padding: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .news-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        .news-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            color: var(--primary-blue);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .news-title a:hover, .news-title a:focus {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: var(--accent-orange);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: white;
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover, .footer-section a:focus {
+            color: var(--accent-orange);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+            color: #ccc;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .nav-list a {
+                padding: 1rem 0;
+                border-bottom: 1px solid rgba(255,255,255,0.2);
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .news-section {
+                grid-template-columns: 1fr;
+            }
+
+            .task-sections {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Font size adjustments */
+        .font-large {
+            font-size: 1.1em;
+        }
+
+        .font-larger {
+            font-size: 1.2em;
+        }
+
+        /* High contrast mode */
+        .high-contrast {
+            background: black !important;
+            color: white !important;
+        }
+
+        .high-contrast .task-card,
+        .high-contrast .news-card,
+        .high-contrast .action-btn {
+            background: black !important;
+            color: white !important;
+            border-color: white !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to content link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Emergency alert banner -->
+    <div class="emergency-banner" id="emergency-banner">
+        <strong>EMERGENCY ALERT:</strong> Road closure on Main St due to water main break. Avoid area.
+        <button onclick="closeEmergencyBanner()" aria-label="Close emergency alert">×</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="task-icon" style="width: 40px; height: 40px;"></div>
+                <h1>City of Riverside</h1>
+            </div>
+            <div class="utilities">
+                <div class="accessibility-controls">
+                    <button class="font-size-btn" onclick="adjustFontSize('normal')" aria-label="Normal text size">A</button>
+                    <button class="font-size-btn" onclick="adjustFontSize('large')" aria-label="Large text size">A+</button>
+                    <button class="font-size-btn" onclick="adjustFontSize('larger')" aria-label="Extra large text size">A++</button>
+                    <button class="font-size-btn" onclick="toggleHighContrast()" aria-label="Toggle high contrast">⚪</button>
+                </div>
+                <button class="lang-toggle" onclick="toggleLanguage()">Español</button>
+            </div>
+        </div>
+        
+        <nav class="main-nav" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <ul class="nav-list">
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#government">Government</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#business">Business</a></li>
+                    <li><a href="#emergency">Emergency</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main content -->
+    <main id="main-content" class="main-content">
+        <!-- Hero section -->
+        <section class="hero">
+            <h2>Welcome to Riverside</h2>
+            <p>Your gateway to city services, information, and community resources. Find what you need quickly and easily.</p>
+        </section>
+
+        <!-- Search section -->
+        <section class="search-section" aria-label="Search city services">
+            <div class="search-container">
+                <label for="site-search" class="sr-only">Search city services and information</label>
+                <input type="search" id="site-search" class="search-input" placeholder="Search for services, forms, or information..." aria-describedby="search-help">
+                <button class="search-btn" type="submit" aria-label="Search">🔍</button>
+                <div id="search-help" class="sr-only">Enter keywords like 'water bill', 'building permit', or 'park programs'</div>
+            </div>
+        </section>
+
+        <!-- Task-oriented service sections -->
+        <section class="task-sections" aria-label="City services organized by common tasks">
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Pay Bills & Fees</h3>
+                <ul class="task-links">
+                    <li><a href="/pay/water">Pay Water/Sewer Bill</a></li>
+                    <li><a href="/pay/utilities">Pay Utility Bills</a></li>
+                    <li><a href="/pay/parking">Pay Parking Tickets</a></li>
+                    <li><a href="/pay/property-tax">Pay Property Taxes</a></li>
+                    <li><a href="/account">View Payment History</a></li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Permits & Licenses</h3>
+                <ul class="task-links">
+                    <li><a href="/permits/building">Building Permits</a></li>
+                    <li><a href="/permits/business">Business License</a></li>
+                    <li><a href="/permits/event">Special Event Permits</a></li>
+                    <li><a href="/permits/tree">Tree Removal Permits</a></li>
+                    <li><a href="/permits/status">Check Permit Status</a></li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Report Issues</h3>
+                <ul class="task-links">
+                    <li><a href="/report/pothole">Report Potholes</a></li>
+                    <li><a href="/report/streetlight">Broken Streetlights</a></li>
+                    <li><a href="/report/graffiti">Graffiti Removal</a></li>
+                    <li><a href="/report/noise">Noise Complaints</a></li>
+                    <li><a href="/report/status">Track My Report</a></li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Recreation & Parks</h3>
+                <ul class="task-links">
+                    <li><a href="/parks/programs">Register for Programs</a></li>
+                    <li><a href="/parks/facilities">Reserve Facilities</a></li>
+                    <li><a href="/parks/locations">Find Parks & Trails</a></li>
+                    <li><a href="/parks/events">Community Events</a></li>
+                    <li><a href="/parks/sports">Youth Sports Leagues</a></li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Housing & Property</h3>
+                <ul class="task-links">
+                    <li><a href="/housing/assistance">Housing Assistance</a></li>
+                    <li><a href="/property/records">Property Records</a></li>
+                    <li><a href="/property/assessment">Property Assessment</a></li>
+                    <li><a href="/housing/code">Code Violations</a></li>
+                    <li><a href="/housing/development">Development Projects</a></li>
+                </ul>
+            </div>
+
+            <div class="task-card">
+                <h3><span class="task-icon"></span>Transportation</h3>
+                <ul class="task-links">
+                    <li><a href="/transit/routes">Public Transit Routes</a></li>
+                    <li><a href="/parking/permits">Parking Permits</a></li>
+                    <li><a href="/streets/construction">Road Construction</a></li>
+                    <li><a href="/transit/accessibility">Accessible Transportation</a></li>
+                    <li><a href="/bike/paths">Bike Paths & Safety</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quick actions -->
+        <section class="quick-actions" aria-label="Popular quick actions">
+            <h3>Most Popular Services</h3>
+            <div class="action-grid">
+                <a href="/pay/water" class="action-btn">Pay Water Bill</a>
+                <a href="/permits/building" class="action-btn">Building Permit</a>
+                <a href="/report/311" class="action-btn">Report Problem</a>
+                <a href="/jobs" class="action-btn">City Jobs</a>
+                <a href="/council/meetings" class="action-btn">City Council</a>
+                <a href="/emergency/prepare" class="action-btn">Emergency Info</a>
+            </div>
+        </section>
+
+        <!-- News and announcements -->
+        <section class="news-section" aria-label="City news and announcements">
+            <div class="news-card">
+                <div class="news-header">City News & Updates</div>
+                <div class="news-content">
+                    <article class="news-item">
+                        <div class="news-date">October 20, 2025</div>
+                        <h4 class="news-title"><a href="/news/budget-2026">City Council Approves 2026 Budget</a></h4>
+                        <p>The proposed budget includes increased funding for infrastructure improvements and expanded park programs.</p>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-date">October 18, 2025</div>
+                        <h4 class="news-title"><a href="/news/community-center">New Community Center Opens Downtown</a></h4>
+                        <p>The state-of-the-art facility features meeting rooms, fitness equipment, and programming for all ages.</p>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-date">October 15, 2025</div>
+                        <h4 class="news-title"><a href="/news/street-improvements">Major Street Improvement Project Begins</a></h4>
+                        <p>Construction on Main Street will begin November 1st. Plan alternate routes during the 6-week project.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="news-card">
+                <div class="news-header">Upcoming Events</div>
+                <div class="news-content">
+                    <article class="news-item">
+                        <div class="news-date">October 25, 2025</div>
+                        <h4 class="news-title"><a href="/events/council-meeting">City Council Meeting</a></h4>
+                        <p>7:00 PM at City Hall. Public comment period starts at 6:30 PM.</p>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-date">October 28, 2025</div>
+                        <h4 class="news-title"><a href="/events/halloween">Halloween Safety Event</a></h4>
+                        <p>Free safety checks and trick-or-treat bags at all fire stations, 4-6 PM.</p>
+                    </article>
+                    <article class="news-item">
+                        <div class="news-date">November 2, 2025</div>
+                        <h4 class="news-title"><a href="/events/cleanup">Community Cleanup Day</a></h4>
+                        <p>Help beautify our parks and neighborhoods. Registration starts at 8 AM at Riverside Park.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact Information</h4>
+                <ul>
+                    <li><strong>City Hall:</strong> (555) 123-4567</li>
+                    <li><strong>Emergency:</strong> 911</li>
+                    <li><strong>Non-Emergency:</strong> (555) 123-4568</li>
+                    <li><strong>TTY:</strong> (555) 123-4569</li>
+                    <li><a href="/contact">Contact Directory</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Government</h4>
+                <ul>
+                    <li><a href="/government/mayor">Mayor's Office</a></li>
+                    <li><a href="/government/council">City Council</a></li>
+                    <li><a href="/government/departments">Departments</a></li>
+                    <li><a href="/government/budget">Budget & Finance</a></li>
+                    <li><a href="/government/transparency">Transparency Portal</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="/jobs">Employment</a></li>
+                    <li><a href="/bid">Bid Opportunities</a></li>
+                    <li><a href="/accessibility">Accessibility</a></li>
+                    <li><a href="/privacy">Privacy Policy</a></li>
+                    <li><a href="/social-media">Social Media</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Stay Connected</h4>
+                <ul>
+                    <li><a href="/alerts">Emergency Alerts</a></li>
+                    <li><a href="/newsletter">City Newsletter</a></li>
+                    <li><a href="/meetings">Meeting Calendar</a></li>
+                    <li><a href="/feedback">Website Feedback</a></li>
+                    <li><a href="/app">Mobile App</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 City of Riverside. All rights reserved. | <a href="/accessibility">Accessibility Statement</a> | <a href="/privacy">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Emergency banner functionality
+        function closeEmergencyBanner() {
+            document.getElementById('emergency-banner').classList.remove('active');
+            localStorage.setItem('emergency-banner-closed', 'true');
+        }
+
+        // Show emergency banner if not previously closed
+        if (!localStorage.getItem('emergency-banner-closed')) {
+            document.getElementById('emergency-banner').classList.add('active');
+        }
+
+        // Font size adjustment
+        function adjustFontSize(size) {
+            const body = document.body;
+            body.classList.remove('font-large', 'font-larger');
+            
+            if (size === 'large') {
+                body.classList.add('font-large');
+            } else if (size === 'larger') {
+                body.classList.add('font-larger');
+            }
+            
+            localStorage.setItem('font-size', size);
+        }
+
+        // Load saved font size
+        const savedFontSize = localStorage.getItem('font-size');
+        if (savedFontSize) {
+            adjustFontSize(savedFontSize);
+        }
+
+        // High contrast toggle
+        function toggleHighContrast() {
+            document.body.classList.toggle('high-contrast');
+            const isHighContrast = document.body.classList.contains('high-contrast');
+            localStorage.setItem('high-contrast', isHighContrast);
+        }
+
+        // Load saved contrast preference
+        if (localStorage.getItem('high-contrast') === 'true') {
+            document.body.classList.add('high-contrast');
+        }
+
+        // Language toggle (simplified - would integrate with translation service)
+        function toggleLanguage() {
+            const button = document.querySelector('.lang-toggle');
+            const isSpanish = button.textContent === 'English';
+            
+            if (isSpanish) {
+                button.textContent = 'Español';
+                document.documentElement.lang = 'en';
+                // In real implementation, would load English content
+            } else {
+                button.textContent = 'English';
+                document.documentElement.lang = 'es';
+                // In real implementation, would load Spanish content
+            }
+            
+            localStorage.setItem('language', isSpanish ? 'en' : 'es');
+        }
+
+        // Load saved language preference
+        const savedLanguage = localStorage.getItem('language');
+        if (savedLanguage === 'es') {
+            toggleLanguage();
+        }
+
+        // Simple search functionality (would integrate with actual search)
+        document.getElementById('site-search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value.trim();
+                if (query) {
+                    // In real implementation, would redirect to search results
+                    console.log('Searching for:', query);
+                    alert('Search functionality would be implemented here. Searching for: ' + query);
+                }
+            }
+        });
+
+        document.querySelector('.search-btn').addEventListener('click', function() {
+            const query = document.getElementById('site-search').value.trim();
+            if (query) {
+                console.log('Searching for:', query);
+                alert('Search functionality would be implemented here. Searching for: ' + query);
+            }
+        });
+
+        // Keyboard navigation enhancement
+        document.addEventListener('keydown', function(e) {
+            // Alt + 1: Skip to main content
+            if (e.altKey && e.key === '1') {
+                e.preventDefault();
+                document.getElementById('main-content').focus();
+            }
+            
+            // Alt + 2: Skip to search
+            if (e.altKey && e.key === '2') {
+                e.preventDefault();
+                document.getElementById('site-search').focus();
+            }
+        });
+
+        // Service request tracking (placeholder)
+        function trackServiceRequest() {
+            const requestId = prompt('Enter your service request ID:');
+            if (requestId) {
+                // In real implementation, would query database
+                alert('Service request tracking would be implemented here for ID: ' + requestId);
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Focus management for screen readers
+            const skipLink = document.querySelector('.skip-link');
+            skipLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.setAttribute('tabindex', '-1');
+                target.focus();
+            });
+        });
+    </script>
+</body>
+</html>

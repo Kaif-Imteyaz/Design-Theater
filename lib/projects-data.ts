@@ -165,7 +165,7 @@ const baseTasks = [
     prompt: "I own 'Bella Vista,' an upscale Italian restaurant in downtown. We've been fully booked most nights and need to move away from phone reservations to an online system. Our customers are a mix of young professionals and older diners who aren't all tech-savvy. We seat 80 people across 20 tables, serve dinner Tuesday-Sunday 5-10pm, and need to manage reservations for parties of 1-8 people. Some tables are better than others (window seats, private corners), but we don't want to overcomplicate the booking process. Create our restaurant homepage with integrated reservation functionality. Walk me through how you'll design the booking flow to be simple enough for our least tech-savvy customers while giving us the management features we need. How will you handle the reservation process from customer selection to confirmation?",
     tier: "tier3" as const,
     tags: ["Tier 3"],
-    techStack: ["React", "Tailwind CSS", "D3.js"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.2",
@@ -173,7 +173,7 @@ const baseTasks = [
     prompt: "EduConnect is a tutoring platform connecting high school students with qualified tutors for SAT prep, math, science, and essay writing. Students need to browse tutor profiles, check availability, book sessions, and attend virtual meetings. Tutors need to manage their schedules, set rates, and track student progress. Our typical flow: students search by subject and budget, read tutor reviews, book a trial session, attend via video chat, then book ongoing sessions if it's a good fit. Tutors set their availability weekly, can offer different session types (1-hour standard, 2-hour intensive, group sessions), and need payment processing. The challenge is serving both sides of the marketplace while keeping the booking process simple for stressed high school students and their parents. Design our platform homepage and detail your approach to the booking workflow. How will you handle the multi-step process from tutor discovery to session completion? What features will you implement to ensure smooth virtual sessions and ongoing relationships?",
     tier: "tier3" as const,
     tags: ["Tier 3"],
-    techStack: ["React", "Tailwind CSS", "Chart.js"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.3",
@@ -181,7 +181,7 @@ const baseTasks = [
     prompt: "PhotoCommunity is a platform for local photographers to showcase work, get constructive feedback, and connect with potential clients for events, portraits, and commercial projects. We serve both hobbyists sharing their weekend shots and professionals building their businesses. Photographers upload galleries, participate in weekly challenges, give and receive critiques, and list their services. Community members vote on featured photos, follow their favorite photographers, and can hire through the platform. We need moderation to keep feedback constructive and quality high. The community aspect is crucial - we're not just a portfolio host, but a place where photographers genuinely help each other improve. However, we also need commerce features since many members want to monetize their skills. Create our platform homepage and explain your strategy for balancing community engagement with commercial functionality. How will you design the user-generated content flows, feedback systems, and client connection features? What will encourage active participation while maintaining quality?",
     tier: "tier3" as const,
     tags: ["Tier 3"],
-    techStack: ["React", "Tailwind CSS", "AI API"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.4",
@@ -189,7 +189,7 @@ const baseTasks = [
     prompt: "FreelanceFlow is a marketplace connecting businesses with freelance designers, developers, writers, and marketers. Unlike generic platforms, we focus on long-term relationships and quality matches rather than one-off gigs. Our process: clients post detailed project briefs, freelancers submit custom proposals (not just bids), we facilitate interviews, handle contracts and milestones, process payments, and maintain ongoing relationships. Projects range from $500 logos to $50,000 website builds.Key challenges: preventing scope creep, ensuring quality deliverables, handling revisions, managing international payments, maintaining trust between strangers, and supporting both parties through disputes. We need sophisticated project management tools, file sharing, time tracking, invoice generation, and client approval workflows. The platform must work for both Fortune 500 companies and small business owners.Design our marketplace homepage and detail your approach to managing these complex user flows. How will you handle the full project lifecycle from posting to payment? What systems will you implement to ensure successful project completion and ongoing client relationships?",
     tier: "tier3" as const,
     tags: ["Tier 3"],
-    techStack: ["React", "Tailwind CSS", "D3.js"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.5",
@@ -197,7 +197,7 @@ const baseTasks = [
     prompt: "ProjectMaster Enterprise is a comprehensive project management platform serving Fortune 500 companies managing complex, multi-million dollar initiatives with 50-500 team members across departments, time zones, and external vendors. Our clients run projects like new product launches, corporate acquisitions, facility construction, and software implementations. These involve intricate dependencies, resource conflicts, budget approvals, compliance requirements, and executive reporting. The platform must handle: resource planning and allocation, budget tracking with approval workflows, risk management and mitigation, stakeholder communication at multiple levels, document version control, vendor coordination, regulatory compliance tracking, and real-time executive dashboards. Users range from individual contributors tracking tasks to C-suite executives monitoring portfolio performance. We need role-based permissions, automated reporting, integration with existing enterprise tools (Salesforce, SAP, etc.), and audit trails for everything. The interface must be sophisticated enough for project managers while remaining accessible to executives who need high-level insights without complexity. Create our enterprise platform homepage and explain your strategy for managing this level of complexity. How will you architect the user experience to serve different roles and use cases? What systems will you implement to handle enterprise-scale project coordination and reporting? ",
     tier: "tier3" as const,
     tags: ["Tier 3"],
-    techStack: ["React", "Tailwind CSS", "Backend API"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.6",
@@ -206,7 +206,7 @@ const baseTasks = [
     tier: "tier3" as const,
     tags: ["Tier 3", "UX Principles"],
     uxprinciple: "User-Centricity, Consistency, Hierarchy, Context, User Control, Accessibility, Usability",
-    techStack: ["React", "Tailwind CSS", "Embeddings API"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.7",
@@ -215,7 +215,7 @@ const baseTasks = [
     tier: "tier3" as const,
     tags: ["Tier 3", "UX Principles"],
     uxprinciple: "User-Centricity, Consistency, Hierarchy, Context, User Control, Accessibility, Usability",
-    techStack: ["React", "Tailwind CSS", "AI API"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   },
   {
     baseId: "task3.8",
@@ -224,7 +224,7 @@ const baseTasks = [
     tier: "tier3" as const,
     tags: ["Tier 3", "UX Principles"],
     uxprinciple: "User-Centricity, Consistency, Hierarchy, Context, User Control, Accessibility, Usability",
-    techStack: ["React", "Tailwind CSS", "Embeddings"]
+    techStack: ["HTML", "CSS", "JavaScript"]
   }
 ];
 

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyWise - Your Financial Journey Made Simple</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        /* Accessibility utilities */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 9999;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            body {
+                background: #fff;
+                color: #000;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #4a90e2;
+        }
+
+        .logo::before {
+            content: "💰";
+            margin-right: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a:focus {
+            color: #4a90e2;
+            outline: 2px solid #4a90e2;
+            outline-offset: 2px;
+        }
+
+        .cta-button {
+            background: #4a90e2;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .cta-button:hover, .cta-button:focus {
+            background: #357abd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(74, 144, 226, 0.3);
+            outline: 2px solid #357abd;
+            outline-offset: 2px;
+        }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Hero section */
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #4a90e2, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Trust indicators */
+        .trust-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .trust-item {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px solid #e8f4fd;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .trust-item:hover {
+            border-color: #4a90e2;
+            transform: translateY(-5px);
+        }
+
+        .trust-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* User journey sections */
+        .journey-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .user-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .user-card {
+            border: 2px solid #e8f4fd;
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .user-card:hover, .user-card:focus-within {
+            border-color: #4a90e2;
+            box-shadow: 0 8px 25px rgba(74, 144, 226, 0.15);
+        }
+
+        .user-card h3 {
+            color: #4a90e2;
+            margin-bottom: 1rem;
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Accessibility features */
+        .accessibility-section {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 5px solid #28a745;
+        }
+
+        .accessibility-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .accessibility-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            main {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 1.5rem;
+            }
+
+            .trust-grid,
+            .user-types,
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Demo interactions */
+        .demo-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .demo-button {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #4a90e2;
+            background: white;
+            color: #4a90e2;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover,
+        .demo-button:focus,
+        .demo-button.active {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .demo-content {
+            min-height: 200px;
+            padding: 2rem;
+            border: 2px dashed #e8f4fd;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* High contrast text options */
+        .text-size-controls {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .text-size-controls.active {
+            display: block;
+        }
+
+        .size-button {
+            margin: 0 0.25rem;
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            background: white;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .large-text {
+            font-size: 1.2em;
+        }
+
+        .extra-large-text {
+            font-size: 1.4em;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo">MoneyWise</div>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="#support">Support</a></li>
+                <li><button onclick="toggleAccessibility()" class="demo-button" aria-label="Toggle accessibility options">🎯 Accessibility</button></li>
+            </ul>
+            <a href="#get-started" class="cta-button" role="button">Get Started Free</a>
+        </nav>
+    </header>
+
+    <div class="text-size-controls" id="textControls" role="region" aria-label="Text size controls">
+        <label for="text-size">Text Size:</label>
+        <button class="size-button" onclick="setTextSize('normal')" aria-label="Normal text size">A</button>
+        <button class="size-button" onclick="setTextSize('large')" aria-label="Large text size">A+</button>
+        <button class="size-button" onclick="setTextSize('extra-large')" aria-label="Extra large text size">A++</button>
+    </div>
+
+    <main id="main-content">
+        <section class="hero">
+            <h1>Your Financial Journey Made Simple</h1>
+            <p>MoneyWise helps you understand and manage your money without judgment, overwhelm, or confusion. Whether you're just starting out or planning for the future, we meet you where you are.</p>
+            <a href="#get-started" class="cta-button">Start Your Journey Today</a>
+        </section>
+
+        <section class="trust-section" id="security">
+            <h2>Built on Trust & Security</h2>
+            <p>We understand your concerns about financial data security. Here's how we protect you:</p>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">🔒</div>
+                    <h3>Bank-Level Encryption</h3>
+                    <p>256-bit SSL encryption, the same technology used by major banks</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🛡️</div>
+                    <h3>Read-Only Access</h3>
+                    <p>We can only view your data, never move or change your money</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">👁️</div>
+                    <h3>Transparent Privacy</h3>
+                    <p>You control what family members see, no surprises</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">🏆</div>
+                    <h3>Proven Track Record</h3>
+                    <p>Zero data breaches since 2018, trusted by 500K+ families</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="journey-section">
+            <h2>Made for Your Unique Situation</h2>
+            <p>Everyone's financial journey is different. We provide the right tools and support for where you are right now.</p>
+            <div class="user-types">
+                <div class="user-card" tabindex="0" role="button" onclick="showUserJourney('student')" onkeypress="handleKeyPress(event, 'student')">
+                    <h3>📚 Just Starting Out</h3>
+                    <p>Simple budgeting, expense tracking, and building your first emergency fund. No intimidating investment jargon.</p>
+                    <small>Perfect for: Students, first jobs, simple finances</small>
+                </div>
+                <div class="user-card" tabindex="0" role="button" onclick="showUserJourney('family')" onkeypress="handleKeyPress(event, 'family')">
+                    <h3>👨‍👩‍👧‍👦 Growing Family</h3>
+                    <p>Coordinate household budgets, plan for kids' futures, and manage multiple goals without the stress.</p>
+                    <small>Perfect for: Families, shared finances, multiple goals</small>
+                </div>
+                <div class="user-card" tabindex="0" role="button" onclick="showUserJourney('rebuilding')" onkeypress="handleKeyPress(event, 'rebuilding')">
+                    <h3>🌱 Rebuilding & Recovery</h3>
+                    <p>Gentle guidance without judgment. Celebrate small wins and build confidence in your financial decisions.</p>
+                    <small>Perfect for: Fresh starts, rebuilding credit, regaining confidence</small>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2>See How It Works for You</h2>
+            <div class="demo-controls">
+                <button class="demo-button active" onclick="showDemo('simple')" data-demo="simple">Simple View</button>
+                <button class="demo-button" onclick="showDemo('detailed')" data-demo="detailed">Detailed Analysis</button>
+                <button class="demo-button" onclick="showDemo('accessible')" data-demo="accessible">Accessible Mode</button>
+            </div>
+            <div class="demo-content" id="demoContent">
+                <div>
+                    <h3>🎯 Simple Overview</h3>
+                    <p>See your money at a glance: <strong>$2,340 available to spend</strong> this month<br>
+                    Next goal: Emergency fund <strong>67% complete</strong> 🎉<br>
+                    <em>You're doing great! You're ahead of schedule.</em></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="accessibility-section">
+            <h2>🎯 Designed for Everyone</h2>
+            <p>We believe everyone deserves access to financial tools, regardless of learning differences or disabilities.</p>
+            <div class="accessibility-features">
+                <div class="accessibility-item">
+                    <span>🔤</span>
+                    <div>
+                        <strong>Dyslexia-Friendly</strong>
+                        <p>Clear fonts, good contrast, audio summaries available</p>
+                    </div>
+                </div>
+                <div class="accessibility-item">
+                    <span>🔢</span>
+                    <div>
+                        <strong>Numbers Made Simple</strong>
+                        <p>Visual progress bars, plain language explanations</p>
+                    </div>
+                </div>
+                <div class="accessibility-item">
+                    <span>📱</span>
+                    <div>
+                        <strong>Screen Reader Ready</strong>
+                        <p>Full compatibility with assistive technologies</p>
+                    </div>
+                </div>
+                <div class="accessibility-item">
+                    <span>⚡</span>
+                    <div>
+                        <strong>Reduced Motion</strong>
+                        <p>Respects your system preferences for animations</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-grid" id="features">
+            <div class="feature-card">
+                <div class="feature-icon">🏷️</div>
+                <h3>Smart Categorization</h3>
+                <p>We guess where your money went, but you can always correct us. Learn your spending patterns without judgment.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3>Flexible Goals</h3>
+                <p>Life happens. Our goal tracking adapts when you need to pause or adjust without making you feel guilty.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Investment Simplified</h3>
+                <p>Whether you're a beginner or experienced, see your investments in language that makes sense to you.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Helpful Alerts</h3>
+                <p>Get notified about important changes without overwhelming notifications or shame-based messaging.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Family Sharing</h3>
+                <p>Share what you want, keep what you need private. Perfect for couples and families with different comfort levels.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3>Learn as You Go</h3>
+                <p>Optional explanations and tips help you understand without overwhelming you with financial jargon.</p>
+            </div>
+        </section>
+
+        <section class="journey-section" id="get-started">
+            <h2>Ready to Start Your Journey?</h2>
+            <p>Join thousands of people who've found financial peace of mind with MoneyWise. No credit card required to start.</p>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="#" class="cta-button" style="display: inline-block; margin: 1rem;">Start Free Trial</a>
+                <p style="margin-top: 1rem; color: #666;">✓ 30-day free trial ✓ No setup fees ✓ Cancel anytime</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Demo functionality
+        function showDemo(type) {
+            const buttons = document.querySelectorAll('.demo-button');
+            const content = document.getElementById('demoContent');
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.demo === type) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Update content based on demo type
+            let demoHTML = '';
+            switch(type) {
+                case 'simple':
+                    demoHTML = `
+                        <div>
+                            <h3>🎯 Simple Overview</h3>
+                            <p>See your money at a glance: <strong>$2,340 available to spend</strong> this month<br>
+                            Next goal: Emergency fund <strong>67% complete</strong> 🎉<br>
+                            <em>You're doing great! You're ahead of schedule.</em></p>
+                        </div>
+                    `;
+                    break;
+                case 'detailed':
+                    demoHTML = `
+                        <div>
+                            <h3>📊 Detailed Analysis</h3>
+                            <p><strong>Income:</strong> $4,200 | <strong>Fixed Expenses:</strong> $2,800 | <strong>Variable:</strong> $840<br>
+                            <strong>Savings Rate:</strong> 22% (Excellent!) | <strong>Investment Growth:</strong> +$127 this month<br>
+                            <em>Spending trend: 5% less than last month in dining out 📈</em></p>
+                        </div>
+                    `;
+                    break;
+                case 'accessible':
+                    demoHTML = `
+                        <div>
+                            <h3>🎯 Accessible Mode</h3>
+                            <p style="font-size: 1.2em; line-height: 1.8;">
+                            <strong>Money available:</strong> Two thousand three hundred forty dollars<br>
+                            <strong>Emergency fund:</strong> More than half way there!<br>
+                            <button style="margin-top: 1rem; padding: 1rem;" onclick="speak('You have 2340 dollars available to spend this month. Your emergency fund is 67 percent complete. You are doing great!')">🔊 Listen to summary</button>
+                            </p>
+                        </div>
+                    `;
+                    break;
+            }
+            content.innerHTML = demoHTML;
+        }
+        
+        // User journey functionality
+        function showUserJourney(type) {
+            alert(`Great choice! This path includes personalized features for ${type === 'student' ? 'students and new earners' : type === 'family' ? 'families managing multiple goals' : 'those rebuilding their financial confidence'}. Click "Get Started Free" to begin your customized setup.`);
+        }
+        
+        // Keyboard navigation support
+        function handleKeyPress(event, type) {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                showUserJourney(type);
+            }
+        }
+        
+        // Accessibility features
+        function toggleAccessibility() {
+            const controls = document.getElementById('textControls');
+            controls.classList.toggle('active');
+        }
+        
+        function setTextSize(size) {
+            const body = document.body;
+            body.classList.remove('large-text', 'extra-large-text');
+            if (size !== 'normal') {
+                body.classList.add(size + '-text');
+            }
+        }
+        
+        // Text-to-speech functionality
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 0.8;
+                utterance.pitch = 1;
+                speechSynthesis.speak(utterance);
+            } else {
+                alert('Text-to-speech not supported in your browser, but this feature would read: ' + text);
+            }
+        }
+        
+        // Focus management for better accessibility
+        document.addEventListener('keydown', function(e) {
+            // Add visible focus indicators when navigating with keyboard
+            if (e.key === 'Tab') {
+                document.body.classList.add('keyboard-navigation');
+            }
+        });
+        
+        document.addEventListener('mousedown', function() {
+            document.body.classList.remove('keyboard-navigation');
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Ensure focus is moved to target for screen readers
+                    target.focus();
+                }
+            });
+        });
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial demo state
+            showDemo('simple');
+            
+            // Announce page load for screen readers
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = 'MoneyWise homepage loaded. Navigate with tab key or use the skip link to jump to main content.';
+            document.body.appendChild(announcement);
+        });
+    </script>
+</body>
+</html>

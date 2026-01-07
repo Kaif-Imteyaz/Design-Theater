@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RebelRoots - Plant-Based Revolution</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial Black', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b35, #f7931e, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b69 50%, #ff6b35 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="100" fill="rgba(255,107,53,0.1)">🌱</text></svg>') repeat;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(-100px) translateY(-100px); }
+            100% { transform: translateX(100px) translateY(100px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ffffff, #ff6b35, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px rgba(255, 107, 53, 0.5); }
+            to { text-shadow: 0 0 30px rgba(255, 107, 53, 0.8); }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            margin-bottom: 2rem;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: #ffffff;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Disruptor Section */
+        .disruptor {
+            padding: 5rem 2rem;
+            background: #000000;
+            position: relative;
+        }
+
+        .disruptor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #ff6b35, transparent);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .disruptor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .disruptor-card {
+            background: linear-gradient(135deg, #1a1a1a, #2d1b69);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid #ff6b35;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .disruptor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .disruptor-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .disruptor-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .disruptor-card p {
+            color: #cccccc;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Products Preview */
+        .products {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #2d1b69, #1a1a1a);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            border-color: #ff6b35;
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.2);
+        }
+
+        .product-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            display: block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .product-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #ff6b35;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .product-card p {
+            color: #cccccc;
+            line-height: 1.5;
+        }
+
+        /* Manifesto Section */
+        .manifesto {
+            padding: 5rem 2rem;
+            background: #000000;
+            text-align: center;
+        }
+
+        .manifesto-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .manifesto-text {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            line-height: 1.6;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .manifesto-highlight {
+            color: #ff6b35;
+            font-size: 1.2em;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #1a1a1a, #000000);
+            padding: 3rem 2rem 1rem;
+            border-top: 1px solid #ff6b35;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #ff6b35;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: #cccccc;
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: #ff6b35;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .disruptor-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">RebelRoots</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#products">Products</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Plant-Based Rebellion</h1>
+            <p class="hero-subtitle">Flavor Without Compromise. Punk Rock Without Apology.</p>
+            <a href="#products" class="cta-button">Taste the Revolution</a>
+        </div>
+    </section>
+
+    <!-- Disruptor Section -->
+    <section class="disruptor fade-in">
+        <div class="container">
+            <h2 class="section-title">We Don't Play Safe</h2>
+            <div class="disruptor-grid">
+                <div class="disruptor-card">
+                    <h3>🔥 Bold Flavors</h3>
+                    <p>While others play it safe with "healthy" messaging, we're crafting plant-based foods that make carnivores question everything. Our products don't whisper - they scream delicious.</p>
+                </div>
+                <div class="disruptor-card">
+                    <h3>⚡ Rebellious Branding</h3>
+                    <p>Vibrant neons, edgy graphics, and packaging that pops off shelves like a lightning bolt. We're the antithesis of boring beige wellness culture.</p>
+                </div>
+                <div class="disruptor-card">
+                    <h3>🎯 Food Lovers First</h3>
+                    <p>We target pleasure-seekers, not preachers. People who want indulgent, satisfying meals that happen to be plant-based - not virtue signals.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Preview -->
+    <section class="products fade-in" id="products">
+        <div class="container">
+            <h2 class="section-title">Taste Anarchy</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <span class="product-emoji">🍔</span>
+                    <h4>Rebel Burger</h4>
+                    <p>Juicy, smoky, and aggressively satisfying. This isn't a meat substitute - it's a flavor revolution.</p>
+                </div>
+                <div class="product-card">
+                    <span class="product-emoji">🌶️</span>
+                    <h4>Spice Riot Sausage</h4>
+                    <p>Heat that hits different. Plant-based protein with a kick that'll make you forget about everything else.</p>
+                </div>
+                <div class="product-card">
+                    <span class="product-emoji">🔥</span>
+                    <h4>Meltdown Mince</h4>
+                    <p>Versatile, bold, and ready to transform any dish into a taste rebellion. Cooking just got dangerous.</p>
+                </div>
+                <div class="product-card">
+                    <span class="product-emoji">⚡</span>
+                    <h4>Thunder Wings</h4>
+                    <p>Crispy, saucy, and sinfully good. Plant-based wings that'll make you question reality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto Section -->
+    <section class="manifesto fade-in">
+        <div class="manifesto-content">
+            <h2 class="section-title">Our Manifesto</h2>
+            <p class="manifesto-text">
+                We're not here to lecture you about health. We're not here to save the planet with a gentle whisper. 
+                We're here to <span class="manifesto-highlight">blow your mind</span> with flavors so intense, so satisfying, 
+                that being plant-based becomes the <span class="manifesto-highlight">obvious choice</span> - not the virtuous one.
+            </p>
+            <p class="manifesto-text">
+                <span class="manifesto-highlight">This is food rebellion.</span> This is taste anarchy. This is RebelRoots.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Rebel HQ</h4>
+                <p>123 Revolution Street<br>
+                Flavor City, FC 12345<br>
+                Phone: (555) REBEL-01</p>
+            </div>
+            <div class="footer-section">
+                <h4>Join the Rebellion</h4>
+                <p><a href="#">Newsletter Signup</a><br>
+                <a href="#">Become a Stockist</a><br>
+                <a href="#">Wholesale Inquiries</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Follow the Revolt</h4>
+                <p><a href="#">Instagram</a><br>
+                <a href="#">TikTok</a><br>
+                <a href="#">YouTube</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RebelRoots. All rights reserved. Plant-based rebellion since day one.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                header.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Mobile menu toggle (if needed)
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('mobile-menu');
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05) rotateZ(2deg)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1) rotateZ(0deg)';
+            });
+        });
+
+        // Add glitch effect on logo hover
+        const logo = document.querySelector('.logo');
+        logo.addEventListener('mouseenter', function() {
+            this.style.animation = 'none';
+            this.style.textShadow = '2px 0px #ff6b35, -2px 0px #ffd700';
+            setTimeout(() => {
+                this.style.textShadow = 'none';
+            }, 200);
+        });
+
+        // Dynamic particle background effect
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = '#ff6b35';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            particle.style.boxShadow = '0 0 10px #ff6b35';
+            
+            document.body.appendChild(particle);
+            
+            let position = window.innerHeight;
+            const speed = Math.random() * 3 + 1;
+            
+            const animate = () => {
+                position -= speed;
+                particle.style.top = position + 'px';
+                
+                if (position < -10) {
+                    particle.remove();
+                } else {
+                    requestAnimationFrame(animate);
+                }
+            };
+            
+            animate();
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+
+        // Add random color shifts to accent elements
+        setInterval(() => {
+            const colors = ['#ff6b35', '#f7931e', '#ffd700', '#ff4757', '#7bed9f'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            document.querySelectorAll('.disruptor-card').forEach(card => {
+                card.style.borderColor = randomColor;
+            });
+        }, 5000);
+    </script>
+</body>
+</html>

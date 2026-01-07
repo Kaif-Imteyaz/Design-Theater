@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riverside University - Excellence in Liberal Arts Education</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #003366;
+            color: white;
+            padding: 1rem 0;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: #4a90e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .emergency-info {
+            background: #dc3545;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .emergency-info:hover {
+            background: #c82333;
+        }
+
+        .main-nav {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 0;
+            border-radius: 5px;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .nav-list li a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            display: block;
+        }
+
+        .nav-list li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 51, 102, 0.7), rgba(74, 144, 226, 0.7)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f8ff" width="1200" height="600"/><circle fill="%234a90e2" opacity="0.1" cx="200" cy="150" r="100"/><circle fill="%23003366" opacity="0.1" cx="800" cy="400" r="150"/><rect fill="%234a90e2" opacity="0.05" x="400" y="200" width="400" height="200" rx="20"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #4a90e2;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Quick Access Portals */
+        .portals {
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #003366;
+        }
+
+        .portal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .portal-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .portal-icon {
+            width: 70px;
+            height: 70px;
+            background: #4a90e2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 30px;
+            color: white;
+        }
+
+        .portal-card h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .portal-card p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .portal-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .portal-link {
+            color: #4a90e2;
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 5px 0;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .portal-link:hover {
+            border-bottom-color: #4a90e2;
+        }
+
+        /* Featured Content */
+        .featured {
+            padding: 60px 0;
+        }
+
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .featured-item {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .featured-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .featured-image {
+            height: 200px;
+            background: linear-gradient(45deg, #4a90e2, #003366);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .featured-content {
+            padding: 25px;
+        }
+
+        .featured-item h3 {
+            color: #003366;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .featured-item p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .featured-date {
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Search Bar */
+        .search-section {
+            background: #003366;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            background: #001122;
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h4 {
+            color: #4a90e2;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #4a90e2;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 20px;
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive Elements */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <div class="logo-icon">RU</div>
+                    <div>
+                        <h2>Riverside University</h2>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Excellence in Liberal Arts Education</p>
+                    </div>
+                </div>
+                <div class="emergency-info" onclick="showEmergencyInfo()">
+                    🚨 Emergency Info
+                </div>
+            </div>
+            
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    <li><a href="#about">About & Academics</a></li>
+                    <li><a href="#admissions">Admissions</a></li>
+                    <li><a href="#student-life">Student Life</a></li>
+                    <li><a href="#current-students">Current Students</a></li>
+                    <li><a href="#faculty">Faculty & Staff</a></li>
+                    <li><a href="#alumni">Alumni</a></li>
+                    <li><a href="#parents">Parents & Families</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Discover Your Future at Riverside</h1>
+            <p>Where 8,000 students, world-class faculty, and endless opportunities come together to create transformative educational experiences</p>
+            <div class="cta-buttons">
+                <a href="#apply" class="btn btn-primary">Apply Now</a>
+                <a href="#visit" class="btn btn-secondary">Schedule a Visit</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Portals -->
+    <section class="portals">
+        <div class="container">
+            <h2 class="section-title">Quick Access</h2>
+            <div class="portal-grid">
+                <!-- Prospective Students -->
+                <div class="portal-card" onclick="highlightSection('prospective')">
+                    <div class="portal-icon">🎓</div>
+                    <h3>Future Students</h3>
+                    <p>Explore academics, campus life, and start your application</p>
+                    <div class="portal-links">
+                        <a href="#" class="portal-link">Academic Programs</a>
+                        <a href="#" class="portal-link">Campus Tours</a>
+                        <a href="#" class="portal-link">Application Portal</a>
+                        <a href="#" class="portal-link">Financial Aid</a>
+                    </div>
+                </div>
+
+                <!-- Current Students -->
+                <div class="portal-card" onclick="highlightSection('current')">
+                    <div class="portal-icon">📚</div>
+                    <h3>Current Students</h3>
+                    <p>Access your courses, grades, and student services</p>
+                    <div class="portal-links">
+                        <a href="#" class="portal-link">Student Portal</a>
+                        <a href="#" class="portal-link">Course Schedule</a>
+                        <a href="#" class="portal-link">Grades & Transcripts</a>
+                        <a href="#" class="portal-link">Campus Services</a>
+                    </div>
+                </div>
+
+                <!-- Faculty & Staff -->
+                <div class="portal-card" onclick="highlightSection('faculty')">
+                    <div class="portal-icon">👨‍🏫</div>
+                    <h3>Faculty & Staff</h3>
+                    <p>Teaching resources, administration, and faculty services</p>
+                    <div class="portal-links">
+                        <a href="#" class="portal-link">Faculty Portal</a>
+                        <a href="#" class="portal-link">Course Management</a>
+                        <a href="#" class="portal-link">Research Resources</a>
+                        <a href="#" class="portal-link">HR Services</a>
+                    </div>
+                </div>
+
+                <!-- Alumni -->
+                <div class="portal-card" onclick="highlightSection('alumni')">
+                    <div class="portal-icon">🤝</div>
+                    <h3>Alumni</h3>
+                    <p>Stay connected, give back, and access alumni benefits</p>
+                    <div class="portal-links">
+                        <a href="#" class="portal-link">Alumni Directory</a>
+                        <a href="#" class="portal-link">Give Back</a>
+                        <a href="#" class="portal-link">Events</a>
+                        <a href="#" class="portal-link">Career Services</a>
+                    </div>
+                </div>
+
+                <!-- Parents & Families -->
+                <div class="portal-card" onclick="highlightSection('parents')">
+                    <div class="portal-icon">👨‍👩‍👧‍👦</div>
+                    <h3>Parents & Families</h3>
+                    <p>Safety, financial aid, and family resources</p>
+                    <div class="portal-links">
+                        <a href="#" class="portal-link">Campus Safety</a>
+                        <a href="#" class="portal-link">Tuition & Aid</a>
+                        <a href="#" class="portal-link">Parent Resources</a>
+                        <a href="#" class="portal-link">Family Weekend</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <h3>Find What You're Looking For</h3>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search programs, people, departments...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Content -->
+    <section class="featured">
+        <div class="container">
+            <h2 class="section-title">Campus News & Highlights</h2>
+            <div class="featured-grid">
+                <div class="featured-item">
+                    <div class="featured-image">📰</div>
+                    <div class="featured-content">
+                        <h3>New Research Center Opens</h3>
+                        <p>The interdisciplinary Environmental Sciences Research Center welcomes its first cohort of graduate students and faculty researchers.</p>
+                        <div class="featured-date">October 15, 2025</div>
+                    </div>
+                </div>
+
+                <div class="featured-item">
+                    <div class="featured-image">🏆</div>
+                    <div class="featured-content">
+                        <h3>Student Achievement Award</h3>
+                        <p>Senior Maria Rodriguez receives national recognition for her community service work in urban education initiatives.</p>
+                        <div class="featured-date">October 12, 2025</div>
+                    </div>
+                </div>
+
+                <div class="featured-item">
+                    <div class="featured-image">🎭</div>
+                    <div class="featured-content">
+                        <h3>Fall Arts Festival</h3>
+                        <p>Join us for a week-long celebration of student and faculty artwork, performances, and creative collaborations.</p>
+                        <div class="featured-date">November 5-12, 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Academics</h4>
+                    <ul>
+                        <li><a href="#">Undergraduate Programs</a></li>
+                        <li><a href="#">Graduate Programs</a></li>
+                        <li><a href="#">Online Learning</a></li>
+                        <li><a href="#">Academic Calendar</a></li>
+                        <li><a href="#">Library</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Campus Life</h4>
+                    <ul>
+                        <li><a href="#">Housing</a></li>
+                        <li><a href="#">Dining</a></li>
+                        <li><a href="#">Student Organizations</a></li>
+                        <li><a href="#">Athletics</a></li>
+                        <li><a href="#">Health & Wellness</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Career Services</a></li>
+                        <li><a href="#">IT Help Desk</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Title IX</a></li>
+                        <li><a href="#">Campus Maps</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">Admissions Office</a></li>
+                        <li><a href="#">Student Services</a></li>
+                        <li><a href="#">Alumni Relations</a></li>
+                        <li><a href="#">Emergency: 911</a></li>
+                        <li><a href="#">Campus Security: (555) 123-4567</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Riverside University. All rights reserved. | Privacy Policy | Terms of Use</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Emergency Modal -->
+    <div id="emergencyModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3>Emergency Information</h3>
+            <p><strong>Emergency: 911</strong></p>
+            <p><strong>Campus Security: (555) 123-4567</strong></p>
+            <p><strong>Health Center: (555) 123-4568</strong></p>
+            <p><strong>Crisis Counseling: (555) 123-4569</strong></p>
+            <br>
+            <p>For non-emergency campus safety concerns, contact Campus Security 24/7.</p>
+        </div>
+    </div>
+
+    <script>
+        // Emergency Modal
+        function showEmergencyInfo() {
+            document.getElementById('emergencyModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('emergencyModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('emergencyModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Highlight sections based on user type
+        function highlightSection(userType) {
+            // Remove existing highlights
+            const cards = document.querySelectorAll('.portal-card');
+            cards.forEach(card => {
+                card.style.background = 'white';
+                card.style.transform = 'none';
+            });
+
+            // Highlight relevant sections
+            const relevantSections = {
+                'prospective': ['🎓', '👨‍👩‍👧‍👦'],
+                'current': ['📚'],
+                'faculty': ['👨‍🏫'],
+                'alumni': ['🤝'],
+                'parents': ['👨‍👩‍👧‍👦', '🎓']
+            };
+
+            if (relevantSections[userType]) {
+                relevantSections[userType].forEach(icon => {
+                    const targetCard = Array.from(cards).find(card => 
+                        card.querySelector('.portal-icon').textContent === icon
+                    );
+                    if (targetCard) {
+                        targetCard.style.background = 'linear-gradient(135deg, #4a90e2, #003366)';
+                        targetCard.style.color = 'white';
+                        targetCard.style.transform = 'scale(1.05)';
+                    }
+                });
+            }
+
+            // Reset after 3 seconds
+            setTimeout(() => {
+                cards.forEach(card => {
+                    card.style.background = 'white';
+                    card.style.color = '#333';
+                    card.style.transform = 'none';
+                });
+            }, 3000);
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        document.querySelector('.search-btn').addEventListener('click', performSearch);
+
+        function performSearch() {
+            const query = document.querySelector('.search-input').value;
+            if (query.trim()) {
+                alert(`Searching for: "${query}"\n\nThis would typically redirect to search results page.`);
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add subtle animations on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.portal-card, .featured-item');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        }
+
+        // Initialize animations
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Run on load
+    </script>
+</body>
+</html>

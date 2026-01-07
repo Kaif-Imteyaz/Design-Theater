@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { tasks } from "@/lib/projects-data"
 import { useState, use } from "react"
-import { X } from "lucide-react"
+import { X, Home, ArrowLeft } from "lucide-react"
+import { Arrow } from "@radix-ui/react-dropdown-menu"
 
 export default function PreviewPage({ params }: { params: Promise<{ projectId: string }> }) {
   const { projectId } = use(params)  // Use React.use() to unwrap params
@@ -29,15 +30,20 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
       <div className="fixed top-0 left-0 right-0 bg-black border-b border-border/30 z-50 h-12 flex items-center px-4">
         <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-3 text-sm">
-            <Link href="/" title="Home" className="text-muted-foreground hover:text-foreground transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 12a9 9 0 1118 0 9 9 0 01-18 0z"
-                />
-              </svg>
+            <Link
+              href={`/category/${task.category}`}
+              title="Back to category"
+              className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2"
+            >
+              <ArrowLeft className="w-5 h-5" />
+            </Link>
+
+            <Link
+              href="/"
+              title="Home"
+              className="text-muted-foreground hover:text-foreground transition-colors flex items-center"
+            >
+              <Home className="w-5 h-5" />
             </Link>
             <div className="h-4 w-px bg-border/30" />
             <span className="text-muted-foreground">{task.title}</span>
@@ -49,7 +55,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
             title="Close preview"
             className="text-muted-foreground hover:text-foreground transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-5 h-5 text-red-500" />
           </Link>
         </div>
       </div>

@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Health System - Comprehensive Healthcare for Our Community</title>
+    <meta name="description" content="Metro Health System serves 500,000 people across 3 cities with 2 hospitals, 12 specialty clinics, urgent care, and emergency services. Find doctors, book appointments, access emergency care.">
+    
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066cc;
+            --emergency-red: #d32f2f;
+            --success-green: #2e7d32;
+            --warning-amber: #f57c00;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --background-light: #f8f9fa;
+            --border-color: #e0e0e0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--white);
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-blue);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 1000;
+            border-radius: 4px;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Emergency Banner */
+        .emergency-banner {
+            background: var(--emergency-red);
+            color: white;
+            padding: 12px 0;
+            text-align: center;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .emergency-banner a {
+            color: white;
+            text-decoration: underline;
+            margin: 0 15px;
+        }
+
+        .emergency-banner a:hover {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            position: sticky;
+            top: 52px;
+            z-index: 998;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .language-toggle {
+            background: none;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .language-toggle:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        .patient-portal-btn {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .patient-portal-btn:hover {
+            background: #0052a3;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--background-light);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: block;
+            padding: 15px 20px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            background: var(--primary-blue);
+            color: white;
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        /* Main Content */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue), #004499);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            padding: 15px 30px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .hero-btn:hover {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .hero-btn.primary {
+            background: white;
+            color: var(--primary-blue);
+        }
+
+        .hero-btn.primary:hover {
+            background: transparent;
+            color: white;
+        }
+
+        /* Quick Access Grid */
+        .quick-access {
+            margin-bottom: 50px;
+        }
+
+        .quick-access h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: var(--text-dark);
+        }
+
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .quick-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .quick-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .quick-card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary-blue);
+        }
+
+        .quick-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .quick-card p {
+            color: var(--text-light);
+            margin-bottom: 20px;
+        }
+
+        .quick-card-btn {
+            background: var(--primary-blue);
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .quick-card-btn:hover {
+            background: #0052a3;
+        }
+
+        /* Services Section */
+        .services {
+            background: var(--background-light);
+            padding: 50px 0;
+            margin: 50px -20px;
+        }
+
+        .services-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .services h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-item {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .service-item h3 {
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+        }
+
+        /* Location Section */
+        .locations {
+            margin: 50px 0;
+        }
+
+        .locations h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 32px;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .location-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .location-card h3 {
+            color: var(--primary-blue);
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .location-card p {
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--text-dark);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #555;
+            padding-top: 20px;
+            text-align: center;
+            color: #ccc;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--background-light);
+                border-top: 1px solid var(--border-color);
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Focus and Accessibility Styles */
+        .focus-visible {
+            outline: 3px solid var(--warning-amber);
+            outline-offset: 2px;
+        }
+
+        /* Hidden content for screen readers */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-blue: #0052cc;
+                --text-dark: #000000;
+                --border-color: #666666;
+            }
+        }
+
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Emergency Banner -->
+    <div class="emergency-banner" role="banner" aria-label="Emergency Information">
+        🚨 MEDICAL EMERGENCY? 
+        <a href="tel:911" aria-label="Call 911 for emergencies">CALL 911</a> | 
+        <a href="#emergency-info" aria-label="View emergency department information">Emergency Dept Info</a> | 
+        <a href="tel:555-0123" aria-label="Call nurse hotline">24/7 Nurse Hotline: (555) 0123</a>
+    </div>
+
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-container">
+            <a href="#" class="logo" aria-label="Metro Health System Home">Metro Health System</a>
+            <div class="header-actions">
+                <button class="language-toggle" onclick="toggleLanguage()" aria-label="Toggle language to Spanish">Español</button>
+                <a href="#patient-portal" class="patient-portal-btn" aria-label="Access patient portal">Patient Portal</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="nav" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <button class="mobile-menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle mobile menu" aria-expanded="false">
+                ☰
+            </button>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="#find-doctor" class="nav-link">Find a Doctor</a></li>
+                <li class="nav-item"><a href="#services" class="nav-link">Services & Specialties</a></li>
+                <li class="nav-item"><a href="#locations" class="nav-link">Locations</a></li>
+                <li class="nav-item"><a href="#urgent-care" class="nav-link">Urgent Care</a></li>
+                <li class="nav-item"><a href="#insurance" class="nav-link">Insurance & Billing</a></li>
+                <li class="nav-item"><a href="#health-resources" class="nav-link">Health Resources</a></li>
+                <li class="nav-item"><a href="#careers" class="nav-link">Careers</a></li>
+                <li class="nav-item"><a href="#professionals" class="nav-link">For Professionals</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main" id="main-content" role="main">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <h1 id="hero-heading">Comprehensive Healthcare for Our Community</h1>
+            <p>Serving 500,000 people across 3 cities with 2 hospitals, 12 specialty clinics, urgent care networks, and emergency services. Your health is our priority.</p>
+            <div class="hero-actions">
+                <a href="#book-appointment" class="hero-btn primary" aria-label="Book an appointment online">Book Appointment</a>
+                <a href="#find-doctor" class="hero-btn" aria-label="Find a doctor in our network">Find a Doctor</a>
+                <a href="#emergency-info" class="hero-btn" aria-label="View emergency services information">Emergency Services</a>
+            </div>
+        </section>
+
+        <!-- Quick Access -->
+        <section class="quick-access" aria-labelledby="quick-access-heading">
+            <h2 id="quick-access-heading">Quick Access</h2>
+            <div class="quick-grid">
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">🩺</div>
+                    <h3>Book Appointment</h3>
+                    <p>Schedule with one of our 200+ physicians across 30+ specialties. Online booking available 24/7.</p>
+                    <a href="#book-appointment" class="quick-card-btn" aria-label="Go to appointment booking">Book Now</a>
+                </div>
+                
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">👨‍⚕️</div>
+                    <h3>Find a Doctor</h3>
+                    <p>Search by specialty, location, insurance, or language spoken. View profiles and patient reviews.</p>
+                    <a href="#find-doctor" class="quick-card-btn" aria-label="Search for doctors">Search Doctors</a>
+                </div>
+                
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">🚑</div>
+                    <h3>Urgent Care</h3>
+                    <p>Walk-in urgent care at multiple locations. Check wait times and save your spot online.</p>
+                    <a href="#urgent-care" class="quick-card-btn" aria-label="Find urgent care locations">Find Urgent Care</a>
+                </div>
+                
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">💻</div>
+                    <h3>Patient Portal</h3>
+                    <p>Access medical records, test results, prescription refills, and secure messaging with your care team.</p>
+                    <a href="#patient-portal" class="quick-card-btn" aria-label="Access patient portal">Login to Portal</a>
+                </div>
+                
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">💳</div>
+                    <h3>Pay Your Bill</h3>
+                    <p>View and pay bills online, set up payment plans, check insurance coverage and claims.</p>
+                    <a href="#billing" class="quick-card-btn" aria-label="Pay bills online">Pay Bill</a>
+                </div>
+                
+                <div class="quick-card">
+                    <div class="quick-card-icon" aria-hidden="true">📚</div>
+                    <h3>Health Resources</h3>
+                    <p>Health education, wellness programs, community events, and preventive care information.</p>
+                    <a href="#health-resources" class="quick-card-btn" aria-label="Browse health resources">Learn More</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services" aria-labelledby="services-heading" id="services">
+            <div class="services-content">
+                <h2 id="services-heading">Our Services & Specialties</h2>
+                <div class="services-grid">
+                    <div class="service-item">
+                        <h3>Emergency Medicine</h3>
+                        <p>24/7 emergency departments at both main hospitals with Level I trauma capabilities.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Cardiology & Heart Surgery</h3>
+                        <p>Complete cardiac care from prevention to complex surgical procedures.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Cancer Care</h3>
+                        <p>Comprehensive oncology services with the latest treatments and clinical trials.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Women's Health</h3>
+                        <p>Obstetrics, gynecology, mammography, and specialized women's services.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Pediatrics</h3>
+                        <p>Complete children's health services from newborn care to adolescent medicine.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Orthopedics</h3>
+                        <p>Bone, joint, and sports medicine with advanced surgical and rehabilitation services.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Mental Health</h3>
+                        <p>Psychiatry, psychology, and behavioral health services for all ages.</p>
+                    </div>
+                    <div class="service-item">
+                        <h3>Primary Care</h3>
+                        <p>Family medicine, internal medicine, and preventive care at convenient locations.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Locations Section -->
+        <section class="locations" aria-labelledby="locations-heading" id="locations">
+            <h2 id="locations-heading">Our Locations</h2>
+            <div class="location-grid">
+                <div class="location-card">
+                    <h3>Metro General Hospital</h3>
+                    <p><strong>Main Campus</strong> - Full service hospital with emergency department</p>
+                    <p>📍 123 Healthcare Blvd, Metro City</p>
+                    <p>📞 (555) 123-4567</p>
+                    <p>🚗 Parking available | 🚌 Bus routes 12, 45, 67</p>
+                </div>
+                
+                <div class="location-card">
+                    <h3>Metro Heart & Vascular Hospital</h3>
+                    <p><strong>Specialty Hospital</strong> - Cardiac and vascular care center</p>
+                    <p>📍 456 Heart Way, Metro City</p>
+                    <p>📞 (555) 234-5678</p>
+                    <p>🚗 Valet parking | 🚌 Bus route 23</p>
+                </div>
+                
+                <div class="location-card">
+                    <h3>Northside Clinic Network</h3>
+                    <p><strong>4 Locations</strong> - Primary care and urgent care</p>
+                    <p>📍 Various locations in Northside</p>
+                    <p>📞 (555) 345-6789</p>
+                    <p>🕐 Extended hours | Walk-ins welcome</p>
+                </div>
+                
+                <div class="location-card">
+                    <h3>Southpark Medical Plaza</h3>
+                    <p><strong>8 Specialty Clinics</strong> - Specialist appointments</p>
+                    <p>📍 789 Medical Dr, Southpark</p>
+                    <p>📞 (555) 456-7890</p>
+                    <p>🚗 Free parking | ♿ Fully accessible</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Information Section -->
+        <section class="emergency-info" aria-labelledby="emergency-heading" id="emergency-info">
+            <h2 id="emergency-heading" style="text-align: center; color: var(--emergency-red); margin: 40px 0 20px;">Emergency Information</h2>
+            <div style="background: #fff3f3; border: 2px solid var(--emergency-red); padding: 30px; border-radius: 8px; margin-bottom: 40px;">
+                <h3 style="color: var(--emergency-red); margin-bottom: 15px;">When to Call 911</h3>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>Chest pain or difficulty breathing</li>
+                    <li>Severe bleeding or trauma</li>
+                    <li>Loss of consciousness</li>
+                    <li>Signs of stroke (face drooping, arm weakness, speech difficulty)</li>
+                    <li>Severe allergic reactions</li>
+                </ul>
+                <p><strong>Emergency Departments:</strong></p>
+                <p>📍 Metro General Hospital - 123 Healthcare Blvd (24/7)</p>
+                <p>📍 Metro Heart Hospital - 456 Heart Way (24/7 Cardiac Emergency)</p>
+                <p>📞 24/7 Nurse Hotline: (555) 0123</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-content">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Patients & Visitors</h3>
+                    <ul>
+                        <li><a href="#appointments">Appointments</a></li>
+                        <li><a href="#patient-portal">Patient Portal</a></li>
+                        <li><a href="#billing">Billing & Insurance</a></li>
+                        <li><a href="#visitor-info">Visitor Information</a></li>
+                        <li><a href="#patient-rights">Patient Rights</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Medical Services</h3>
+                    <ul>
+                        <li><a href="#find-doctor">Find a Doctor</a></li>
+                        <li><a href="#services">Services & Specialties</a></li>
+                        <li><a href="#urgent-care">Urgent Care</a></li>
+                        <li><a href="#emergency">Emergency Services</a></li>
+                        <li><a href="#health-resources">Health Resources</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Professionals</h3>
+                    <ul>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#medical-staff">Medical Staff</a></li>
+                        <li><a href="#residents">Residents & Fellows</a></li>
+                        <li><a href="#research">Research</a></li>
+                        <li><a href="#continuing-ed">Continuing Education</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>About Metro Health</h3>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#leadership">Leadership</a></li>
+                        <li><a href="#quality">Quality & Safety</a></li>
+                        <li><a href="#community">Community Benefit</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Metro Health System. All rights reserved. | <a href="#privacy" style="color: #ccc;">Privacy Policy</a> | <a href="#terms" style="color: #ccc;">Terms of Use</a> | <a href="#accessibility" style="color: #ccc;">Accessibility</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Language Toggle Functionality
+        function toggleLanguage() {
+            const button = document.querySelector('.language-toggle');
+            const isEnglish = button.textContent === 'Español';
+            
+            if (isEnglish) {
+                // Switch to Spanish
+                button.textContent = 'English';
+                button.setAttribute('aria-label', 'Toggle language to English');
+                document.documentElement.lang = 'es';
+                
+                // Update key text elements (in a real implementation, this would be more comprehensive)
+                document.querySelector('.hero h1').textContent = 'Atención Médica Integral para Nuestra Comunidad';
+                document.querySelector('.hero p').textContent = 'Sirviendo a 500,000 personas en 3 ciudades con 2 hospitales, 12 clínicas especializadas, redes de atención urgente y servicios de emergencia.';
+                
+                // Update emergency banner
+                document.querySelector('.emergency-banner').innerHTML = 
+                    '🚨 ¿EMERGENCIA MÉDICA? <a href="tel:911" aria-label="Llame al 911 para emergencias">LLAME AL 911</a> | <a href="#emergency-info" aria-label="Ver información del departamento de emergencias">Info de Emergencias</a> | <a href="tel:555-0123" aria-label="Llame a la línea de enfermería">Línea de Enfermería 24/7: (555) 0123</a>';
+                
+            } else {
+                // Switch to English
+                button.textContent = 'Español';
+                button.setAttribute('aria-label', 'Toggle language to Spanish');
+                document.documentElement.lang = 'en';
+                
+                // Restore English text
+                document.querySelector('.hero h1').textContent = 'Comprehensive Healthcare for Our Community';
+                document.querySelector('.hero p').textContent = 'Serving 500,000 people across 3 cities with 2 hospitals, 12 specialty clinics, urgent care networks, and emergency services. Your health is our priority.';
+                
+                // Restore emergency banner
+                document.querySelector('.emergency-banner').innerHTML = 
+                    '🚨 MEDICAL EMERGENCY? <a href="tel:911" aria-label="Call 911 for emergencies">CALL 911</a> | <a href="#emergency-info" aria-label="View emergency department information">Emergency Dept Info</a> | <a href="tel:555-0123" aria-label="Call nurse hotline">24/7 Nurse Hotline: (555) 0123</a>';
+            }
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('nav-menu');
+            const toggle = document.querySelector('.mobile-menu-toggle');
+            const isOpen = menu.classList.contains('active');
+            
+            menu.classList.toggle('active');
+            toggle.setAttribute('aria-expanded', !isOpen);
+            toggle.textContent = isOpen ? '☰' : '✕';
+        }
+
+        // Smooth scrolling for anchor links
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add smooth scrolling to all links with href starting with #
+            const links = document.querySelectorAll('a[href^="#"]');
+            
+            links.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    
+                    // Don't prevent default for links that don't have corresponding elements
+                    if (href === '#' || !document.querySelector(href)) {
+                        e.preventDefault();
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    const target = document.querySelector(href);
+                    
+                    if (target) {
+                        const headerHeight = document.querySelector('.header').offsetHeight + 
+                                           document.querySelector('.emergency-banner').offsetHeight;
+                        const targetPosition = target.offsetTop - headerHeight - 20;
+                        
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Accessibility: Add focus-visible class for keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Tab') {
+                    document.body.classList.add('using-keyboard');
+                }
+            });
+
+            document.addEventListener('mousedown', function() {
+                document.body.classList.remove('using-keyboard');
+            });
+
+            // High contrast detection and adjustment
+            if (window.matchMedia && window.matchMedia('(prefers-contrast: high)').matches) {
+                document.body.classList.add('high-contrast');
+            }
+
+            // Reduced motion detection
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.body.classList.add('reduced-motion');
+            }
+        });
+
+        // Quick search functionality (for demonstration)
+        function quickSearch(type) {
+            // In a real implementation, this would redirect to appropriate search pages
+            switch(type) {
+                case 'doctor':
+                    alert('Redirecting to doctor search...');
+                    break;
+                case 'appointment':
+                    alert('Redirecting to appointment booking...');
+                    break;
+                case 'urgent-care':
+                    alert('Redirecting to urgent care locations...');
+                    break;
+                default:
+                    alert('Search functionality coming soon...');
+            }
+        }
+
+        // Keyboard navigation improvements
+        document.addEventListener('keydown', function(e) {
+            // Escape key closes mobile menu
+            if (e.key === 'Escape') {
+                const menu = document.getElementById('nav-menu');
+                const toggle = document.querySelector('.mobile-menu-toggle');
+                
+                if (menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                    toggle.setAttribute('aria-expanded', 'false');
+                    toggle.textContent = '☰';
+                    toggle.focus();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

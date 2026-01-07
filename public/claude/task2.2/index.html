@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harmony Family Therapy - Compassionate Counseling for Families & Couples</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #4a90a4;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #4a90a4;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: #4a90a4;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .contact-button {
+            background: #7fb069;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(127, 176, 105, 0.3);
+        }
+
+        .contact-button:hover {
+            background: #6a9654;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(127, 176, 105, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(74, 144, 164, 0.1), rgba(127, 176, 105, 0.1));
+            margin-top: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.3s forwards;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            color: #5a6c7d;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.6s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.9s forwards;
+        }
+
+        .cta-primary {
+            background: #4a90a4;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(74, 144, 164, 0.3);
+        }
+
+        .cta-primary:hover {
+            background: #3a7086;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(74, 144, 164, 0.4);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #4a90a4;
+            padding: 15px 30px;
+            border: 2px solid #4a90a4;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .cta-secondary:hover {
+            background: #4a90a4;
+            color: white;
+        }
+
+        /* Trust Indicators */
+        .trust-section {
+            background: white;
+            padding: 60px 0;
+            margin: 40px 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .trust-content {
+            padding: 0 2rem;
+        }
+
+        .trust-content h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 2.2rem;
+        }
+
+        .trust-stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4a90a4;
+            display: block;
+        }
+
+        .stat-label {
+            color: #5a6c7d;
+            font-size: 0.9rem;
+        }
+
+        /* About Dr. Chen */
+        .about-section {
+            background: linear-gradient(135deg, #7fb069, #4a90a4);
+            color: white;
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .doctor-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .credentials {
+            background: rgba(255,255,255,0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Services */
+        .services-section {
+            padding: 80px 0;
+        }
+
+        .services-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.15);
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4a90a4, #7fb069);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .service-card h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            background: #f8f9fa;
+            padding: 80px 0;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+
+        .testimonials-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2c3e50;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '"';
+            font-size: 4rem;
+            color: #4a90a4;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: #5a6c7d;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #2c3e50, #4a90a4);
+            color: white;
+            padding: 80px 0;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .trust-stats {
+                justify-content: center;
+            }
+        }
+
+        /* Gentle hover effects for emotional comfort */
+        .gentle-hover {
+            transition: all 0.3s ease;
+        }
+
+        .gentle-hover:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Harmony Family Therapy</a>
+            <ul class="nav-links">
+                <li><a href="#about">About Dr. Chen</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#testimonials">Success Stories</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="contact-button">Schedule Today</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>You Don't Have to Navigate This Alone</h1>
+                <p class="subtitle">Compassionate, experienced therapy for families and couples ready to heal, grow, and reconnect. Dr. Sarah Chen provides a safe space where your story matters.</p>
+                <div class="hero-cta">
+                    <a href="#contact" class="cta-primary">Start Your Journey</a>
+                    <a href="#about" class="cta-secondary">Meet Dr. Chen</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="trust-section fade-in-on-scroll">
+            <div class="container">
+                <div class="trust-grid">
+                    <div class="trust-content">
+                        <h2>Taking the First Step Takes Courage</h2>
+                        <p>We understand that reaching out for help can feel overwhelming. Whether you're dealing with relationship challenges, family conflicts, or adolescent struggles, you've already shown incredible strength by being here.</p>
+                        <div class="trust-stats">
+                            <div class="stat">
+                                <span class="stat-number">15+</span>
+                                <span class="stat-label">Years Experience</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Families Helped</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Confidential</span>
+                            </div>
+                        </div>
+                        <p><em>"Every family has the capacity for healing and growth. My role is to help you discover your strengths and build the connections you're seeking."</em></p>
+                    </div>
+                    <div class="doctor-image">
+                        👩‍⚕️
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section fade-in-on-scroll">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="doctor-image">
+                        👩‍⚕️
+                    </div>
+                    <div class="about-content">
+                        <h2>Meet Dr. Sarah Chen</h2>
+                        <p>With 15 years of dedicated experience in family therapy, Dr. Chen specializes in helping families navigate their most challenging moments. She believes that every person and every family has inherent wisdom and resilience.</p>
+                        
+                        <div class="credentials">
+                            <strong>Credentials & Specializations:</strong><br>
+                            • Licensed Marriage & Family Therapist (LMFT)<br>
+                            • PhD in Clinical Psychology, Stanford University<br>
+                            • Certified in Emotionally Focused Therapy (EFT)<br>
+                            • Trauma-Informed Care Specialist
+                        </div>
+                        
+                        <p>Dr. Chen's approach combines evidence-based techniques with deep empathy, creating a space where healing can begin. She has helped over 500 families rebuild trust, improve communication, and strengthen their bonds.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="services" class="services-section fade-in-on-scroll">
+            <div class="container">
+                <h2>How We Can Help Your Family</h2>
+                <div class="services-grid">
+                    <div class="service-card gentle-hover">
+                        <div class="service-icon">💕</div>
+                        <h3>Couples Counseling</h3>
+                        <p>Rebuild intimacy, improve communication, and strengthen your partnership. Whether you're newlyweds or long-term partners, we'll help you reconnect with what brought you together.</p>
+                    </div>
+                    <div class="service-card gentle-hover">
+                        <div class="service-icon">👨‍👩‍👧‍👦</div>
+                        <h3>Family Mediation</h3>
+                        <p>Navigate family conflicts with compassion and understanding. We provide neutral ground for difficult conversations and help families find solutions that work for everyone.</p>
+                    </div>
+                    <div class="service-card gentle-hover">
+                        <div class="service-icon">🌱</div>
+                        <h3>Adolescent Therapy</h3>
+                        <p>Support your teenager through emotional challenges, behavioral issues, and major life transitions. We create a safe space where teens feel heard and understood.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section fade-in-on-scroll">
+            <div class="container">
+                <h2>Stories of Hope & Healing</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            Dr. Chen helped us find our way back to each other when we thought our marriage was over. Her gentle guidance and practical tools gave us hope when we had none.
+                        </div>
+                        <div class="testimonial-author">— Maria & James, Married 12 years</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            Our family was falling apart after our divorce. Dr. Chen helped us put our children first and learn to co-parent with respect and kindness.
+                        </div>
+                        <div class="testimonial-author">— Sarah, Mother of two</div>
+                    </div>
+                    <div class="testimonial">
+                        <div class="testimonial-text">
+                            My teenage daughter was struggling with anxiety and wouldn't talk to us. Dr. Chen created a bridge between us and helped our whole family communicate better.
+                        </div>
+                        <div class="testimonial-author">— Robert, Father</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section fade-in-on-scroll">
+            <div class="container">
+                <h2>Ready to Take the Next Step?</h2>
+                <p>Reaching out is often the hardest part. We're here to make the rest of your journey as comfortable as possible.</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📞</div>
+                        <div>
+                            <strong>Call or Text</strong><br>
+                            (555) 123-HOPE
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">✉️</div>
+                        <div>
+                            <strong>Email</strong><br>
+                            hello@harmonyfamilytherapy.com
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-item-icon">📍</div>
+                        <div>
+                            <strong>Location</strong><br>
+                            Downtown Wellness Center<br>
+                            123 Healing Way, Suite 200
+                        </div>
+                    </div>
+                </div>
+                
+                <p style="margin-top: 2rem; font-size: 1rem; opacity: 0.8;">
+                    Evening and weekend appointments available • All conversations completely confidential • 
+                    Most insurance plans accepted • Free 15-minute consultation calls
+                </p>
+                
+                <a href="tel:5551234673" class="cta-primary" style="margin-top: 2rem; display: inline-block;">Call Now - We're Here to Help</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background change on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+
+        // Gentle hover effects for comfort
+        document.querySelectorAll('.service-card, .testimonial').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+
+        // Add gentle pulsing to CTA buttons for attention without being aggressive
+        setInterval(() => {
+            const ctaButtons = document.querySelectorAll('.cta-primary');
+            ctaButtons.forEach(button => {
+                button.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    button.style.transform = 'scale(1)';
+                }, 200);
+            });
+        }, 8000);
+    </script>
+</body>
+</html>

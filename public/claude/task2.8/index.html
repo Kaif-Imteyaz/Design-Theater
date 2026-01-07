@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreditBuilder - Your Financial Fresh Start</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 100vh;
+        }
+
+        /* Visual Strategy: Warm, supportive color palette */
+        :root {
+            --primary-green: #52b788;     /* Growth, progress, calm */
+            --soft-blue: #4a90a4;         /* Trust without coldness */
+            --warm-orange: #f4a261;       /* Encouragement, warmth */
+            --light-sage: #a8dadc;        /* Calming background */
+            --dark-text: #2c3e50;         /* Readable, not harsh black */
+            --light-text: #6c757d;        /* Secondary text */
+            --success-green: #40c057;     /* Positive feedback */
+            --background-light: #f8f9fa;
+            --card-background: #ffffff;
+            --border-light: #e9ecef;
+        }
+
+        /* Header with privacy-first design */
+        .header {
+            background: var(--card-background);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        .privacy-toggle {
+            background: var(--light-sage);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-toggle:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .privacy-toggle.active {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        /* Main container with mobile-first approach */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        /* Hero section - supportive and encouraging */
+        .hero {
+            text-align: center;
+            padding: 2rem 0;
+            background: var(--card-background);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            color: var(--light-text);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            background: linear-gradient(135deg, var(--primary-green), var(--soft-blue));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(82, 183, 136, 0.3);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(82, 183, 136, 0.4);
+        }
+
+        /* Credit score display - clear but not overwhelming */
+        .score-card {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .score-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .score-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .hide-toggle {
+            background: none;
+            border: 1px solid var(--border-light);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .hide-toggle:hover {
+            background: var(--light-sage);
+        }
+
+        .score-display {
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .score-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .score-range {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        .score-improvement {
+            background: var(--success-green);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Progress visualization - encouraging without overwhelming */
+        .progress-section {
+            background: var(--card-background);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .progress-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        .progress-item {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: var(--background-light);
+            border-radius: 15px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .progress-item h3 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .progress-bar {
+            background: var(--border-light);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, var(--primary-green), var(--soft-blue));
+            height: 100%;
+            transition: width 1s ease;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        /* Action items - empowering and clear */
+        .actions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-card {
+            background: var(--card-background);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .action-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--light-sage);
+        }
+
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .action-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-text);
+        }
+
+        .action-card p {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .action-button {
+            background: var(--warm-orange);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .action-button:hover {
+            background: #e76f51;
+            transform: translateY(-1px);
+        }
+
+        /* Support section - understanding and helpful */
+        .support-section {
+            background: linear-gradient(135deg, var(--light-sage), var(--background-light));
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .support-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+        }
+
+        .support-text {
+            color: var(--light-text);
+            margin-bottom: 1.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .support-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .support-button {
+            background: var(--soft-blue);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .support-button:hover {
+            background: #357a8a;
+            transform: translateY(-2px);
+        }
+
+        /* Privacy overlay */
+        .privacy-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .privacy-message {
+            max-width: 400px;
+        }
+
+        .privacy-message h2 {
+            margin-bottom: 1rem;
+        }
+
+        .privacy-message p {
+            margin-bottom: 2rem;
+        }
+
+        .privacy-close {
+            background: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        /* Hidden state for sensitive content */
+        .hidden-content {
+            filter: blur(10px);
+            pointer-events: none;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .score-number {
+                font-size: 3rem;
+            }
+            
+            .actions-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .support-button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* Focus states for accessibility */
+        button:focus,
+        .action-card:focus {
+            outline: 3px solid var(--primary-green);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --primary-green: #2d5a3d;
+                --soft-blue: #1e3a8a;
+                --dark-text: #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with privacy controls -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">CreditBuilder</a>
+            <button class="privacy-toggle" onclick="togglePrivacy()">
+                <span id="privacy-icon">👁️</span>
+                <span id="privacy-text">Hide Info</span>
+            </button>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1>Your Credit Journey Starts Here</h1>
+            <p class="hero-subtitle">
+                We understand that building credit can feel overwhelming. You're not alone in this journey, and every small step forward is progress worth celebrating.
+            </p>
+            <button class="hero-cta" onclick="scrollToActions()">
+                See My Next Steps
+            </button>
+        </section>
+
+        <!-- Credit Score Display -->
+        <section class="score-card sensitive-content">
+            <div class="score-header">
+                <h2 class="score-title">Your Credit Score</h2>
+                <button class="hide-toggle" onclick="toggleScoreVisibility()" title="Hide/Show Score">
+                    <span id="score-toggle-icon">👁️</span>
+                </button>
+            </div>
+            <div class="score-display" id="score-display">
+                <div class="score-number">628</div>
+                <div class="score-range">Fair (580-669)</div>
+                <div class="score-improvement">↗ +23 points this month</div>
+            </div>
+        </section>
+
+        <!-- Progress Section -->
+        <section class="progress-section sensitive-content">
+            <h2 class="progress-title">Your Progress This Month</h2>
+            
+            <div class="progress-item">
+                <h3>Credit Utilization</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 25%"></div>
+                </div>
+                <p class="progress-text">25% utilization - Great job keeping it low!</p>
+            </div>
+
+            <div class="progress-item">
+                <h3>On-Time Payments</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 100%"></div>
+                </div>
+                <p class="progress-text">Perfect payment history this month 🎉</p>
+            </div>
+
+            <div class="progress-item">
+                <h3>Credit Mix</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 60%"></div>
+                </div>
+                <p class="progress-text">Adding a small loan could help diversify your credit</p>
+            </div>
+        </section>
+
+        <!-- Action Items -->
+        <section class="actions-grid" id="actions-section">
+            <div class="action-card">
+                <span class="action-icon">💳</span>
+                <h3>Lower Your Utilization</h3>
+                <p>Pay down your current balance by $150 to reach the ideal 10% utilization rate.</p>
+                <button class="action-button">Create Payment Plan</button>
+            </div>
+
+            <div class="action-card">
+                <span class="action-icon">📊</span>
+                <h3>Check for Errors</h3>
+                <p>Review your credit report for mistakes that could be dragging down your score.</p>
+                <button class="action-button">Review Report</button>
+            </div>
+
+            <div class="action-card">
+                <span class="action-icon">🏦</span>
+                <h3>Build Payment History</h3>
+                <p>Set up automatic payments to ensure you never miss a due date.</p>
+                <button class="action-button">Set Up Auto-Pay</button>
+            </div>
+
+            <div class="action-card">
+                <span class="action-icon">📈</span>
+                <h3>Increase Credit Limit</h3>
+                <p>Request a credit limit increase to lower your utilization ratio.</p>
+                <button class="action-button">Request Increase</button>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <h2 class="support-title">We're Here to Help</h2>
+            <p class="support-text">
+                Building credit takes time, and setbacks are normal. Our team understands the challenges you're facing and is here to support you every step of the way.
+            </p>
+            <div class="support-buttons">
+                <button class="support-button">Chat with Support</button>
+                <button class="support-button">Join Community</button>
+                <button class="support-button">Educational Resources</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Privacy Overlay -->
+    <div class="privacy-overlay" id="privacy-overlay">
+        <div class="privacy-message">
+            <h2>Privacy Mode Active</h2>
+            <p>Your sensitive financial information is now hidden. Tap the button below when you're ready to view your details again.</p>
+            <button class="privacy-close" onclick="togglePrivacy()">Show My Information</button>
+        </div>
+    </div>
+
+    <script>
+        let privacyMode = false;
+        let scoreHidden = false;
+
+        // Privacy toggle functionality
+        function togglePrivacy() {
+            privacyMode = !privacyMode;
+            const overlay = document.getElementById('privacy-overlay');
+            const sensitiveContent = document.querySelectorAll('.sensitive-content');
+            const privacyIcon = document.getElementById('privacy-icon');
+            const privacyText = document.getElementById('privacy-text');
+            const privacyToggle = document.querySelector('.privacy-toggle');
+
+            if (privacyMode) {
+                overlay.style.display = 'flex';
+                sensitiveContent.forEach(el => el.classList.add('hidden-content'));
+                privacyIcon.textContent = '🙈';
+                privacyText.textContent = 'Show Info';
+                privacyToggle.classList.add('active');
+            } else {
+                overlay.style.display = 'none';
+                sensitiveContent.forEach(el => el.classList.remove('hidden-content'));
+                privacyIcon.textContent = '👁️';
+                privacyText.textContent = 'Hide Info';
+                privacyToggle.classList.remove('active');
+            }
+        }
+
+        // Individual score visibility toggle
+        function toggleScoreVisibility() {
+            scoreHidden = !scoreHidden;
+            const scoreDisplay = document.getElementById('score-display');
+            const toggleIcon = document.getElementById('score-toggle-icon');
+
+            if (scoreHidden) {
+                scoreDisplay.style.filter = 'blur(10px)';
+                toggleIcon.textContent = '🙈';
+            } else {
+                scoreDisplay.style.filter = 'none';
+                toggleIcon.textContent = '👁️';
+            }
+        }
+
+        // Smooth scroll to actions
+        function scrollToActions() {
+            document.getElementById('actions-section').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Animate progress bars on load
+        window.addEventListener('load', function() {
+            const progressFills = document.querySelectorAll('.progress-fill');
+            setTimeout(() => {
+                progressFills.forEach(fill => {
+                    const width = fill.style.width;
+                    fill.style.width = '0%';
+                    setTimeout(() => {
+                        fill.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+
+        // Handle focus for accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && privacyMode) {
+                togglePrivacy();
+            }
+        });
+
+        // Prevent text selection when in privacy mode
+        document.addEventListener('selectstart', function(e) {
+            if (privacyMode) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

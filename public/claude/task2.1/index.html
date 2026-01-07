@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Essence Jewelry - Timeless Minimalist Jewelry</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background-color: #fafafa;
+            overflow-x: hidden;
+        }
+
+        /* Typography Hierarchy */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: #555;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 250, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #2c2c2c;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 3rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #8b7355;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #8b7355;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(250, 250, 250, 0.8), rgba(250, 250, 250, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23f5f5f5" width="1200" height="800"/><circle cx="600" cy="400" r="200" fill="none" stroke="%23e0e0e0" stroke-width="0.5" opacity="0.3"/><circle cx="600" cy="400" r="150" fill="none" stroke="%23e0e0e0" stroke-width="0.5" opacity="0.2"/><circle cx="600" cy="400" r="100" fill="none" stroke="%23e0e0e0" stroke-width="0.5" opacity="0.1"/></svg>') center/cover;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 2rem;
+            color: #2c2c2c;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 3rem;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background-color: transparent;
+            color: #2c2c2c;
+            text-decoration: none;
+            border: 1px solid #2c2c2c;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background-color: #2c2c2c;
+            color: #fafafa;
+        }
+
+        /* Collections Section */
+        .collections {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .collection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-bottom: 6rem;
+        }
+
+        .collection-item {
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f5f5f5, #e9e9e9);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jewelry-placeholder {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #8b7355;
+            border-radius: 50%;
+            position: relative;
+            opacity: 0.6;
+        }
+
+        .jewelry-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border: 1px solid #8b7355;
+            border-radius: 50%;
+        }
+
+        .jewelry-placeholder::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background-color: #8b7355;
+            border-radius: 50%;
+        }
+
+        /* Philosophy Section */
+        .philosophy {
+            background-color: #f8f8f8;
+            padding: 8rem 2rem;
+        }
+
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .philosophy h2 {
+            margin-bottom: 3rem;
+            color: #2c2c2c;
+        }
+
+        .philosophy-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: #555;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 8rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .value-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 2rem;
+            border: 1px solid #8b7355;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #8b7355;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2c2c2c;
+            color: #fafafa;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #fafafa;
+            text-decoration: none;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #8b7355;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .collection-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Essence</a>
+            <ul class="nav-links">
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#philosophy">Philosophy</a></li>
+                <li><a href="#craftsmanship">Craftsmanship</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Essence</h1>
+            <p class="hero-subtitle">Timeless jewelry crafted for the modern woman</p>
+            <a href="#collections" class="cta-button">Discover Collection</a>
+        </div>
+    </section>
+
+    <section class="collections" id="collections">
+        <div class="section-header fade-in">
+            <h2>Our Collections</h2>
+            <p>Each piece is thoughtfully designed to complement your natural elegance</p>
+        </div>
+
+        <div class="collection-grid">
+            <div class="collection-item fade-in">
+                <div class="collection-image">
+                    <div class="jewelry-placeholder"></div>
+                </div>
+                <h3>Minimalist Rings</h3>
+                <p>Clean lines and geometric forms that speak to modern sophistication</p>
+            </div>
+
+            <div class="collection-item fade-in">
+                <div class="collection-image">
+                    <div class="jewelry-placeholder"></div>
+                </div>
+                <h3>Essential Necklaces</h3>
+                <p>Delicate chains and pendants designed for everyday elegance</p>
+            </div>
+
+            <div class="collection-item fade-in">
+                <div class="collection-image">
+                    <div class="jewelry-placeholder"></div>
+                </div>
+                <h3>Refined Earrings</h3>
+                <p>Subtle statements that enhance your natural beauty</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-content fade-in">
+            <h2>Our Philosophy</h2>
+            <p class="philosophy-text">"True luxury lies not in excess, but in the perfect balance of form, function, and meaning. Every piece we create is an investment in timeless beauty."</p>
+            <p>We believe that jewelry should be more than adornment—it should be an extension of your authentic self. Our minimalist approach celebrates the beauty of restraint, allowing the quality of materials and craftsmanship to speak for itself.</p>
+        </div>
+    </section>
+
+    <section class="values" id="craftsmanship">
+        <div class="section-header fade-in">
+            <h2>Our Values</h2>
+            <p>Every decision we make reflects our commitment to excellence and responsibility</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-item fade-in">
+                <div class="value-icon">♦</div>
+                <h3>Ethical Sourcing</h3>
+                <p>We partner only with suppliers who share our commitment to fair labor practices and environmental responsibility.</p>
+            </div>
+
+            <div class="value-item fade-in">
+                <div class="value-icon">✧</div>
+                <h3>Timeless Design</h3>
+                <p>Our pieces transcend trends, designed to remain beautiful and relevant for decades to come.</p>
+            </div>
+
+            <div class="value-item fade-in">
+                <div class="value-icon">◊</div>
+                <h3>Master Craftsmanship</h3>
+                <p>Each piece is meticulously crafted by skilled artisans who take pride in their exceptional work.</p>
+            </div>
+
+            <div class="value-item fade-in">
+                <div class="value-icon">⬟</div>
+                <h3>Quality Materials</h3>
+                <p>We use only the finest precious metals and gemstones, ensuring lasting beauty and durability.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="#">About</a>
+                <a href="#">Collections</a>
+                <a href="#">Custom Design</a>
+                <a href="#">Care Guide</a>
+                <a href="#">Contact</a>
+            </div>
+            <p>&copy; 2025 Essence Jewelry. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Header background opacity on scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            const scrolled = window.pageYOffset;
+            const opacity = Math.min(scrolled / 100, 1);
+            header.style.background = `rgba(250, 250, 250, ${0.95 + (opacity * 0.05)})`;
+        });
+    </script>
+</body>
+</html>

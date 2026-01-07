@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhotoCommunity - Where Photographers Connect, Create & Collaborate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "📸";
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button {
+            background: #e74c3c;
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(52, 152, 219, 0.8)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23e3f2fd" width="1200" height="600"/><path fill="%23bbdefb" d="M0,300 Q300,200 600,300 T1200,300 V600 H0 Z"/></svg>') center/cover;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: #2c3e50;
+        }
+
+        /* Community Features */
+        .features-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Active Community Section */
+        .community-showcase {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .showcase-card {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .showcase-card h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .showcase-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Quality & Commerce Balance */
+        .balance-section {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .balance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .balance-card {
+            padding: 2rem;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-focus {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+        }
+
+        .commercial-focus {
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            color: white;
+        }
+
+        .balance-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .balance-features {
+            list-style: none;
+        }
+
+        .balance-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .balance-features li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        /* Weekly Challenge */
+        .challenge-section {
+            background: #2d3436;
+            color: white;
+            padding: 4rem 0;
+        }
+
+        .challenge-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .challenge-theme {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #e17055;
+        }
+
+        .challenge-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 1rem;
+            text-align: center;
+            color: #bdc3c7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .balance-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .challenge-stats {
+                gap: 1.5rem;
+            }
+        }
+
+        /* Interactive Elements */
+        .hover-effect {
+            transition: all 0.3s ease;
+        }
+
+        .hover-effect:hover {
+            transform: scale(1.05);
+        }
+
+        /* Quality Indicators */
+        .quality-badge {
+            background: #f39c12;
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            display: inline-block;
+            margin: 0.2rem;
+        }
+
+        .pro-badge {
+            background: #8e44ad;
+        }
+
+        .community-badge {
+            background: #27ae60;
+        }
+
+        /* Modal styles for demo */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">PhotoCommunity</div>
+            <ul class="nav-links">
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#challenges">Challenges</a></li>
+                <li><a href="#feedback">Feedback</a></li>
+                <li><a href="#hire">Hire Pros</a></li>
+                <li><a href="#learn">Learn</a></li>
+            </ul>
+            <a href="#join" class="cta-button">Join Community</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Where Photography Thrives</h1>
+            <p>Connect with passionate photographers, showcase your work, get constructive feedback, and grow your business in a supportive community.</p>
+            <div class="hero-actions">
+                <a href="#" class="cta-button" onclick="openModal('joinModal')">Start Creating</a>
+                <a href="#" class="btn-secondary" onclick="openModal('exploreModal')">Explore Work</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Community-Driven Growth</h2>
+                <p>Our platform balances genuine community support with professional opportunities, creating an environment where photographers at every level can thrive.</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">🎯</span>
+                    <h3>Weekly Challenges</h3>
+                    <p>Participate in themed photography challenges that push your creative boundaries. Get featured, earn recognition, and discover new techniques through community participation.</p>
+                </div>
+                
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">💬</span>
+                    <h3>Constructive Feedback</h3>
+                    <p>Receive thoughtful critiques from experienced photographers. Our moderation system ensures feedback stays constructive and helps you improve your craft.</p>
+                </div>
+                
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">🤝</span>
+                    <h3>Client Connections</h3>
+                    <p>Seamlessly transition from community member to hired professional. Clients can discover and book photographers directly through verified portfolios and reviews.</p>
+                </div>
+                
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">⭐</span>
+                    <h3>Quality Curation</h3>
+                    <p>Community voting and expert moderation ensure high-quality content. Featured galleries showcase the best work while maintaining an inclusive environment.</p>
+                </div>
+                
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">📈</span>
+                    <h3>Skill Development</h3>
+                    <p>Learn from tutorials, critiques, and masterclasses shared by community experts. Track your progress and celebrate milestones with fellow photographers.</p>
+                </div>
+                
+                <div class="feature-card hover-effect">
+                    <span class="feature-icon">🏆</span>
+                    <h3>Recognition System</h3>
+                    <p>Earn badges for community contributions, photo quality, and helpful feedback. Build reputation that attracts both collaborators and clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-showcase">
+        <div class="container">
+            <div class="section-header">
+                <h2>Thriving Creative Community</h2>
+                <p>See how our members support each other while building successful photography businesses</p>
+            </div>
+            
+            <div class="showcase-grid">
+                <div class="showcase-card">
+                    <h3>📸 Active Creators</h3>
+                    <p>Hobbyists and professionals sharing 500+ photos weekly, from weekend nature shots to commercial portfolios.</p>
+                    <div class="showcase-stats">
+                        <div class="stat">
+                            <span class="stat-number">2.3K</span>
+                            <span class="stat-label">Active Members</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">15K</span>
+                            <span class="stat-label">Photos Shared</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="showcase-card">
+                    <h3>💼 Business Growth</h3>
+                    <p>Members have booked 180+ paid projects this month through our platform, from portraits to weddings.</p>
+                    <div class="showcase-stats">
+                        <div class="stat">
+                            <span class="stat-number">340</span>
+                            <span class="stat-label">Pro Members</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">$95K</span>
+                            <span class="stat-label">Projects Booked</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="showcase-card">
+                    <h3>🎓 Skill Building</h3>
+                    <p>Over 5,000 constructive critiques exchanged monthly, helping photographers improve their technical and artistic skills.</p>
+                    <div class="showcase-stats">
+                        <div class="stat">
+                            <span class="stat-number">5.2K</span>
+                            <span class="stat-label">Critiques Given</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">89%</span>
+                            <span class="stat-label">Positive Feedback</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="balance-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Community First, Commerce Enabled</h2>
+                <p>Our unique approach prioritizes genuine community building while providing seamless pathways to monetization</p>
+            </div>
+            
+            <div class="balance-grid">
+                <div class="balance-card community-focus">
+                    <h3>🌟 Community Excellence</h3>
+                    <ul class="balance-features">
+                        <li>Moderated feedback ensures constructive criticism</li>
+                        <li>Skill-based matching for targeted advice</li>
+                        <li>Weekly challenges with community voting</li>
+                        <li>Mentorship programs pairing experienced with new photographers</li>
+                        <li>Free educational content and technique sharing</li>
+                        <li>Recognition badges for helpful community members</li>
+                    </ul>
+                </div>
+                
+                <div class="balance-card commercial-focus">
+                    <h3>💰 Professional Opportunities</h3>
+                    <ul class="balance-features">
+                        <li>Verified professional profiles with portfolio integration</li>
+                        <li>Client booking system with secure payments</li>
+                        <li>Project showcase for commercial work</li>
+                        <li>Pricing guides and business resources</li>
+                        <li>Review system building professional reputation</li>
+                        <li>Direct messaging for client communication</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="challenge-section">
+        <div class="container">
+            <div class="challenge-content">
+                <h2>This Week's Challenge</h2>
+                <div class="challenge-theme">
+                    <h3>"Urban Reflections"</h3>
+                    <p>Capture the interplay between architecture and light in your city. Look for interesting reflections in windows, water, or metal surfaces that create compelling compositions.</p>
+                    <div class="quality-badge community-badge">Community Choice</div>
+                    <div class="quality-badge pro-badge">Pro Category</div>
+                    <div class="quality-badge">Beginner Friendly</div>
+                </div>
+                
+                <div class="challenge-stats">
+                    <div class="stat">
+                        <span class="stat-number">127</span>
+                        <span class="stat-label">Submissions</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Days Left</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">$500</span>
+                        <span class="stat-label">Prize Pool</span>
+                    </div>
+                </div>
+                
+                <a href="#" class="cta-button" onclick="openModal('challengeModal')">Submit Your Entry</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Community</h4>
+                    <a href="#">Photo Galleries</a>
+                    <a href="#">Weekly Challenges</a>
+                    <a href="#">Feedback Exchange</a>
+                    <a href="#">Learning Resources</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Professionals</h4>
+                    <a href="#">Create Pro Profile</a>
+                    <a href="#">Portfolio Showcase</a>
+                    <a href="#">Client Booking</a>
+                    <a href="#">Business Resources</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>For Clients</h4>
+                    <a href="#">Find Photographers</a>
+                    <a href="#">Book Services</a>
+                    <a href="#">View Portfolios</a>
+                    <a href="#">Read Reviews</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="#">Help Center</a>
+                    <a href="#">Community Guidelines</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Report Content</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 PhotoCommunity. Building bridges between creativity and commerce.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals for demonstration -->
+    <div id="joinModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('joinModal')">&times;</span>
+            <h2>Join PhotoCommunity</h2>
+            <p>Choose your path:</p>
+            <div style="margin: 2rem 0;">
+                <div style="margin-bottom: 1rem;">
+                    <strong>Community Member (Free)</strong><br>
+                    Share photos, get feedback, participate in challenges
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Pro Photographer ($19/month)</strong><br>
+                    All community features plus client booking, portfolio optimization, and business tools
+                </div>
+            </div>
+            <button class="cta-button" style="margin-right: 1rem;">Join Free</button>
+            <button class="btn-secondary" style="color: #2c3e50;">Go Pro</button>
+        </div>
+    </div>
+
+    <div id="exploreModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('exploreModal')">&times;</span>
+            <h2>Explore PhotoCommunity</h2>
+            <p>Discover amazing work from our community:</p>
+            <div style="margin: 2rem 0;">
+                <div style="margin-bottom: 1rem;">📸 <strong>Featured Gallery</strong> - This week's best submissions</div>
+                <div style="margin-bottom: 1rem;">🏆 <strong>Challenge Winners</strong> - Award-winning challenge entries</div>
+                <div style="margin-bottom: 1rem;">💼 <strong>Pro Portfolios</strong> - Available for hire</div>
+                <div style="margin-bottom: 1rem;">🎓 <strong>Learning Hub</strong> - Tutorials and critiques</div>
+            </div>
+            <button class="cta-button">Start Exploring</button>
+        </div>
+    </div>
+
+    <div id="challengeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('challengeModal')">&times;</span>
+            <h2>Submit to "Urban Reflections"</h2>
+            <p>Ready to participate in this week's challenge?</p>
+            <div style="margin: 2rem 0;">
+                <p><strong>Requirements:</strong></p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Original work shot within the past month</li>
+                    <li>Must feature reflections as primary element</li>
+                    <li>Include brief description of your technique</li>
+                    <li>Tag your submission #UrbanReflections</li>
+                </ul>
+            </div>
+            <button class="cta-button">Upload Photo</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const finalValue = stat.textContent;
+                        stat.textContent = '0';
+                        
+                        // Simple animation for demo
+                        let current = 0;
+                        const increment = parseFloat(finalValue.replace(/[^\d.]/g, '')) / 20;
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= parseFloat(finalValue.replace(/[^\d.]/g, ''))) {
+                                stat.textContent = finalValue;
+                                clearInterval(timer);
+                            } else {
+                                stat.textContent = Math.floor(current) + finalValue.replace(/[\d.]/g, '');
+                            }
+                        }, 50);
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe stat containers
+        document.querySelectorAll('.showcase-stats, .challenge-stats').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Demo interaction feedback
+        document.querySelectorAll('.feature-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const feature = card.querySelector('h3').textContent;
+                alert(`Learn more about ${feature}! This would open a detailed feature explanation.`);
+            });
+        });
+    </script>
+</body>
+</html>

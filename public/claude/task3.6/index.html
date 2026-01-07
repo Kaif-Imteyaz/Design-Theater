@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillBridge - Peer Learning & Mentorship Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #06b6d4;
+            --accent-color: #8b5cf6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover, .nav-links a:focus {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover, .btn-primary:focus {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-outline:hover, .btn-outline:focus {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, #e0f2fe 100%);
+            padding: 4rem 0;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            line-height: 1.2;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Platform Demo */
+        .platform-demo {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .demo-header {
+            background: #f1f5f9;
+            padding: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .demo-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ef4444; }
+        .dot-yellow { background: #f59e0b; }
+        .dot-green { background: #10b981; }
+
+        .demo-content {
+            padding: 2rem;
+        }
+
+        .privacy-controls {
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .privacy-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .privacy-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .toggle {
+            width: 40px;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .toggle.active {
+            background: var(--success-color);
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: white;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle.active::after {
+            transform: translateX(20px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+            background: var(--bg-primary);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-icon.structured {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+        }
+
+        .feature-icon.organic {
+            background: linear-gradient(135deg, #06b6d4, #0891b2);
+            color: white;
+        }
+
+        .feature-icon.privacy {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            color: white;
+        }
+
+        .feature-icon.accessible {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 5rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .how-it-works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1.5rem;
+        }
+
+        .step-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Interactive Demo */
+        .demo-section {
+            padding: 5rem 0;
+            background: var(--bg-primary);
+        }
+
+        .demo-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .demo-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .demo-tab {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid var(--border-color);
+            background: transparent;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .demo-tab.active {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .demo-panel {
+            display: none;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--border-color);
+        }
+
+        .demo-panel.active {
+            display: block;
+        }
+
+        .learning-path {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+        }
+
+        .path-progress {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success-color) 0deg 216deg, var(--border-color) 216deg 360deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-weight: 600;
+            position: relative;
+        }
+
+        .path-progress::before {
+            content: '';
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .path-progress span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .demo-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .privacy-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Focus styles for accessibility */
+        .btn:focus,
+        .toggle:focus,
+        .demo-tab:focus {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            :root {
+                --border-color: #000000;
+                --text-secondary: #000000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="nav-container">
+            <a href="#" class="logo">SkillBridge</a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="#support">Support</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="btn btn-outline">Sign In</a>
+                <a href="#" class="btn btn-primary">Join Free</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-container">
+            <div class="hero-content fade-in-up">
+                <h1 id="hero-title">Learn Together, Grow Together</h1>
+                <p class="subtitle">
+                    Connect with peers for authentic learning experiences. Be a mentor in your expertise, 
+                    be a learner in theirs. Build your skills while building meaningful professional relationships.
+                </p>
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem;">
+                    <a href="#" class="btn btn-primary">Start Learning</a>
+                    <a href="#" class="btn btn-outline">Explore Community</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">50K+</span>
+                        <span class="stat-label">Active Learners</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12K+</span>
+                        <span class="stat-label">Mentors</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label">Skills</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="platform-demo fade-in-up">
+                <div class="demo-header">
+                    <div class="demo-dot dot-red"></div>
+                    <div class="demo-dot dot-yellow"></div>
+                    <div class="demo-dot dot-green"></div>
+                </div>
+                <div class="demo-content">
+                    <div class="privacy-controls">
+                        <h3 class="privacy-title">
+                            🔒 Your Learning, Your Privacy
+                        </h3>
+                        <div class="privacy-options">
+                            <div class="privacy-option">
+                                <div class="toggle active" onclick="togglePrivacy(this)" role="switch" aria-checked="true" aria-label="Show learning goals to colleagues"></div>
+                                <span>Learning goals visible to colleagues</span>
+                            </div>
+                            <div class="privacy-option">
+                                <div class="toggle" onclick="togglePrivacy(this)" role="switch" aria-checked="false" aria-label="Anonymous forum participation"></div>
+                                <span>Anonymous forum participation</span>
+                            </div>
+                            <div class="privacy-option">
+                                <div class="toggle active" onclick="togglePrivacy(this)" role="switch" aria-checked="true" aria-label="Public mentor profile"></div>
+                                <span>Public mentor profile</span>
+                            </div>
+                            <div class="privacy-option">
+                                <div class="toggle active" onclick="togglePrivacy(this)" role="switch" aria-checked="true" aria-label="Skill endorsements"></div>
+                                <span>Skill endorsements</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h4 style="color: var(--text-primary);">Current Learning Paths</h4>
+                        <span style="color: var(--text-secondary); font-size: 0.9rem;">3 active</span>
+                    </div>
+                    
+                    <div class="learning-path">
+                        <div class="path-progress">
+                            <span>60%</span>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--text-primary);">React Fundamentals</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Mentored by Sarah Chen • 4 peers enrolled</div>
+                        </div>
+                    </div>
+                    
+                    <div class="learning-path">
+                        <div class="path-progress">
+                            <span>30%</span>
+                        </div>
+                        <div>
+                            <div style="font-weight: 600; color: var(--text-primary);">Leadership Skills</div>
+                            <div style="color: var(--text-secondary); font-size: 0.9rem;">Peer circle • 8 participants</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features" aria-labelledby="features-title">
+        <div class="features-container">
+            <h2 id="features-title" class="section-title">How We Balance Structure & Community</h2>
+            <p class="section-subtitle">
+                SkillBridge combines the rigor of structured learning with the authenticity of peer connections, 
+                giving you control over your professional learning journey.
+            </p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon structured">📚</div>
+                    <h3 class="feature-title">Quality-Assured Learning Paths</h3>
+                    <p class="feature-description">
+                        Structured courses with peer reviews, progress tracking, and verified outcomes. 
+                        Learn from curated content while maintaining the human connection that makes learning stick.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon organic">💬</div>
+                    <h3 class="feature-title">Organic Knowledge Sharing</h3>
+                    <p class="feature-description">
+                        Discover insights through spontaneous discussions, peer Q&A, and serendipitous connections. 
+                        Browse by curiosity, not just curriculum.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon privacy">🛡️</div>
+                    <h3 class="feature-title">Professional Privacy Control</h3>
+                    <p class="feature-description">
+                        Choose what colleagues see about your learning goals. Learn sensitive skills privately, 
+                        share achievements publicly, and control your professional narrative.
+                    </p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon accessible">♿</div>
+                    <h3 class="feature-title">Inclusive & Accessible</h3>
+                    <p class="feature-description">
+                        Support for different learning styles, time zones, and abilities. Extended time options, 
+                        alternative formats, and async learning for global professionals.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="how-it-works" aria-labelledby="how-it-works-title">
+        <div class="how-it-works-container">
+            <h2 id="how-it-works-title" class="section-title">How SkillBridge Works</h2>
+            <p class="section-subtitle">
+                A simple approach to peer learning that grows with your career
+            </p>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Define Your Learning Identity</h3>
+                    <p class="step-description">
+                        Set your expertise areas and learning goals. Choose your privacy settings. 
+                        Decide what to share and what to keep private.
+                    </p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Find Your Learning Community</h3>
+                    <p class="step-description">
+                        Connect with mentors in your growth areas and mentees in your expertise. 
+                        Join peer circles and discover unexpected learning opportunities.
+                    </p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Learn Together, Teach Together</h3>
+                    <p class="step-description">
+                        Participate in structured courses and organic discussions. 
+                        Share knowledge, get feedback, and build lasting professional relationships.
+                    </p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Track Progress & Impact</h3>
+                    <p class="step-description">
+                        Monitor your learning journey with peer-validated achievements. 
+                        See how your teaching helps others and builds your reputation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="demo-section" aria-labelledby="demo-title">
+        <div class="demo-container">
+            <h2 id="demo-title" class="section-title">Experience the Platform</h2>
+            <p class="section-subtitle">
+                See how SkillBridge adapts to different learning scenarios
+            </p>
+            
+            <div class="demo-tabs" role="tablist">
+                <button class="demo-tab active" onclick="switchTab(0)" role="tab" aria-selected="true" aria-controls="structured-panel">
+                    Structured Learning
+                </button>
+                <button class="demo-tab" onclick="switchTab(1)" role="tab" aria-selected="false" aria-controls="organic-panel">
+                    Organic Discovery
+                </button>
+                <button class="demo-tab" onclick="switchTab(2)" role="tab" aria-selected="false" aria-controls="mentorship-panel">
+                    Mentorship
+                </button>
+            </div>
+            
+            <div id="structured-panel" class="demo-panel active" role="tabpanel">
+                <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Structured Course: "Advanced SQL for Analytics"</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Course Structure</h4>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li>✅ Week 1: Complex Joins (completed)</li>
+                            <li>✅ Week 2: Window Functions (completed)</li>
+                            <li>🔄 Week 3: Performance Optimization (in progress)</li>
+                            <li>⏳ Week 4: Real-world Case Studies</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">Peer Interaction</h4>
+                        <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px;">
+                            <p style="color: var(--text-secondary); margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                <strong>Maria K.:</strong> "Great explanation of CTEs! Has anyone tried this with large datasets?"
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                                <strong>You:</strong> Reply with your experience...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="organic-panel" class="demo-panel" role="tabpanel">
+                <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Community Discovery Feed</h3>
+                <div style="space-y: 1rem;">
+                    <div style="background: var(--bg-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                            <div style="width: 40px; height: 40px; background: var(--secondary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">JD</div>
+                            <div>
+                                <div style="font-weight: 600; color: var(--text-primary);">John D. • UX Designer</div>
+                                <div style="color: var(--text-secondary); font-size: 0.9rem;">Posted in #design-thinking</div>
+                            </div>
+                        </div>
+                        <p style="color: var(--text-primary); margin-bottom: 1rem;">
+                            "Just discovered this accessibility testing method that completely changed how I approach user research. Anyone else working on inclusive design?"
+                        </p>
+                        <div style="display: flex; gap: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+                            <span>💬 12 replies</span>
+                            <span>❤️ 24 likes</span>
+                            <span>🔖 Save</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="mentorship-panel" class="demo-panel" role="tabpanel">
+                <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Mentorship Dashboard</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">As a Mentor (JavaScript)</h4>
+                        <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <div style="font-weight: 600; color: var(--text-primary);">Alex R. • Junior Developer</div>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.5rem 0;">
+                                Needs help with async/await patterns
+                            </p>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <span class="btn" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Schedule Call</span>
+                                <span class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.8rem;">Send Resource</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 style="color: var(--text-primary); margin-bottom: 1rem;">As a Mentee (Product Strategy)</h4>
+                        <div style="background: var(--bg-secondary); padding: 1rem; border-radius: 8px;">
+                            <div style="font-weight: 600; color: var(--text-primary);">Sarah M. • Senior PM</div>
+                            <p style="color: var(--text-secondary); font-size: 0.9rem; margin: 0.5rem 0;">
+                                Next session: "Market Research Frameworks"
+                            </p>
+                            <p style="color: var(--text-secondary); font-size: 0.8rem;">Tomorrow at 3 PM</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Error Correction Demo -->
+    <section style="padding: 3rem 0; background: var(--bg-secondary);" aria-labelledby="error-correction-title">
+        <div style="max-width: 800px; margin: 0 auto; padding: 0 1rem; text-align: center;">
+            <h2 id="error-correction-title" style="margin-bottom: 1rem; color: var(--text-primary);">Smooth Error Recovery</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+                Made a mistake? No problem. We make it easy to fix common errors and find your way back on track.
+            </p>
+            
+            <div style="background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);">
+                <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                        <span>⚠️</span>
+                        <strong style="color: #92400e;">Oops! Wrong forum</strong>
+                    </div>
+                    <p style="color: #92400e; font-size: 0.9rem; margin: 0;">
+                        It looks like you posted a React question in the Python forum.
+                    </p>
+                </div>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center;">
+                    <button class="btn btn-primary">Move to React Forum</button>
+                    <button class="btn btn-outline">Edit Post</button>
+                    <button class="btn btn-outline">Keep Here</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section style="padding: 4rem 0; background: var(--primary-color); color: white; text-align: center;">
+        <div style="max-width: 800px; margin: 0 auto; padding: 0 1rem;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Ready to Bridge Your Skills?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">
+                Join thousands of professionals learning together. Start with a free account and discover 
+                how peer learning can accelerate your career growth.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn" style="background: white; color: var(--primary-color);">Start Learning Free</a>
+                <a href="#" class="btn btn-outline" style="border-color: white; color: white;">Schedule Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Privacy toggle functionality
+        function togglePrivacy(toggle) {
+            toggle.classList.toggle('active');
+            const isActive = toggle.classList.contains('active');
+            toggle.setAttribute('aria-checked', isActive);
+        }
+
+        // Demo tab functionality
+        function switchTab(index) {
+            // Update tab states
+            const tabs = document.querySelectorAll('.demo-tab');
+            const panels = document.querySelectorAll('.demo-panel');
+            
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                    tab.setAttribute('aria-selected', 'true');
+                } else {
+                    tab.classList.remove('active');
+                    tab.setAttribute('aria-selected', 'false');
+                }
+            });
+            
+            panels.forEach((panel, i) => {
+                if (i === index) {
+                    panel.classList.add('active');
+                } else {
+                    panel.classList.remove('active');
+                }
+            });
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add keyboard navigation for tabs
+        document.querySelectorAll('.demo-tab').forEach((tab, index) => {
+            tab.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    switchTab(index);
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Handle reduced motion preference
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.feature-card, .step').forEach(el => {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+                el.style.transition = 'none';
+            });
+        }
+
+        // Announce page changes for screen readers
+        function announceToScreenReader(message) {
+            const announcement = document.createElement('div');
+            announcement.setAttribute('aria-live', 'polite');
+            announcement.setAttribute('aria-atomic', 'true');
+            announcement.className = 'sr-only';
+            announcement.textContent = message;
+            document.body.appendChild(announcement);
+            
+            setTimeout(() => {
+                document.body.removeChild(announcement);
+            }, 1000);
+        }
+
+        // Announce tab changes
+        document.querySelectorAll('.demo-tab').forEach((tab, index) => {
+            tab.addEventListener('click', function() {
+                const tabNames = ['Structured Learning', 'Organic Discovery', 'Mentorship'];
+                announceToScreenReader(`Switched to ${tabNames[index]} tab`);
+            });
+        });
+    </script>
+</body>
+</html>

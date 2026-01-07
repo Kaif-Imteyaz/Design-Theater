@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelanceFlow - Premium Freelance Marketplace for Long-term Success</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fafafa;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        .header {
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: #2563eb;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #2563eb;
+            color: #2563eb;
+        }
+        
+        .btn-outline:hover {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8rem 0 4rem;
+            margin-top: 80px;
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .btn-white {
+            background: white;
+            color: #2563eb;
+        }
+        
+        .btn-white:hover {
+            background: #f8fafc;
+        }
+        
+        /* Trust Indicators */
+        .trust-section {
+            background: white;
+            padding: 3rem 0;
+        }
+        
+        .trust-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat {
+            padding: 1rem;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e293b;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: #2563eb;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .feature-card p {
+            color: #64748b;
+        }
+        
+        /* Project Lifecycle Section */
+        .lifecycle {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .lifecycle-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h3 {
+            margin-bottom: 0.5rem;
+            color: #1e293b;
+        }
+        
+        .step p {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            padding: 4rem 0;
+            background: #f8fafc;
+        }
+        
+        .dashboard-mockup {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-top: 2rem;
+        }
+        
+        .dashboard-header {
+            background: #1e293b;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .dashboard-content {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+        
+        .project-list {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .project-item {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+        
+        .status-badge {
+            padding: 0.2rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .status-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-review {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .sidebar {
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .metrics {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .metric {
+            background: white;
+            padding: 1rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .pricing-card {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+        }
+        
+        .pricing-card.featured {
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e293b;
+        }
+        
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin-bottom: 1rem;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .pricing-features li {
+            padding: 0.5rem 0;
+            color: #64748b;
+        }
+        
+        .pricing-features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #2563eb;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 1rem;
+            text-align: center;
+            color: #94a3b8;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .dashboard-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        /* Interactive Elements */
+        .tab-container {
+            margin-top: 2rem;
+        }
+        
+        .tab-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .tab-button {
+            padding: 0.8rem 1.5rem;
+            border: 2px solid #e2e8f0;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-button.active {
+            background: #2563eb;
+            color: white;
+            border-color: #2563eb;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeInUp 0.4s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .workflow-diagram {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #2563eb;
+        }
+        
+        .workflow-icon {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        
+        .workflow-details {
+            flex: 1;
+        }
+        
+        .workflow-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.25rem;
+        }
+        
+        .workflow-description {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">FreelanceFlow</div>
+                <ul class="nav-links">
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn btn-outline">Sign In</a>
+                    <a href="#" class="btn btn-primary">Get Started</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Premium Freelance Marketplace</h1>
+                <p>Connect with top talent for long-term success. From $500 logos to $50K enterprise projects, we ensure quality matches and successful outcomes.</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-white btn-large">Post a Project</a>
+                    <a href="#" class="btn btn-outline btn-large">Find Talent</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="trust-section">
+        <div class="container">
+            <div class="trust-stats">
+                <div class="stat">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Project Success Rate</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">$2.5M</div>
+                    <div class="stat-label">Paid to Freelancers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Fortune 500 Clients</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4.9/5</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Built for Success, Not Just Gigs</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Matching</h3>
+                    <p>AI-powered matching based on project requirements, budget, timeline, and freelancer expertise. No more sifting through hundreds of irrelevant proposals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Scope Protection</h3>
+                    <p>Built-in scope management tools prevent creep with clear deliverable definitions, milestone tracking, and change request workflows.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💰</div>
+                    <h3>Secure Payments</h3>
+                    <p>International payment processing with milestone-based releases, automatic invoicing, and multi-currency support for global teams.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Quality Assurance</h3>
+                    <p>Structured review processes, client approval workflows, and revision management ensure deliverables meet expectations.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Project Dashboard</h3>
+                    <p>Real-time project tracking, file sharing, time tracking, communication history, and progress visualization in one place.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Relationship Building</h3>
+                    <p>Foster long-term partnerships with performance tracking, preferred freelancer lists, and automated re-engagement for future projects.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Lifecycle -->
+    <section class="lifecycle" id="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Complete Project Lifecycle Management</h2>
+            
+            <div class="tab-container">
+                <div class="tab-buttons">
+                    <button class="tab-button active" onclick="showTab('client-flow')">Client Flow</button>
+                    <button class="tab-button" onclick="showTab('freelancer-flow')">Freelancer Flow</button>
+                    <button class="tab-button" onclick="showTab('collaboration')">Collaboration</button>
+                </div>
+                
+                <div id="client-flow" class="tab-content active">
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="workflow-icon">1</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Detailed Project Brief</div>
+                                <div class="workflow-description">Create comprehensive project specifications with budget, timeline, deliverables, and success criteria using our guided template system.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">2</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Smart Talent Matching</div>
+                                <div class="workflow-description">Our AI analyzes your requirements and presents 3-5 pre-qualified freelancers with relevant experience and availability.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">3</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Custom Proposals & Interviews</div>
+                                <div class="workflow-description">Review detailed proposals with project approach, timeline, and budget breakdown. Conduct video interviews to ensure perfect fit.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">4</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Contract & Milestone Setup</div>
+                                <div class="workflow-description">Finalize legal contracts with automated milestone creation, payment schedules, and deliverable specifications.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">5</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Project Execution & Monitoring</div>
+                                <div class="workflow-description">Track progress with real-time updates, file sharing, time tracking, and regular milestone reviews.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="freelancer-flow" class="tab-content">
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="workflow-icon">📝</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Profile & Portfolio Setup</div>
+                                <div class="workflow-description">Create comprehensive profile with skills verification, portfolio showcase, and client testimonials to stand out.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">🎯</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Opportunity Matching</div>
+                                <div class="workflow-description">Receive notifications for projects matching your skills and availability. No more competing with hundreds of bidders.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">💡</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Strategic Proposals</div>
+                                <div class="workflow-description">Submit detailed proposals with project approach, timeline breakdown, and pricing strategy using our proposal builder.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">💬</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Client Interviews</div>
+                                <div class="workflow-description">Engage in meaningful conversations about project vision, requirements, and collaboration style.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">🚀</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Project Delivery</div>
+                                <div class="workflow-description">Execute projects with built-in tools for time tracking, file management, client communication, and milestone delivery.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="collaboration" class="tab-content">
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">
+                            <div class="workflow-icon">💬</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Unified Communication</div>
+                                <div class="workflow-description">All project communication in one place with message history, file attachments, and automatic notifications.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">📁</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Secure File Sharing</div>
+                                <div class="workflow-description">Version-controlled file sharing with client approval workflows and automatic backup for all project assets.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">⏱️</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Time & Progress Tracking</div>
+                                <div class="workflow-description">Built-in time tracking with screenshot verification, progress reports, and milestone completion tracking.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">✅</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Review & Approval System</div>
+                                <div class="workflow-description">Structured review process with feedback collection, revision requests, and final approval workflows.</div>
+                            </div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="workflow-icon">🔒</div>
+                            <div class="workflow-details">
+                                <div class="workflow-title">Dispute Resolution</div>
+                                <div class="workflow-description">Mediation services with evidence collection, expert arbitration, and fair resolution for both parties.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview">
+        <div class="container">
+            <h2 class="section-title">Powerful Project Management Dashboard</h2>
+            <div class="dashboard-mockup">
+                <div class="dashboard-header">
+                    <div>📊</div>
+                    <div>FreelanceFlow Dashboard - Project Overview</div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="project-list">
+                        <h3>Active Projects</h3>
+                        <div class="project-item">
+                            <strong>E-commerce Website Redesign</strong>
+                            <div class="project-meta">
+                                <span>Budget: $15,000</span>
+                                <span class="status-badge status-active">In Progress</span>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <strong>Brand Identity Package</strong>
+                            <div class="project-meta">
+                                <span>Budget: $3,500</span>
+                                <span class="status-badge status-review">Client Review</span>
+                            </div>
+                        </div>
+                        <div class="project-item">
+                            <strong>Marketing Campaign Content</strong>
+                            <div class="project-meta">
+                                <span>Budget: $8,000</span>
+                                <span class="status-badge status-active">In Progress</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar">
+                        <h3>Quick Stats</h3>
+                        <div class="metrics">
+                            <div class="metric">
+                                <div class="metric-value">12</div>
+                                <div>Active Projects</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">$45K</div>
+                                <div>Monthly Volume</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">4.8</div>
+                                <div>Avg Rating</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">98%</div>
+                                <div>On-time Delivery</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Transparent Pricing for Every Scale</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">5% fee</div>
+                    <ul class="pricing-features">
+                        <li>Project management tools</li>
+                        <li>Basic file sharing</li>
+                        <li>Standard support</li>
+                        <li>Payment processing</li>
+                        <li>Contract templates</li>
+                    </ul>
+                    <button class="btn btn-primary">Get Started</button>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Professional</h3>
+                    <div class="price">3% fee</div>
+                    <ul class="pricing-features">
+                        <li>Advanced project tracking</li>
+                        <li>Priority support</li>
+                        <li>Custom workflows</li>
+                        <li>Team collaboration</li>
+                        <li>Advanced analytics</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <button class="btn btn-primary">Most Popular</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul class="pricing-features">
+                        <li>White-label solution</li>
+                        <li>API access</li>
+                        <li>Custom integrations</li>
+                        <li>SLA guarantees</li>
+                        <li>Compliance tools</li>
+                        <li>24/7 support</li>
+                    </ul>
+                    <button class="btn btn-primary">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FreelanceFlow</h3>
+                    <p>Building successful long-term relationships between businesses and freelance talent.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Platform</h3>
+                    <ul>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Find Talent</a></li>
+                        <li><a href="#">Post Projects</a></li>
+                        <li><a href="#">Success Stories</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FreelanceFlow. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab functionality
+        function showTab(tabId) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            const tabButtons = document.querySelectorAll('.tab-button');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabId).classList.add('active');
+            event.target.classList.add('active');
+        }
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .step, .workflow-step').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Dynamic stats counter (simulate growing numbers)
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const target = stat.textContent;
+                const isPercent = target.includes('%');
+                const isMoney = target.includes('$');
+                const isRating = target.includes('.');
+                
+                let current = 0;
+                let targetNum = parseFloat(target.replace(/[^0-9.]/g, ''));
+                
+                const increment = targetNum / 50;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= targetNum) {
+                        current = targetNum;
+                        clearInterval(timer);
+                    }
+                    
+                    let display = Math.floor(current);
+                    if (isRating) display = current.toFixed(1);
+                    if (isMoney) display = '$' + (display < 1000 ? display : (display/1000).toFixed(1) + 'M');
+                    if (isPercent) display += '%';
+                    if (target.includes('+')) display += '+';
+                    
+                    stat.textContent = display;
+                }, 50);
+            });
+        }
+        
+        // Start stats animation when section is visible
+        const statsSection = document.querySelector('.trust-section');
+        const statsObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        statsObserver.observe(statsSection);
+        
+        // Interactive dashboard demo
+        const projectItems = document.querySelectorAll('.project-item');
+        projectItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.style.backgroundColor = '#e0f2fe';
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                }, 1000);
+            });
+        });
+        
+        // Mobile menu toggle (for future implementation)
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.classList.toggle('mobile-active');
+        }
+        
+        // Form validation helpers (for future forms)
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+        
+        // Initialize tooltips (for interactive elements)
+        function addTooltips() {
+            const tooltipElements = document.querySelectorAll('[data-tooltip]');
+            tooltipElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    const tooltip = document.createElement('div');
+                    tooltip.className = 'tooltip';
+                    tooltip.textContent = this.getAttribute('data-tooltip');
+                    document.body.appendChild(tooltip);
+                    
+                    const rect = this.getBoundingClientRect();
+                    tooltip.style.left = rect.left + 'px';
+                    tooltip.style.top = (rect.top - tooltip.offsetHeight - 10) + 'px';
+                });
+                
+                element.addEventListener('mouseleave', function() {
+                    const tooltip = document.querySelector('.tooltip');
+                    if (tooltip) tooltip.remove();
+                });
+            });
+        }
+        
+        // Initialize all interactive features
+        document.addEventListener('DOMContentLoaded', function() {
+            addTooltips();
+            
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.feature-card, .pricing-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

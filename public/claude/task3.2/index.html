@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Find Your Perfect Tutor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s 0.2s both;
+        }
+
+        /* Search Section */
+        .search-section {
+            background: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .form-group select,
+        .form-group input {
+            padding: 0.8rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group select:focus,
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-search {
+            background: #667eea;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-search:hover {
+            background: #5a67d8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 4rem 0;
+            background: white;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: #333;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        /* Tutor Grid */
+        .tutors-section {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+
+        .tutors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tutor-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .tutor-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tutor-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .tutor-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .tutor-info h3 {
+            margin-bottom: 0.25rem;
+            color: #333;
+        }
+
+        .tutor-rating {
+            color: #ffd700;
+            margin-bottom: 0.25rem;
+        }
+
+        .tutor-subjects {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .subject-tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.85rem;
+        }
+
+        .tutor-rate {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 1rem 0;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideIn 0.3s;
+        }
+
+        .close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        /* Booking Steps */
+        .booking-steps {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            background: #e9ecef;
+            margin: 0 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .step.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+
+        /* Virtual Session Interface */
+        .session-interface {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 1rem;
+            margin: 2rem 0;
+            color: white;
+        }
+
+        .video-area {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-video {
+            background: #333;
+            border-radius: 10px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .participant-video {
+            background: #444;
+            border-radius: 10px;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .session-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .control-btn.mute {
+            background: #dc3545;
+            color: white;
+        }
+
+        .control-btn.video {
+            background: #28a745;
+            color: white;
+        }
+
+        .control-btn.screen {
+            background: #ffc107;
+            color: #333;
+        }
+
+        /* Progress Tracking */
+        .progress-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .progress-bar {
+            background: #e9ecef;
+            border-radius: 10px;
+            height: 20px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 100%;
+            transition: width 0.5s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .video-area {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Status Indicators */
+        .status-indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+        }
+
+        .status-online {
+            background: #28a745;
+        }
+
+        .status-busy {
+            background: #ffc107;
+        }
+
+        .status-offline {
+            background: #dc3545;
+        }
+
+        /* Dashboard for Tutors */
+        .dashboard-section {
+            display: none;
+            padding: 2rem 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="nav">
+                <div class="logo">EduConnect</div>
+                <ul class="nav-links">
+                    <li><a href="#" onclick="showSection('home')">Home</a></li>
+                    <li><a href="#" onclick="showSection('tutors')">Find Tutors</a></li>
+                    <li><a href="#" onclick="showTutorDashboard()">Tutor Dashboard</a></li>
+                    <li><a href="#" onclick="showSection('how-it-works')">How It Works</a></li>
+                </ul>
+                <div class="user-actions">
+                    <a href="#" class="btn btn-secondary" onclick="showModal('loginModal')">Login</a>
+                    <a href="#" class="btn btn-primary" onclick="showModal('signupModal')">Sign Up</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Find Your Perfect Tutor</h1>
+            <p>Connect with qualified tutors for SAT prep, math, science, and essay writing. Get the personalized help you need to succeed.</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+        <div class="container">
+            <form class="search-form" onsubmit="searchTutors(event)">
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select id="subject" name="subject">
+                        <option value="">All Subjects</option>
+                        <option value="sat-prep">SAT Prep</option>
+                        <option value="math">Mathematics</option>
+                        <option value="science">Science</option>
+                        <option value="english">English/Essay Writing</option>
+                        <option value="history">History</option>
+                        <option value="languages">Foreign Languages</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="budget">Budget (per hour)</label>
+                    <select id="budget" name="budget">
+                        <option value="">Any Budget</option>
+                        <option value="0-25">$0 - $25</option>
+                        <option value="25-50">$25 - $50</option>
+                        <option value="50-75">$50 - $75</option>
+                        <option value="75-100">$75 - $100</option>
+                        <option value="100+">$100+</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability" name="availability">
+                        <option value="">Anytime</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="weekend">Weekends</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-search">Search Tutors</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2>Why Choose EduConnect?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Qualified Tutors</h3>
+                    <p>All tutors are verified and have proven track records in their subjects</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💻</div>
+                    <h3>Virtual Sessions</h3>
+                    <p>Learn from anywhere with our integrated video conferencing and whiteboard tools</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Progress Tracking</h3>
+                    <p>Monitor your improvement with detailed analytics and personalized recommendations</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🕒</div>
+                    <h3>Flexible Scheduling</h3>
+                    <p>Book sessions that fit your schedule with easy rescheduling options</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3>Trial Sessions</h3>
+                    <p>Try a 30-minute session before committing to ongoing tutoring</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Secure Payments</h3>
+                    <p>Safe and easy payment processing with automatic billing for regular sessions</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutors Section -->
+    <section class="tutors-section" id="tutors">
+        <div class="container">
+            <h2>Featured Tutors</h2>
+            <div class="tutors-grid" id="tutorsGrid">
+                <!-- Tutors will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Tutor Dashboard -->
+    <section class="dashboard-section" id="tutorDashboard">
+        <div class="container">
+            <h2>Tutor Dashboard</h2>
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3>This Week's Sessions</h3>
+                    <div class="metric-value">12</div>
+                    <p>+3 from last week</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Earnings This Month</h3>
+                    <div class="metric-value">$1,240</div>
+                    <p>+15% from last month</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Student Rating</h3>
+                    <div class="metric-value">4.9</div>
+                    <p>⭐⭐⭐⭐⭐ (28 reviews)</p>
+                </div>
+                <div class="dashboard-card">
+                    <h3>Available Hours</h3>
+                    <div class="metric-value">25</div>
+                    <p>This week</p>
+                    <button class="btn btn-primary" onclick="updateAvailability()">Update Schedule</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('bookingModal')">&times;</span>
+            <h2>Book a Session</h2>
+            
+            <!-- Booking Steps -->
+            <div class="booking-steps">
+                <div class="step active" id="step1">
+                    <span>1</span> Session Type
+                </div>
+                <div class="step" id="step2">
+                    <span>2</span> Schedule
+                </div>
+                <div class="step" id="step3">
+                    <span>3</span> Payment
+                </div>
+                <div class="step" id="step4">
+                    <span>4</span> Confirmation
+                </div>
+            </div>
+
+            <div id="bookingContent">
+                <!-- Content will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Session Modal -->
+    <div id="sessionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('sessionModal')">&times;</span>
+            <h2>Virtual Session</h2>
+            
+            <div class="session-interface">
+                <div class="video-area">
+                    <div class="main-video">
+                        <span>📹 Tutor Video Feed</span>
+                    </div>
+                    <div>
+                        <div class="participant-video">
+                            <span>📱 Your Video</span>
+                        </div>
+                        <div class="participant-video" style="margin-top: 1rem;">
+                            <span>📋 Shared Whiteboard</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="session-controls">
+                    <button class="control-btn mute" onclick="toggleMute()" title="Mute/Unmute">🎤</button>
+                    <button class="control-btn video" onclick="toggleVideo()" title="Camera On/Off">📹</button>
+                    <button class="control-btn screen" onclick="shareScreen()" title="Share Screen">🖥️</button>
+                    <button class="control-btn" onclick="endSession()" style="background: #dc3545; color: white;" title="End Session">📞</button>
+                </div>
+            </div>
+
+            <div class="progress-section">
+                <h3>Session Progress</h3>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 65%"></div>
+                </div>
+                <p>Today's Topic: SAT Math - Quadratic Equations</p>
+                <p>Time Remaining: 23 minutes</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Login</h2>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div id="signupModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('signupModal')">&times;</span>
+            <h2>Sign Up</h2>
+            <form onsubmit="handleSignup(event)">
+                <div class="form-group">
+                    <label>I am a:</label>
+                    <select required onchange="toggleTutorFields(this.value)">
+                        <option value="">Select...</option>
+                        <option value="student">Student</option>
+                        <option value="tutor">Tutor</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+                <div id="tutorFields" style="display: none;">
+                    <div class="form-group">
+                        <label>Subjects You Teach</label>
+                        <input type="text" placeholder="e.g., SAT Prep, Calculus, Chemistry">
+                    </div>
+                    <div class="form-group">
+                        <label>Hourly Rate</label>
+                        <input type="number" placeholder="Enter rate in USD">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Sample tutor data
+        const tutors = [
+            {
+                id: 1,
+                name: "Sarah Chen",
+                avatar: "SC",
+                rating: 4.9,
+                reviews: 124,
+                subjects: ["SAT Prep", "Math", "ACT"],
+                rate: 65,
+                experience: "5 years",
+                description: "Specialized in standardized test prep with 95% score improvement rate",
+                availability: "morning",
+                status: "online"
+            },
+            {
+                id: 2,
+                name: "Marcus Johnson",
+                avatar: "MJ",
+                rating: 4.8,
+                reviews: 87,
+                subjects: ["Chemistry", "Biology", "Physics"],
+                rate: 55,
+                experience: "4 years",
+                description: "PhD in Chemistry, makes complex science concepts easy to understand",
+                availability: "evening",
+                status: "busy"
+            },
+            {
+                id: 3,
+                name: "Emily Rodriguez",
+                avatar: "ER",
+                rating: 5.0,
+                reviews: 156,
+                subjects: ["English", "Essay Writing", "Literature"],
+                rate: 50,
+                experience: "6 years",
+                description: "Former college admissions officer, expert in college application essays",
+                availability: "afternoon",
+                status: "online"
+            },
+            {
+                id: 4,
+                name: "David Kim",
+                avatar: "DK",
+                rating: 4.7,
+                reviews: 93,
+                subjects: ["Calculus", "Statistics", "Algebra"],
+                rate: 60,
+                experience: "3 years",
+                description: "MIT graduate, passionate about making math accessible and fun",
+                availability: "weekend",
+                status: "online"
+            }
+        ];
+
+        let currentBookingStep = 1;
+        let selectedTutor = null;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayTutors(tutors);
+        });
+
+        // Display tutors
+        function displayTutors(tutorList) {
+            const grid = document.getElementById('tutorsGrid');
+            grid.innerHTML = '';
+
+            tutorList.forEach(tutor => {
+                const card = document.createElement('div');
+                card.className = 'tutor-card';
+                card.onclick = () => openTutorProfile(tutor);
+                
+                card.innerHTML = `
+                    <div class="tutor-header">
+                        <div class="tutor-avatar">${tutor.avatar}</div>
+                        <div class="tutor-info">
+                            <h3>${tutor.name} <span class="status-indicator status-${tutor.status}"></span></h3>
+                            <div class="tutor-rating">
+                                ${'⭐'.repeat(Math.floor(tutor.rating))} ${tutor.rating} (${tutor.reviews} reviews)
+                            </div>
+                            <div>${tutor.experience} experience</div>
+                        </div>
+                    </div>
+                    <div class="tutor-subjects">
+                        ${tutor.subjects.map(subject => `<span class="subject-tag">${subject}</span>`).join('')}
+                    </div>
+                    <div class="tutor-rate">$${tutor.rate}/hour</div>
+                    <p>${tutor.description}</p>
+                    <button class="btn btn-primary" onclick="event.stopPropagation(); startBooking(${tutor.id})">Book Trial Session</button>
+                `;
+                
+                grid.appendChild(card);
+            });
+        }
+
+        // Search functionality
+        function searchTutors(event) {
+            event.preventDefault();
+            const subject = document.getElementById('subject').value;
+            const budget = document.getElementById('budget').value;
+            const availability = document.getElementById('availability').value;
+
+            let filtered = tutors.filter(tutor => {
+                let matches = true;
+                
+                if (subject && !tutor.subjects.some(s => s.toLowerCase().includes(subject.toLowerCase()))) {
+                    matches = false;
+                }
+                
+                if (budget) {
+                    const [min, max] = budget.split('-').map(b => parseInt(b.replace('+', '')));
+                    if (max && (tutor.rate < min || tutor.rate > max)) {
+                        matches = false;
+                    } else if (!max && tutor.rate < min) {
+                        matches = false;
+                    }
+                }
+                
+                if (availability && tutor.availability !== availability) {
+                    matches = false;
+                }
+                
+                return matches;
+            });
+
+            displayTutors(filtered);
+            document.getElementById('tutors').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Booking workflow
+        function startBooking(tutorId) {
+            selectedTutor = tutors.find(t => t.id === tutorId);
+            currentBookingStep = 1;
+            updateBookingModal();
+            showModal('bookingModal');
+        }
+
+        function updateBookingModal() {
+            const content = document.getElementById('bookingContent');
+            const steps = document.querySelectorAll('.step');
+            
+            // Update step indicators
+            steps.forEach((step, index) => {
+                step.className = 'step';
+                if (index + 1 < currentBookingStep) step.classList.add('completed');
+                if (index + 1 === currentBookingStep) step.classList.add('active');
+            });
+
+            // Update content based on current step
+            switch(currentBookingStep) {
+                case 1:
+                    content.innerHTML = `
+                        <h3>Choose Session Type</h3>
+                        <div style="display: grid; gap: 1rem; margin: 2rem 0;">
+                            <div class="tutor-card" onclick="selectSessionType('trial')" style="cursor: pointer;">
+                                <h4>Trial Session (30 min) - FREE</h4>
+                                <p>Get to know your tutor and assess the fit</p>
+                            </div>
+                            <div class="tutor-card" onclick="selectSessionType('standard')" style="cursor: pointer;">
+                                <h4>Standard Session (60 min) - $${selectedTutor.rate}</h4>
+                                <p>Regular tutoring session with full curriculum coverage</p>
+                            </div>
+                            <div class="tutor-card" onclick="selectSessionType('intensive')" style="cursor: pointer;">
+                                <h4>Intensive Session (120 min) - $${selectedTutor.rate * 2}</h4>
+                                <p>Deep dive session for exam preparation or difficult topics</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 2:
+                    content.innerHTML = `
+                        <h3>Select Date & Time</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0;">
+                            <div>
+                                <label>Date</label>
+                                <input type="date" id="sessionDate" min="${new Date().toISOString().split('T')[0]}" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px;">
+                            </div>
+                            <div>
+                                <label>Time</label>
+                                <select id="sessionTime" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px;">
+                                    <option>9:00 AM</option>
+                                    <option>10:00 AM</option>
+                                    <option>11:00 AM</option>
+                                    <option>2:00 PM</option>
+                                    <option>3:00 PM</option>
+                                    <option>4:00 PM</option>
+                                    <option>7:00 PM</option>
+                                    <option>8:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="margin: 2rem 0;">
+                            <label>Session Goals (Optional)</label>
+                            <textarea placeholder="What would you like to focus on in this session?" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px; height: 100px; resize: vertical;"></textarea>
+                        </div>
+                        <button class="btn btn-primary" onclick="nextBookingStep()">Continue to Payment</button>
+                    `;
+                    break;
+                case 3:
+                    content.innerHTML = `
+                        <h3>Payment Information</h3>
+                        <div style="margin: 2rem 0;">
+                            <div class="tutor-card">
+                                <h4>Session Summary</h4>
+                                <p><strong>Tutor:</strong> ${selectedTutor.name}</p>
+                                <p><strong>Type:</strong> Standard Session (60 min)</p>
+                                <p><strong>Date:</strong> Today at 3:00 PM</p>
+                                <p><strong>Cost:</strong> $${selectedTutor.rate}</p>
+                            </div>
+                        </div>
+                        <div style="display: grid; gap: 1rem;">
+                            <div>
+                                <label>Card Number</label>
+                                <input type="text" placeholder="1234 5678 9012 3456" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px;">
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div>
+                                    <label>Expiry Date</label>
+                                    <input type="text" placeholder="MM/YY" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px;">
+                                </div>
+                                <div>
+                                    <label>CVV</label>
+                                    <input type="text" placeholder="123" style="width: 100%; padding: 0.8rem; border: 2px solid #e1e5e9; border-radius: 8px;">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="nextBookingStep()" style="margin-top: 2rem;">Complete Booking</button>
+                    `;
+                    break;
+                case 4:
+                    content.innerHTML = `
+                        <div style="text-align: center; margin: 2rem 0;">
+                            <div style="font-size: 4rem; color: #28a745; margin-bottom: 1rem;">✅</div>
+                            <h3>Booking Confirmed!</h3>
+                            <p>Your session with ${selectedTutor.name} has been booked for today at 3:00 PM.</p>
+                            <div class="tutor-card" style="margin: 2rem 0;">
+                                <h4>What's Next?</h4>
+                                <p>• You'll receive an email with session details and virtual meeting link</p>
+                                <p>• Your tutor will send prep materials 24 hours before the session</p>
+                                <p>• Join the session 5 minutes early to test your connection</p>
+                            </div>
+                            <button class="btn btn-primary" onclick="closeModal('bookingModal')">Done</button>
+                            <button class="btn btn-secondary" onclick="showModal('sessionModal')" style="margin-left: 1rem;">Preview Session Interface</button>
+                        </div>
+                    `;
+                    break;
+            }
+        }
+
+        function selectSessionType(type) {
+            currentBookingStep = 2;
+            updateBookingModal();
+        }
+
+        function nextBookingStep() {
+            currentBookingStep++;
+            updateBookingModal();
+        }
+
+        function openTutorProfile(tutor) {
+            selectedTutor = tutor;
+            // Implementation for detailed tutor profile modal
+            alert(`Opening profile for ${tutor.name}. This would show detailed information, reviews, and scheduling options.`);
+        }
+
+        // Modal functions
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Section navigation
+        function showSection(sectionName) {
+            // Hide all main sections
+            document.getElementById('tutorDashboard').style.display = 'none';
+            
+            // Show requested section
+            if (sectionName === 'tutors') {
+                document.getElementById('tutors').scrollIntoView({ behavior: 'smooth' });
+            } else if (sectionName === 'home') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        function showTutorDashboard() {
+            document.getElementById('tutorDashboard').style.display = 'block';
+            document.getElementById('tutorDashboard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Session controls
+        function toggleMute() {
+            alert('Microphone toggled');
+        }
+
+        function toggleVideo() {
+            alert('Camera toggled');
+        }
+
+        function shareScreen() {
+            alert('Screen sharing started');
+        }
+
+        function endSession() {
+            if (confirm('Are you sure you want to end the session?')) {
+                closeModal('sessionModal');
+                alert('Session ended. Please rate your experience!');
+            }
+        }
+
+        // Form handlers
+        function handleLogin(event) {
+            event.preventDefault();
+            alert('Login functionality would be implemented here');
+            closeModal('loginModal');
+        }
+
+        function handleSignup(event) {
+            event.preventDefault();
+            alert('Signup functionality would be implemented here');
+            closeModal('signupModal');
+        }
+
+        function toggleTutorFields(userType) {
+            const tutorFields = document.getElementById('tutorFields');
+            tutorFields.style.display = userType === 'tutor' ? 'block' : 'none';
+        }
+
+        function updateAvailability() {
+            alert('Availability update interface would open here');
+        }
+
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLocal - Discover Local Artisans & Authentic Goods</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --accent-gold: #d4a574;
+            --warm-white: #fefcf8;
+            --soft-gray: #f5f5f3;
+            --text-dark: #2c2c2c;
+            --text-medium: #666;
+            --border-light: #e0e0e0;
+            --success-green: #4a7c3a;
+            --trust-blue: #4a90a4;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--warm-white);
+        }
+
+        /* Accessibility and Focus Management */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--primary-green);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        .skip-link:focus {
+            top: 6px;
+        }
+
+        /* Header with Multi-User Navigation */
+        .header {
+            background-color: var(--warm-white);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo::before {
+            content: "🏪";
+            font-size: 1.5rem;
+        }
+
+        .search-bar {
+            flex: 1;
+            max-width: 400px;
+            margin: 0 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 25px;
+            font-size: 1rem;
+            background-color: white;
+            transition: border-color 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(45, 80, 22, 0.1);
+        }
+
+        .user-nav {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-btn.primary {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .nav-btn.secondary {
+            background-color: transparent;
+            color: var(--primary-green);
+            border: 1px solid var(--primary-green);
+        }
+
+        .nav-btn.seller {
+            background-color: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        .nav-btn:hover, .nav-btn:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--primary-green);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--soft-gray) 0%, var(--warm-white) 100%);
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+            font-weight: normal;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* User Type Selector */
+        .user-selector {
+            background-color: white;
+            padding: 2rem;
+            margin: -2rem auto 4rem;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .selector-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-green);
+            font-size: 1.3rem;
+        }
+
+        .user-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .user-type-card {
+            background-color: var(--soft-gray);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .user-type-card:hover, .user-type-card:focus {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            border-color: var(--primary-green);
+        }
+
+        .user-type-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .user-type-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .user-type-desc {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Product Discovery Section */
+        .discovery-section {
+            padding: 4rem 1rem;
+            background-color: white;
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-medium);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Category Grid */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-card {
+            background-color: var(--soft-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .category-image {
+            height: 180px;
+            background: linear-gradient(45deg, var(--accent-gold), var(--primary-green));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .category-content {
+            padding: 1.5rem;
+        }
+
+        .category-title {
+            font-size: 1.3rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .category-count {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Trust Signals */
+        .trust-section {
+            background-color: var(--soft-gray);
+            padding: 3rem 1rem;
+        }
+
+        .trust-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .trust-item {
+            text-align: center;
+            color: var(--text-dark);
+        }
+
+        .trust-icon {
+            font-size: 3rem;
+            color: var(--trust-blue);
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .trust-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-desc {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        /* Seller Spotlight */
+        .seller-spotlight {
+            padding: 4rem 1rem;
+            background-color: white;
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .seller-card {
+            background-color: var(--soft-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .seller-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .seller-header {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-green), var(--accent-gold));
+            color: white;
+            text-align: center;
+        }
+
+        .seller-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .seller-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .seller-specialty {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .seller-content {
+            padding: 1.5rem;
+        }
+
+        .seller-description {
+            color: var(--text-medium);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .seller-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .seller-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--accent-gold);
+        }
+
+        .seller-products {
+            color: var(--text-medium);
+            font-size: 0.8rem;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 3rem 1rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+
+        .footer-links a:hover, .footer-links a:focus {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 2rem;
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .search-bar {
+                order: 3;
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .user-nav {
+                order: 2;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                order: 1;
+                align-self: flex-end;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .user-selector {
+                margin: -1rem auto 2rem;
+                padding: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .trust-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .spotlight-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .trust-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .user-types {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Interactive States and Animations */
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-green), var(--success-green));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .cta-button:hover, .cta-button:focus {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(45, 80, 22, 0.3);
+        }
+
+        /* Loading states */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Accessibility improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header with Multi-User Navigation -->
+    <header class="header" role="banner">
+        <div class="nav-container">
+            <a href="#" class="logo" aria-label="ShopLocal Homepage">ShopLocal</a>
+            
+            <div class="search-bar">
+                <label for="main-search" class="sr-only">Search products and artisans</label>
+                <input 
+                    type="search" 
+                    id="main-search"
+                    class="search-input" 
+                    placeholder="Search handmade goods, vintage finds..."
+                    aria-describedby="search-help"
+                >
+                <div id="search-help" class="sr-only">Search across 300+ local artisans and their products</div>
+            </div>
+            
+            <nav class="user-nav" role="navigation" aria-label="User navigation">
+                <a href="#" class="nav-btn secondary" aria-label="Sign in to your account">
+                    👤 Sign In
+                </a>
+                <a href="#" class="nav-btn primary" aria-label="Browse products as customer">
+                    🛒 Shop
+                </a>
+                <a href="#" class="nav-btn seller" aria-label="Seller portal">
+                    🎨 Sell
+                </a>
+                <button class="mobile-menu-toggle" aria-label="Toggle mobile menu" aria-expanded="false">
+                    ☰
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-container">
+                <h1 id="hero-title">Discover Authentic Local Craftsmanship</h1>
+                <p class="hero-subtitle">
+                    Connect with talented artisans in your region. From handmade pottery to vintage treasures, 
+                    find unique pieces that tell a story.
+                </p>
+                
+                <div class="hero-stats" role="region" aria-label="Platform statistics">
+                    <div class="stat">
+                        <span class="stat-number">300+</span>
+                        <span class="stat-label">Local Artisans</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15,000+</span>
+                        <span class="stat-label">Unique Products</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">98%</span>
+                        <span class="stat-label">Happy Customers</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Type Selector -->
+        <section class="user-selector" aria-labelledby="user-selector-title">
+            <h2 id="user-selector-title" class="selector-title">How would you like to use ShopLocal?</h2>
+            <div class="user-types">
+                <div class="user-type-card" tabindex="0" role="button" aria-label="I want to shop for products">
+                    <span class="user-type-icon">🛍️</span>
+                    <h3 class="user-type-title">I want to shop</h3>
+                    <p class="user-type-desc">Browse unique products from local artisans</p>
+                </div>
+                <div class="user-type-card" tabindex="0" role="button" aria-label="I want to sell my products">
+                    <span class="user-type-icon">🎨</span>
+                    <h3 class="user-type-title">I want to sell</h3>
+                    <p class="user-type-desc">Share your crafts with the community</p>
+                </div>
+                <div class="user-type-card" tabindex="0" role="button" aria-label="I'm an administrator">
+                    <span class="user-type-icon">⚙️</span>
+                    <h3 class="user-type-title">Administrator</h3>
+                    <p class="user-type-desc">Manage platform operations</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Discovery Section -->
+        <section class="discovery-section" aria-labelledby="discovery-title">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 id="discovery-title" class="section-title">Discover by Category</h2>
+                    <p class="section-subtitle">
+                        Explore curated collections from our talented community of makers
+                    </p>
+                </div>
+                
+                <div class="category-grid">
+                    <div class="category-card" tabindex="0" role="button" aria-label="View pottery and ceramics">
+                        <div class="category-image">🏺</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Pottery & Ceramics</h3>
+                            <p class="category-count">45 artisans • 680 products</p>
+                        </div>
+                    </div>
+                    <div class="category-card" tabindex="0" role="button" aria-label="View textiles and fiber arts">
+                        <div class="category-image">🧶</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Textiles & Fiber</h3>
+                            <p class="category-count">62 artisans • 920 products</p>
+                        </div>
+                    </div>
+                    <div class="category-card" tabindex="0" role="button" aria-label="View jewelry and accessories">
+                        <div class="category-image">💍</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Jewelry & Accessories</h3>
+                            <p class="category-count">38 artisans • 540 products</p>
+                        </div>
+                    </div>
+                    <div class="category-card" tabindex="0" role="button" aria-label="View home and garden items">
+                        <div class="category-image">🏡</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Home & Garden</h3>
+                            <p class="category-count">55 artisans • 780 products</p>
+                        </div>
+                    </div>
+                    <div class="category-card" tabindex="0" role="button" aria-label="View vintage and antiques">
+                        <div class="category-image">📻</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Vintage & Antiques</h3>
+                            <p class="category-count">28 artisans • 420 products</p>
+                        </div>
+                    </div>
+                    <div class="category-card" tabindex="0" role="button" aria-label="View local food and produce">
+                        <div class="category-image">🌽</div>
+                        <div class="category-content">
+                            <h3 class="category-title">Local Food & Produce</h3>
+                            <p class="category-count">35 artisans • 650 products</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Signals -->
+        <section class="trust-section" aria-labelledby="trust-title">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 id="trust-title" class="section-title">Why Choose ShopLocal?</h2>
+                </div>
+                
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <span class="trust-icon">🛡️</span>
+                        <h3 class="trust-title">Verified Artisans</h3>
+                        <p class="trust-desc">Every seller is personally vetted and their work quality assured</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🚚</span>
+                        <h3 class="trust-title">Local Delivery</h3>
+                        <p class="trust-desc">Same-day delivery available within 25 miles</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">💬</span>
+                        <h3 class="trust-title">Direct Communication</h3>
+                        <p class="trust-desc">Chat directly with makers about custom orders</p>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">♻️</span>
+                        <h3 class="trust-title">Sustainable Choice</h3>
+                        <p class="trust-desc">Support local economy and reduce environmental impact</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seller Spotlight -->
+        <section class="seller-spotlight" aria-labelledby="spotlight-title">
+            <div class="section-container">
+                <div class="section-header">
+                    <h2 id="spotlight-title" class="section-title">Featured Artisans</h2>
+                    <p class="section-subtitle">Meet some of our talented community members</p>
+                </div>
+                
+                <div class="spotlight-grid">
+                    <article class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">🎨</div>
+                            <h3 class="seller-name">Maria's Pottery Studio</h3>
+                            <p class="seller-specialty">Handmade Ceramics</p>
+                        </div>
+                        <div class="seller-content">
+                            <p class="seller-description">
+                                Creating beautiful, functional pottery for over 15 years. Each piece is wheel-thrown and fired in my backyard kiln.
+                            </p>
+                            <div class="seller-stats">
+                                <div class="seller-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span>(127 reviews)</span>
+                                </div>
+                                <div class="seller-products">45 products</div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">🧶</div>
+                            <h3 class="seller-name">Heritage Textiles</h3>
+                            <p class="seller-specialty">Vintage & Upcycled Clothing</p>
+                        </div>
+                        <div class="seller-content">
+                            <p class="seller-description">
+                                Specializing in restored vintage pieces and sustainable fashion. Each item has a story to tell.
+                            </p>
+                            <div class="seller-stats">
+                                <div class="seller-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span>(89 reviews)</span>
+                                </div>
+                                <div class="seller-products">67 products</div>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="seller-card">
+                        <div class="seller-header">
+                            <div class="seller-avatar">🌱</div>
+                            <h3 class="seller-name">Green Valley Farm</h3>
+                            <p class="seller-specialty">Organic Produce & Preserves</p>
+                        </div>
+                        <div class="seller-content">
+                            <p class="seller-description">
+                                Family-owned farm providing fresh, seasonal produce and artisanal preserves made from our harvest.
+                            </p>
+                            <div class="seller-stats">
+                                <div class="seller-rating">
+                                    <span>⭐⭐⭐⭐⭐</span>
+                                    <span>(203 reviews)</span>
+                                </div>
+                                <div class="seller-products">32 products</div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <a href="#" class="cta-button">Meet All Our Artisans</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>For Customers</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Browse Products</a></li>
+                        <li><a href="#">Track Orders</a></li>
+                        <li><a href="#">Customer Support</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>For Sellers</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Seller Dashboard</a></li>
+                        <li><a href="#">Apply to Sell</a></li>
+                        <li><a href="#">Seller Resources</a></li>
+                        <li><a href="#">Shipping Tools</a></li>
+                        <li><a href="#">Fee Structure</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Local Events</a></li>
+                        <li><a href="#">Artisan Stories</a></li>
+                        <li><a href="#">Workshops</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Social Media</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Our Mission</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShopLocal. Supporting local artisans and authentic craftsmanship.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced accessibility and interaction management
+        document.addEventListener('DOMContentLoaded', function() {
+            // Search functionality with debouncing
+            const searchInput = document.getElementById('main-search');
+            let searchTimeout;
+            
+            searchInput.addEventListener('input', function() {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    // Simulate search suggestions
+                    console.log('Searching for:', this.value);
+                }, 300);
+            });
+
+            // User type selection handling
+            const userTypeCards = document.querySelectorAll('.user-type-card');
+            userTypeCards.forEach(card => {
+                card.addEventListener('click', handleUserTypeSelection);
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleUserTypeSelection.call(this);
+                    }
+                });
+            });
+
+            function handleUserTypeSelection() {
+                // Remove previous selections
+                userTypeCards.forEach(c => c.style.borderColor = 'transparent');
+                
+                // Highlight selected card
+                this.style.borderColor = 'var(--primary-green)';
+                
+                // Simulate navigation based on user type
+                const userType = this.querySelector('.user-type-title').textContent;
+                console.log('User selected:', userType);
+                
+                // Show appropriate interface elements
+                setTimeout(() => {
+                    if (userType.includes('shop')) {
+                        alert('Redirecting to customer shopping interface...');
+                    } else if (userType.includes('sell')) {
+                        alert('Redirecting to seller dashboard...');
+                    } else if (userType.includes('Admin')) {
+                        alert('Redirecting to admin panel...');
+                    }
+                }, 500);
+            }
+
+            // Category navigation
+            const categoryCards = document.querySelectorAll('.category-card');
+            categoryCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const category = this.querySelector('.category-title').textContent;
+                    console.log('Navigating to category:', category);
+                    // Simulate category page navigation
+                });
+                
+                card.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        this.click();
+                    }
+                });
+            });
+
+            // Mobile menu functionality
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const userNav = document.querySelector('.user-nav');
+            
+            mobileMenuToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                userNav.style.display = isExpanded ? 'flex' : 'none';
+            });
+
+            // Responsive behavior
+            function handleResponsiveChanges() {
+                const isMobile = window.innerWidth <= 768;
+                if (!isMobile) {
+                    userNav.style.display = 'flex';
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }
+            }
+            
+            window.addEventListener('resize', handleResponsiveChanges);
+
+            // Loading states for form submissions
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    this.classList.add('loading');
+                    
+                    // Simulate processing
+                    setTimeout(() => {
+                        this.classList.remove('loading');
+                    }, 2000);
+                });
+            });
+
+            // Enhanced keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                // Handle escape key to close modals/menus
+                if (e.key === 'Escape') {
+                    const expandedMenu = document.querySelector('[aria-expanded="true"]');
+                    if (expandedMenu) {
+                        expandedMenu.click();
+                    }
+                }
+            });
+
+            // Simulate real-time updates for sellers
+            function simulateRealTimeUpdates() {
+                // This would normally connect to WebSocket or polling for real updates
+                setInterval(() => {
+                    // Update product counts, new orders, etc.
+                    console.log('Checking for updates...');
+                }, 30000);
+            }
+
+            // Initialize real-time features
+            simulateRealTimeUpdates();
+
+            // Error handling and user feedback
+            window.addEventListener('error', function(e) {
+                console.error('Application error:', e.error);
+                // Show user-friendly error message
+                const errorDiv = document.createElement('div');
+                errorDiv.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    background: #f44336;
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 5px;
+                    z-index: 1000;
+                `;
+                errorDiv.textContent = 'Something went wrong. Please try again.';
+                document.body.appendChild(errorDiv);
+                
+                setTimeout(() => {
+                    document.body.removeChild(errorDiv);
+                }, 5000);
+            });
+
+            // Analytics simulation (GDPR compliant)
+            function trackUserInteraction(action, element) {
+                console.log('Analytics:', { action, element: element.tagName, timestamp: new Date() });
+            }
+
+            // Track major interactions
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('.cta-button, .nav-btn, .category-card, .user-type-card')) {
+                    trackUserInteraction('click', e.target);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

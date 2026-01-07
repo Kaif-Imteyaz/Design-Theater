@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Verde — Conscious Luxury</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background-color: #fafaf9;
+        }
+
+        /* Typography Hierarchy */
+        .serif-display {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .sans-body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.01em;
+        }
+
+        .sans-caps {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(250, 250, 249, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(44, 44, 44, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 0.1em;
+            color: #2c2c2c;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #6a8c69;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #f8f8f7 0%, #f0f2f0 100%);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 40px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 120px);
+            margin-bottom: 30px;
+            line-height: 0.9;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: #6a8c69;
+            margin-bottom: 15px;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 18px 40px;
+            background: #2c2c2c;
+            color: white;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: #6a8c69;
+            transform: translateY(-2px);
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.03;
+            pointer-events: none;
+            animation: float 20s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 60%;
+            right: 15%;
+            animation-delay: -7s;
+        }
+
+        .floating-element:nth-child(3) {
+            top: 80%;
+            left: 20%;
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+            100% { transform: translateY(0px) rotate(360deg); }
+        }
+
+        /* Values Section */
+        .values-section {
+            padding: 120px 5% 100px;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .values-content h2 {
+            font-size: clamp(36px, 5vw, 60px);
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        .values-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .value-item {
+            border-left: 2px solid #6a8c69;
+            padding-left: 30px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+
+        .value-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .value-item h3 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #6a8c69;
+        }
+
+        .value-item p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #5a5a5a;
+        }
+
+        .values-visual {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(45deg, #e8ede8 0%, #d4ddd4 100%);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .ocean-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(106, 140, 105, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(106, 140, 105, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(106, 140, 105, 0.06) 0%, transparent 50%);
+            animation: wave 15s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.02); }
+        }
+
+        /* Product Showcase */
+        .product-showcase {
+            background: #2c2c2c;
+            color: white;
+            padding: 120px 5%;
+        }
+
+        .showcase-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .showcase-header {
+            margin-bottom: 80px;
+        }
+
+        .showcase-header h2 {
+            font-size: clamp(36px, 5vw, 60px);
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .showcase-subtitle {
+            font-size: 14px;
+            color: #a0a0a0;
+            margin-bottom: 20px;
+        }
+
+        .showcase-description {
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 700px;
+            margin: 0 auto;
+            color: #d0d0d0;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 60px;
+            margin-top: 80px;
+        }
+
+        .product-card {
+            text-align: left;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #6a8c69 0%, #5a7a59 100%);
+            margin-bottom: 25px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 0%, 
+                transparent 30%, 
+                transparent 70%, 
+                rgba(255,255,255,0.05) 100%);
+        }
+
+        .product-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .product-material {
+            font-size: 12px;
+            color: #6a8c69;
+            margin-bottom: 8px;
+        }
+
+        .product-price {
+            font-size: 16px;
+            color: #d0d0d0;
+        }
+
+        /* Environmental Impact */
+        .impact-section {
+            padding: 120px 5%;
+            background: #f8f8f7;
+        }
+
+        .impact-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .impact-header h2 {
+            font-size: clamp(36px, 5vw, 60px);
+            margin-bottom: 40px;
+            line-height: 1.1;
+        }
+
+        .impact-intro {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 60px;
+            color: #5a5a5a;
+        }
+
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-top: 80px;
+        }
+
+        .stat-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .stat-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 300;
+            color: #6a8c69;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #2c2c2c;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c2c2c;
+            color: white;
+            padding: 80px 5% 40px;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-brand h3 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .footer-brand p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h4 {
+            font-size: 12px;
+            margin-bottom: 20px;
+            color: #6a8c69;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #d0d0d0;
+            text-decoration: none;
+            font-size: 13px;
+            margin-bottom: 12px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-column a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #404040;
+            text-align: center;
+            font-size: 12px;
+            color: #808080;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .values-section {
+                grid-template-columns: 1fr;
+                gap: 60px;
+                padding: 80px 5% 60px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .impact-stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">LUXE VERDE</a>
+            <ul class="nav-links">
+                <li><a href="#collections" class="sans-caps">Collections</a></li>
+                <li><a href="#craft" class="sans-caps">Our Craft</a></li>
+                <li><a href="#impact" class="sans-caps">Impact</a></li>
+                <li><a href="#about" class="sans-caps">About</a></li>
+                <li><a href="#contact" class="sans-caps">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="floating-element">
+            <svg width="60" height="60" viewBox="0 0 60 60" fill="currentColor">
+                <path d="M30 10 L50 50 L10 50 Z" />
+            </svg>
+        </div>
+        <div class="floating-element">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="currentColor">
+                <circle cx="20" cy="20" r="18" />
+            </svg>
+        </div>
+        <div class="floating-element">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="currentColor">
+                <rect x="10" y="10" width="30" height="30" rx="5" />
+            </svg>
+        </div>
+
+        <div class="hero-content">
+            <p class="hero-subtitle sans-caps">Conscious Luxury</p>
+            <h1 class="serif-display">Elegance<br>Redefined</h1>
+            <p class="hero-description sans-body">
+                Where sophisticated design meets environmental responsibility. 
+                Our collections transform ocean plastic into timeless pieces 
+                that honor both your values and your style.
+            </p>
+            <a href="#collections" class="cta-button sans-caps">Explore Collections</a>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="values-content">
+            <h2 class="serif-display">Our Philosophy</h2>
+            <div class="values-list">
+                <div class="value-item fade-in">
+                    <h3 class="sans-caps">Considered Design</h3>
+                    <p class="sans-body">Every piece is meticulously crafted to transcend seasons and trends, creating garments that become more beautiful with time.</p>
+                </div>
+                <div class="value-item fade-in">
+                    <h3 class="sans-caps">Ocean Renewal</h3>
+                    <p class="sans-body">We partner with coastal communities to transform ocean plastic into luxurious fibers, creating beauty from what was once waste.</p>
+                </div>
+                <div class="value-item fade-in">
+                    <h3 class="sans-caps">Transparent Craft</h3>
+                    <p class="sans-body">From fiber to finished garment, we maintain complete transparency in our supply chain and production processes.</p>
+                </div>
+                <div class="value-item fade-in">
+                    <h3 class="sans-caps">Regenerative Future</h3>
+                    <p class="sans-body">Our practices don't just minimize harm—they actively restore and regenerate the environments we touch.</p>
+                </div>
+            </div>
+        </div>
+        <div class="values-visual">
+            <div class="ocean-pattern"></div>
+        </div>
+    </section>
+
+    <section class="product-showcase">
+        <div class="showcase-container">
+            <div class="showcase-header">
+                <p class="showcase-subtitle sans-caps">Current Collection</p>
+                <h2 class="serif-display">Ocean Series</h2>
+                <p class="showcase-description sans-body">
+                    Inspired by the fluid movements of water and the resilience of marine life, 
+                    this collection transforms reclaimed ocean plastic into architectural silhouettes 
+                    that move with modern life.
+                </p>
+            </div>
+
+            <div class="product-grid">
+                <div class="product-card fade-in">
+                    <div class="product-image"></div>
+                    <h3 class="product-title serif-display">Cascade Coat</h3>
+                    <p class="product-material sans-caps">Reclaimed Ocean Plastic & Organic Cotton</p>
+                    <p class="product-price sans-body">$785</p>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-image"></div>
+                    <h3 class="product-title serif-display">Current Dress</h3>
+                    <p class="product-material sans-caps">Ocean Fiber Blend</p>
+                    <p class="product-price sans-body">$465</p>
+                </div>
+                <div class="product-card fade-in">
+                    <div class="product-image"></div>
+                    <h3 class="product-title serif-display">Reef Blazer</h3>
+                    <p class="product-material sans-caps">Recycled Ocean Plastic & Hemp</p>
+                    <p class="product-price sans-body">$625</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="impact-section">
+        <div class="impact-container">
+            <h2 class="serif-display fade-in">Impact by Design</h2>
+            <p class="impact-intro sans-body fade-in">
+                Our commitment extends beyond creating beautiful garments. Each piece represents 
+                our dedication to regenerating the oceans and supporting communities that depend on them.
+            </p>
+
+            <div class="impact-stats">
+                <div class="stat-item">
+                    <span class="stat-number serif-display">2.4M</span>
+                    <p class="stat-label sans-caps">Plastic Bottles Reclaimed</p>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number serif-display">45</span>
+                    <p class="stat-label sans-caps">Coastal Communities Supported</p>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number serif-display">850</span>
+                    <p class="stat-label sans-caps">Kilograms Ocean Plastic Removed</p>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number serif-display">100%</span>
+                    <p class="stat-label sans-caps">Carbon Neutral Operations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3 class="serif-display">Luxe Verde</h3>
+                <p class="sans-body">
+                    Redefining luxury through conscious design and environmental stewardship. 
+                    Creating tomorrow's heirlooms from today's challenges.
+                </p>
+                <p class="sans-caps">Subscribe to our newsletter for exclusive collections and impact updates.</p>
+            </div>
+            <div class="footer-column">
+                <h4 class="sans-caps">Collections</h4>
+                <a href="#" class="sans-body">Ocean Series</a>
+                <a href="#" class="sans-body">Coastal Classics</a>
+                <a href="#" class="sans-body">Seasonal Capsules</a>
+                <a href="#" class="sans-body">Limited Editions</a>
+            </div>
+            <div class="footer-column">
+                <h4 class="sans-caps">Company</h4>
+                <a href="#" class="sans-body">Our Story</a>
+                <a href="#" class="sans-body">Sustainability</a>
+                <a href="#" class="sans-body">Transparency</a>
+                <a href="#" class="sans-body">Careers</a>
+            </div>
+            <div class="footer-column">
+                <h4 class="sans-caps">Support</h4>
+                <a href="#" class="sans-body">Size Guide</a>
+                <a href="#" class="sans-body">Care Instructions</a>
+                <a href="#" class="sans-body">Returns</a>
+                <a href="#" class="sans-body">Contact</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="sans-body">© 2025 Luxe Verde. All rights reserved. Designed for conscious luxury.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe fade-in elements
+        document.querySelectorAll('.fade-in, .value-item, .stat-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add parallax effect to hero floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallax = scrolled * 0.5;
+            
+            document.querySelectorAll('.floating-element').forEach((element, index) => {
+                element.style.transform = `translateY(${parallax * (index + 1) * 0.1}px) rotate(${scrolled * 0.05}deg)`;
+            });
+        });
+
+        // Counter animation for impact stats
+        const animateCounters = () => {
+            document.querySelectorAll('.stat-number').forEach(counter => {
+                const target = counter.textContent;
+                const numericTarget = parseFloat(target.replace(/[^0-9.]/g, ''));
+                const suffix = target.replace(/[0-9.]/g, '');
+                
+                if (!counter.classList.contains('animated')) {
+                    counter.classList.add('animated');
+                    let current = 0;
+                    const increment = numericTarget / 50;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= numericTarget) {
+                            current = numericTarget;
+                            clearInterval(timer);
+                        }
+                        counter.textContent = Math.floor(current) + suffix;
+                    }, 50);
+                }
+            });
+        };
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        const statsSection = document.querySelector('.impact-stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+    </script>
+</body>
+</html>
