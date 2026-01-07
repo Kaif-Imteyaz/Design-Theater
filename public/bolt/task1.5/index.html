@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Health System - Comprehensive Healthcare Network</title>
+    <meta name="description" content="Metro Health System serves 500,000 people with 2 hospitals, 12 specialty clinics, and emergency services across 3 cities. Find doctors, book appointments, and access emergency care.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Emergency Alert Banner -->
+    <div class="emergency-banner" id="emergencyBanner" role="alert" aria-live="assertive">
+        <div class="container">
+            <span class="emergency-icon">🚨</span>
+            <strong>MEDICAL EMERGENCY? CALL 911 OR GO TO NEAREST ER</strong>
+            <button class="emergency-close" onclick="closeEmergencyBanner()" aria-label="Close emergency banner">×</button>
+        </div>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="language-toggle">
+        <button onclick="toggleLanguage('en')" class="lang-btn active" id="lang-en">English</button>
+        <button onclick="toggleLanguage('es')" class="lang-btn" id="lang-es">Español</button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <div class="logo">
+                    <span class="logo-cross">+</span>
+                    <span class="logo-text">Metro Health System</span>
+                </div>
+                <p class="tagline" data-en="Comprehensive Healthcare Network" data-es="Red Integral de Atención Médica">Comprehensive Healthcare Network</p>
+            </div>
+            
+            <nav class="main-nav" role="navigation">
+                <button class="nav-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation">☰</button>
+                <ul class="nav-list">
+                    <li><a href="#emergency" data-en="Emergency Care" data-es="Atención de Emergencia">Emergency Care</a></li>
+                    <li><a href="#find-doctor" data-en="Find a Doctor" data-es="Encontrar Médico">Find a Doctor</a></li>
+                    <li><a href="#services" data-en="Services" data-es="Servicios">Services</a></li>
+                    <li><a href="#locations" data-en="Locations" data-es="Ubicaciones">Locations</a></li>
+                    <li><a href="#patients" data-en="Patients" data-es="Pacientes">Patients</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Quick Actions Bar -->
+    <div class="quick-actions">
+        <div class="container">
+            <div class="action-buttons">
+                <button class="action-btn emergency" onclick="showEmergencyInfo()" data-en="🚨 Emergency" data-es="🚨 Emergencia">🚨 Emergency</button>
+                <button class="action-btn appointment" onclick="bookAppointment()" data-en="📅 Book Appointment" data-es="📅 Cita Médica">📅 Book Appointment</button>
+                <button class="action-btn portal" onclick="openPatientPortal()" data-en="👤 Patient Portal" data-es="👤 Portal del Paciente">👤 Patient Portal</button>
+                <button class="action-btn billing" onclick="openBilling()" data-en="💳 Pay Bill" data-es="💳 Pagar Factura">💳 Pay Bill</button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 data-en="Leading Healthcare for Our Community" data-es="Atención Médica Líder para Nuestra Comunidad">Leading Healthcare for Our Community</h1>
+                    <p class="hero-description" data-en="Serving 500,000 people across 3 cities with 2 hospitals, 12 specialty clinics, and comprehensive emergency services. Your health is our priority." data-es="Sirviendo a 500,000 personas en 3 ciudades con 2 hospitales, 12 clínicas especializadas y servicios de emergencia integrales. Su salud es nuestra prioridad.">Serving 500,000 people across 3 cities with 2 hospitals, 12 specialty clinics, and comprehensive emergency services. Your health is our priority.</p>
+                    <div class="hero-stats">
+                        <div class="stat">
+                            <span class="stat-number">200+</span>
+                            <span class="stat-label" data-en="Physicians" data-es="Médicos">Physicians</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">30+</span>
+                            <span class="stat-label" data-en="Specialties" data-es="Especialidades">Specialties</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-label" data-en="Emergency Care" data-es="Emergencias">Emergency Care</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.pexels.com/photos/236380/pexels-photo-236380.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Healthcare professionals" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- User Type Navigation -->
+        <section class="user-types">
+            <div class="container">
+                <h2 data-en="How Can We Help You Today?" data-es="¿Cómo Podemos Ayudarle Hoy?">How Can We Help You Today?</h2>
+                <div class="user-grid">
+                    <div class="user-card" onclick="navigateToSection('patients')">
+                        <div class="user-icon">👥</div>
+                        <h3 data-en="Patients & Families" data-es="Pacientes y Familias">Patients & Families</h3>
+                        <p data-en="Find doctors, book appointments, access medical records, and manage your healthcare journey." data-es="Encuentre médicos, programe citas, acceda a registros médicos y gestione su atención médica.">Find doctors, book appointments, access medical records, and manage your healthcare journey.</p>
+                    </div>
+                    <div class="user-card" onclick="navigateToSection('physicians')">
+                        <div class="user-icon">⚕️</div>
+                        <h3 data-en="Healthcare Professionals" data-es="Profesionales de la Salud">Healthcare Professionals</h3>
+                        <p data-en="Referral information, physician directory, medical resources, and professional services." data-es="Información de referencia, directorio médico, recursos médicos y servicios profesionales.">Referral information, physician directory, medical resources, and professional services.</p>
+                    </div>
+                    <div class="user-card" onclick="navigateToSection('careers')">
+                        <div class="user-icon">💼</div>
+                        <h3 data-en="Career Opportunities" data-es="Oportunidades Profesionales">Career Opportunities</h3>
+                        <p data-en="Join our healthcare team. Explore nursing, physician, and administrative positions across our network." data-es="Únase a nuestro equipo médico. Explore posiciones de enfermería, médicos y administrativas.">Join our healthcare team. Explore nursing, physician, and administrative positions across our network.</p>
+                    </div>
+                    <div class="user-card" onclick="navigateToSection('emergency')">
+                        <div class="user-icon">🚨</div>
+                        <h3 data-en="Emergency Services" data-es="Servicios de Emergencia">Emergency Services</h3>
+                        <p data-en="24/7 emergency care, urgent care locations, crisis resources, and immediate medical assistance." data-es="Atención de emergencia 24/7, ubicaciones de atención urgente y asistencia médica inmediata.">24/7 emergency care, urgent care locations, crisis resources, and immediate medical assistance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Find a Doctor -->
+        <section class="find-doctor" id="find-doctor">
+            <div class="container">
+                <h2 data-en="Find a Doctor" data-es="Encuentre un Médico">Find a Doctor</h2>
+                <div class="search-container">
+                    <div class="search-form">
+                        <input type="text" id="doctorSearch" placeholder="Doctor name or specialty" data-placeholder-en="Doctor name or specialty" data-placeholder-es="Nombre del médico o especialidad">
+                        <select id="specialtyFilter">
+                            <option value="" data-en="All Specialties" data-es="Todas las Especialidades">All Specialties</option>
+                            <option value="cardiology" data-en="Cardiology" data-es="Cardiología">Cardiology</option>
+                            <option value="emergency" data-en="Emergency Medicine" data-es="Medicina de Emergencia">Emergency Medicine</option>
+                            <option value="family" data-en="Family Medicine" data-es="Medicina Familiar">Family Medicine</option>
+                            <option value="internal" data-en="Internal Medicine" data-es="Medicina Interna">Internal Medicine</option>
+                            <option value="pediatrics" data-en="Pediatrics" data-es="Pediatría">Pediatrics</option>
+                            <option value="surgery" data-en="Surgery" data-es="Cirugía">Surgery</option>
+                        </select>
+                        <select id="locationFilter">
+                            <option value="" data-en="All Locations" data-es="Todas las Ubicaciones">All Locations</option>
+                            <option value="downtown" data-en="Downtown Medical Center" data-es="Centro Médico del Centro">Downtown Medical Center</option>
+                            <option value="northside" data-en="Northside Hospital" data-es="Hospital Northside">Northside Hospital</option>
+                            <option value="westend" data-en="West End Clinic" data-es="Clínica West End">West End Clinic</option>
+                        </select>
+                        <button class="search-btn" onclick="searchDoctors()" data-en="Search" data-es="Buscar">Search</button>
+                    </div>
+                    <div class="search-results" id="searchResults">
+                        <!-- Results will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services" id="services">
+            <div class="container">
+                <h2 data-en="Our Services" data-es="Nuestros Servicios">Our Services</h2>
+                <div class="services-grid">
+                    <div class="service-category">
+                        <h3 data-en="Emergency & Urgent Care" data-es="Emergencia y Atención Urgente">Emergency & Urgent Care</h3>
+                        <ul>
+                            <li data-en="24/7 Emergency Department" data-es="Departamento de Emergencia 24/7">24/7 Emergency Department</li>
+                            <li data-en="Urgent Care Centers" data-es="Centros de Atención Urgente">Urgent Care Centers</li>
+                            <li data-en="Trauma Center" data-es="Centro de Trauma">Trauma Center</li>
+                            <li data-en="Pediatric Emergency" data-es="Emergencia Pediátrica">Pediatric Emergency</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3 data-en="Specialized Care" data-es="Atención Especializada">Specialized Care</h3>
+                        <ul>
+                            <li data-en="Cardiac Surgery" data-es="Cirugía Cardíaca">Cardiac Surgery</li>
+                            <li data-en="Cancer Treatment" data-es="Tratamiento del Cáncer">Cancer Treatment</li>
+                            <li data-en="Orthopedic Surgery" data-es="Cirugía Ortopédica">Orthopedic Surgery</li>
+                            <li data-en="Neurology & Neurosurgery" data-es="Neurología y Neurocirugía">Neurology & Neurosurgery</li>
+                        </ul>
+                    </div>
+                    <div class="service-category">
+                        <h3 data-en="Primary Care" data-es="Atención Primaria">Primary Care</h3>
+                        <ul>
+                            <li data-en="Family Medicine" data-es="Medicina Familiar">Family Medicine</li>
+                            <li data-en="Internal Medicine" data-es="Medicina Interna">Internal Medicine</li>
+                            <li data-en="Pediatrics" data-es="Pediatría">Pediatrics</li>
+                            <li data-en="Women's Health" data-es="Salud de la Mujer">Women's Health</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Locations -->
+        <section class="locations" id="locations">
+            <div class="container">
+                <h2 data-en="Our Locations" data-es="Nuestras Ubicaciones">Our Locations</h2>
+                <div class="locations-grid">
+                    <div class="location-card">
+                        <h3 data-en="Downtown Medical Center" data-es="Centro Médico del Centro">Downtown Medical Center</h3>
+                        <p class="location-type" data-en="Main Hospital" data-es="Hospital Principal">Main Hospital</p>
+                        <p class="address">123 Medical Plaza<br>Downtown, Metro City 12345</p>
+                        <p class="phone">(555) 123-CARE</p>
+                        <div class="location-services">
+                            <span class="service-tag" data-en="Emergency" data-es="Emergencia">Emergency</span>
+                            <span class="service-tag" data-en="Surgery" data-es="Cirugía">Surgery</span>
+                            <span class="service-tag" data-en="ICU" data-es="UCI">ICU</span>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <h3 data-en="Northside Hospital" data-es="Hospital Northside">Northside Hospital</h3>
+                        <p class="location-type" data-en="Full-Service Hospital" data-es="Hospital de Servicio Completo">Full-Service Hospital</p>
+                        <p class="address">456 North Ave<br>Northside, Metro City 12346</p>
+                        <p class="phone">(555) 124-CARE</p>
+                        <div class="location-services">
+                            <span class="service-tag" data-en="Maternity" data-es="Maternidad">Maternity</span>
+                            <span class="service-tag" data-en="Pediatrics" data-es="Pediatría">Pediatrics</span>
+                            <span class="service-tag" data-en="Cardiology" data-es="Cardiología">Cardiology</span>
+                        </div>
+                    </div>
+                    <div class="location-card">
+                        <h3 data-en="West End Clinic" data-es="Clínica West End">West End Clinic</h3>
+                        <p class="location-type" data-en="Specialty Clinic" data-es="Clínica Especializada">Specialty Clinic</p>
+                        <p class="address">789 West Street<br>West End, Metro City 12347</p>
+                        <p class="phone">(555) 125-CARE</p>
+                        <div class="location-services">
+                            <span class="service-tag" data-en="Urgent Care" data-es="Atención Urgente">Urgent Care</span>
+                            <span class="service-tag" data-en="Lab Services" data-es="Laboratorio">Lab Services</span>
+                            <span class="service-tag" data-en="Imaging" data-es="Imagenología">Imaging</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patient Resources -->
+        <section class="patient-resources">
+            <div class="container">
+                <h2 data-en="Patient Resources" data-es="Recursos para Pacientes">Patient Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card" onclick="openResource('billing')">
+                        <div class="resource-icon">💳</div>
+                        <h3 data-en="Billing & Insurance" data-es="Facturación y Seguro">Billing & Insurance</h3>
+                        <p data-en="Manage payments, understand coverage, and get financial assistance." data-es="Gestione pagos, comprenda cobertura y obtenga asistencia financiera.">Manage payments, understand coverage, and get financial assistance.</p>
+                    </div>
+                    <div class="resource-card" onclick="openResource('portal')">
+                        <div class="resource-icon">📱</div>
+                        <h3 data-en="Patient Portal" data-es="Portal del Paciente">Patient Portal</h3>
+                        <p data-en="Access medical records, test results, and communicate with your care team." data-es="Acceda a registros médicos, resultados y comuníquese con su equipo médico.">Access medical records, test results, and communicate with your care team.</p>
+                    </div>
+                    <div class="resource-card" onclick="openResource('education')">
+                        <div class="resource-icon">📚</div>
+                        <h3 data-en="Health Education" data-es="Educación de Salud">Health Education</h3>
+                        <p data-en="Learn about conditions, treatments, and wellness programs." data-es="Aprenda sobre condiciones, tratamientos y programas de bienestar.">Learn about conditions, treatments, and wellness programs.</p>
+                    </div>
+                    <div class="resource-card" onclick="openResource('visiting')">
+                        <div class="resource-icon">🏥</div>
+                        <h3 data-en="Visiting Information" data-es="Información de Visitas">Visiting Information</h3>
+                        <p data-en="Hours, policies, directions, and what to expect during your visit." data-es="Horarios, políticas, direcciones y qué esperar durante su visita.">Hours, policies, directions, and what to expect during your visit.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Emergency Information Modal -->
+        <div class="modal" id="emergencyModal" role="dialog" aria-labelledby="emergencyTitle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="emergencyTitle" data-en="Emergency Information" data-es="Información de Emergencia">Emergency Information</h2>
+                    <button class="modal-close" onclick="closeModal('emergencyModal')" aria-label="Close modal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="emergency-actions">
+                        <div class="emergency-action">
+                            <h3 data-en="Life-Threatening Emergency" data-es="Emergencia Mortal">Life-Threatening Emergency</h3>
+                            <p data-en="Call 911 immediately or go to the nearest emergency room" data-es="Llame al 911 inmediatamente o vaya a la sala de emergencia más cercana">Call 911 immediately or go to the nearest emergency room</p>
+                            <button class="emergency-btn" onclick="window.open('tel:911')" data-en="📞 Call 911" data-es="📞 Llamar 911">📞 Call 911</button>
+                        </div>
+                        <div class="emergency-action">
+                            <h3 data-en="Urgent But Not Life-Threatening" data-es="Urgente Pero No Mortal">Urgent But Not Life-Threatening</h3>
+                            <p data-en="Visit our urgent care centers or emergency departments" data-es="Visite nuestros centros de atención urgente o departamentos de emergencia">Visit our urgent care centers or emergency departments</p>
+                            <button class="emergency-btn" onclick="findNearestER()" data-en="🏥 Find Nearest ER" data-es="🏥 Encontrar ER Cercana">🏥 Find Nearest ER</button>
+                        </div>
+                        <div class="emergency-action">
+                            <h3 data-en="Crisis Support" data-es="Apoyo en Crisis">Crisis Support</h3>
+                            <p data-en="Mental health crisis or suicide prevention resources" data-es="Crisis de salud mental o recursos de prevención del suicidio">Mental health crisis or suicide prevention resources</p>
+                            <button class="emergency-btn" onclick="window.open('tel:988')" data-en="📞 Crisis Hotline 988" data-es="📞 Línea de Crisis 988">📞 Crisis Hotline 988</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-en="Contact Us" data-es="Contáctenos">Contact Us</h3>
+                    <p data-en="Main Line: (555) 123-CARE" data-es="Línea Principal: (555) 123-CARE">Main Line: (555) 123-CARE</p>
+                    <p data-en="24/7 Nurse Line: (555) 124-NURSE" data-es="Línea de Enfermería 24/7: (555) 124-NURSE">24/7 Nurse Line: (555) 124-NURSE</p>
+                    <p>info@metrohealthsystem.org</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Quick Links" data-es="Enlaces Rápidos">Quick Links</h3>
+                    <ul>
+                        <li><a href="#" data-en="Patient Portal Login" data-es="Acceso Portal Paciente">Patient Portal Login</a></li>
+                        <li><a href="#" data-en="Pay My Bill" data-es="Pagar Factura">Pay My Bill</a></li>
+                        <li><a href="#" data-en="Medical Records" data-es="Registros Médicos">Medical Records</a></li>
+                        <li><a href="#" data-en="Careers" data-es="Empleos">Careers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Patient Rights" data-es="Derechos del Paciente">Patient Rights</h3>
+                    <ul>
+                        <li><a href="#" data-en="Privacy Policy" data-es="Política de Privacidad">Privacy Policy</a></li>
+                        <li><a href="#" data-en="Patient Rights & Responsibilities" data-es="Derechos y Responsabilidades">Patient Rights & Responsibilities</a></li>
+                        <li><a href="#" data-en="Non-Discrimination Notice" data-es="Aviso de No Discriminación">Non-Discrimination Notice</a></li>
+                        <li><a href="#" data-en="Accessibility" data-es="Accesibilidad">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="© 2025 Metro Health System. All rights reserved." data-es="© 2025 Metro Health System. Todos los derechos reservados.">© 2025 Metro Health System. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

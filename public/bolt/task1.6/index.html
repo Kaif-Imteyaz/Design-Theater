@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopLocal - Supporting Local Artisans & Crafters</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>
+                        <img src="https://images.pexels.com/photos/1302101/pexels-photo-1302101.jpeg?auto=compress&cs=tinysrgb&w=60&h=60&fit=crop" 
+                             alt="ShopLocal Logo" class="logo-img">
+                        ShopLocal
+                    </h1>
+                    <p class="tagline">Supporting Local Artisans Since 2020</p>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <form class="search-form" role="search">
+                        <label for="search-input" class="sr-only">Search products</label>
+                        <input type="search" id="search-input" placeholder="Search handmade goods, vintage items..." class="search-input">
+                        <button type="submit" class="search-btn" aria-label="Search">
+                            <span class="search-icon">🔍</span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- User Navigation -->
+                <nav class="user-nav" role="navigation" aria-label="User account navigation">
+                    <div class="user-type-selector">
+                        <button class="user-type-btn active" data-type="customer" aria-pressed="true">
+                            <span class="nav-icon">🛒</span>
+                            <span class="nav-text">Shop</span>
+                        </button>
+                        <button class="user-type-btn" data-type="seller" aria-pressed="false">
+                            <span class="nav-icon">🏪</span>
+                            <span class="nav-text">Sell</span>
+                        </button>
+                        <button class="user-type-btn" data-type="admin" aria-pressed="false">
+                            <span class="nav-icon">⚙️</span>
+                            <span class="nav-text">Admin</span>
+                        </button>
+                    </div>
+                    <div class="account-actions">
+                        <a href="#" class="cart-link" aria-label="Shopping cart">
+                            <span class="cart-icon">🛒</span>
+                            <span class="cart-count">0</span>
+                        </a>
+                        <button class="account-btn">
+                            <span class="account-icon">👤</span>
+                            <span class="account-text">Account</span>
+                        </button>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h2 id="hero-title" class="hero-title">Discover Authentic Local Craftsmanship</h2>
+                        <p class="hero-subtitle">Connect with 300+ local artisans crafting unique handmade goods, vintage treasures, and fresh local produce right in your region.</p>
+                        <div class="hero-actions">
+                            <a href="#products" class="cta-button primary">Explore Products</a>
+                            <a href="#become-seller" class="cta-button secondary">Become a Seller</a>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="https://images.pexels.com/photos/1148957/pexels-photo-1148957.jpeg?auto=compress&cs=tinysrgb&w=600&h=400&fit=crop" 
+                             alt="Local artisan crafting pottery" class="hero-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Trust Signals -->
+        <section class="trust-signals" aria-labelledby="trust-title">
+            <div class="container">
+                <h3 id="trust-title" class="sr-only">Why customers trust ShopLocal</h3>
+                <div class="trust-grid">
+                    <div class="trust-item">
+                        <span class="trust-icon">✓</span>
+                        <span class="trust-text">300+ Verified Local Sellers</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🔒</span>
+                        <span class="trust-text">Secure Payment Protection</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">🚚</span>
+                        <span class="trust-text">Local Pickup & Delivery</span>
+                    </div>
+                    <div class="trust-item">
+                        <span class="trust-icon">💬</span>
+                        <span class="trust-text">Easy Returns & Support</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Content Areas -->
+        <div class="content-switcher">
+            <!-- Customer View -->
+            <section id="customer-content" class="content-panel active" aria-labelledby="customer-title">
+                <div class="container">
+                    <h3 id="customer-title" class="section-title">Featured Products</h3>
+                    
+                    <!-- Product Categories -->
+                    <div class="category-filters">
+                        <button class="category-btn active" data-category="all">All Products</button>
+                        <button class="category-btn" data-category="handmade">Handmade Crafts</button>
+                        <button class="category-btn" data-category="vintage">Vintage Items</button>
+                        <button class="category-btn" data-category="produce">Local Produce</button>
+                        <button class="category-btn" data-category="jewelry">Jewelry</button>
+                    </div>
+
+                    <!-- Product Grid -->
+                    <div class="product-grid" role="list">
+                        <article class="product-card" role="listitem">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/1292241/pexels-photo-1292241.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" 
+                                     alt="Handwoven ceramic bowl">
+                                <div class="product-badge">Handmade</div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Artisan Ceramic Bowl</h4>
+                                <p class="seller-name">by Sarah's Pottery Studio</p>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(24 reviews)</span>
+                                </div>
+                                <p class="product-price">$45.00</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </article>
+
+                        <article class="product-card" role="listitem">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/1030945/pexels-photo-1030945.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" 
+                                     alt="Vintage wooden jewelry box">
+                                <div class="product-badge">Vintage</div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Vintage Oak Jewelry Box</h4>
+                                <p class="seller-name">by Timeless Treasures</p>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★☆</span>
+                                    <span class="rating-count">(15 reviews)</span>
+                                </div>
+                                <p class="product-price">$78.00</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </article>
+
+                        <article class="product-card" role="listitem">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/616401/pexels-photo-616401.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" 
+                                     alt="Fresh organic vegetables">
+                                <div class="product-badge">Fresh</div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Organic Vegetable Box</h4>
+                                <p class="seller-name">by Green Valley Farm</p>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(89 reviews)</span>
+                                </div>
+                                <p class="product-price">$32.00</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </article>
+
+                        <article class="product-card" role="listitem">
+                            <div class="product-image">
+                                <img src="https://images.pexels.com/photos/1454168/pexels-photo-1454168.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop" 
+                                     alt="Handcrafted silver necklace">
+                                <div class="product-badge">Handmade</div>
+                            </div>
+                            <div class="product-info">
+                                <h4 class="product-title">Sterling Silver Necklace</h4>
+                                <p class="seller-name">by Mountain Metals</p>
+                                <div class="product-rating">
+                                    <span class="stars">★★★★★</span>
+                                    <span class="rating-count">(31 reviews)</span>
+                                </div>
+                                <p class="product-price">$125.00</p>
+                                <button class="add-to-cart-btn">Add to Cart</button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Seller View -->
+            <section id="seller-content" class="content-panel" aria-labelledby="seller-title">
+                <div class="container">
+                    <h3 id="seller-title" class="section-title">Grow Your Local Business</h3>
+                    
+                    <div class="seller-benefits">
+                        <div class="benefit-grid">
+                            <div class="benefit-card">
+                                <div class="benefit-icon">💰</div>
+                                <h4 class="benefit-title">Low Fees</h4>
+                                <p class="benefit-description">Keep more of your earnings with our competitive 5% transaction fee</p>
+                            </div>
+                            <div class="benefit-card">
+                                <div class="benefit-icon">📱</div>
+                                <h4 class="benefit-title">Mobile-First</h4>
+                                <p class="benefit-description">Manage your inventory and orders easily from your smartphone</p>
+                            </div>
+                            <div class="benefit-card">
+                                <div class="benefit-icon">🎯</div>
+                                <h4 class="benefit-title">Local Focus</h4>
+                                <p class="benefit-description">Connect with customers in your community who value local craftsmanship</p>
+                            </div>
+                            <div class="benefit-card">
+                                <div class="benefit-icon">🛠️</div>
+                                <h4 class="benefit-title">Simple Tools</h4>
+                                <p class="benefit-description">User-friendly interface designed for artisans, not tech experts</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="seller-cta">
+                        <h4 class="cta-title">Ready to start selling?</h4>
+                        <p class="cta-description">Join 300+ local artisans already growing their businesses on ShopLocal</p>
+                        <div class="cta-actions">
+                            <button class="cta-button primary">Apply to Sell</button>
+                            <button class="cta-button secondary">View Seller Guide</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin View -->
+            <section id="admin-content" class="content-panel" aria-labelledby="admin-title">
+                <div class="container">
+                    <h3 id="admin-title" class="section-title">Platform Overview</h3>
+                    
+                    <div class="admin-dashboard">
+                        <div class="dashboard-grid">
+                            <div class="dashboard-card">
+                                <h4 class="dashboard-title">Active Sellers</h4>
+                                <div class="dashboard-value">307</div>
+                                <div class="dashboard-change positive">+12 this month</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <h4 class="dashboard-title">Pending Applications</h4>
+                                <div class="dashboard-value">23</div>
+                                <div class="dashboard-change">Awaiting review</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <h4 class="dashboard-title">Open Disputes</h4>
+                                <div class="dashboard-value">3</div>
+                                <div class="dashboard-change attention">Needs attention</div>
+                            </div>
+                            <div class="dashboard-card">
+                                <h4 class="dashboard-title">Quality Score</h4>
+                                <div class="dashboard-value">4.8/5</div>
+                                <div class="dashboard-change positive">+0.1 this month</div>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-actions">
+                            <button class="admin-btn">Review Applications</button>
+                            <button class="admin-btn">Resolve Disputes</button>
+                            <button class="admin-btn">Quality Reports</button>
+                            <button class="admin-btn">Platform Analytics</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Testimonials -->
+        <section class="testimonials" aria-labelledby="testimonials-title">
+            <div class="container">
+                <h3 id="testimonials-title" class="section-title">What Our Community Says</h3>
+                <div class="testimonial-grid">
+                    <blockquote class="testimonial-card">
+                        <p class="testimonial-text">"ShopLocal helped me turn my hobby into a thriving business. The platform is so easy to use, even for someone like me who's not tech-savvy."</p>
+                        <cite class="testimonial-author">— Maria S., Ceramic Artist</cite>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p class="testimonial-text">"I love supporting local artisans and the quality is always amazing. The local pickup option makes it so convenient."</p>
+                        <cite class="testimonial-author">— David K., Customer</cite>
+                    </blockquote>
+                    <blockquote class="testimonial-card">
+                        <p class="testimonial-text">"The admin tools give us great visibility into platform health without being overwhelming. Perfect for managing quality at scale."</p>
+                        <cite class="testimonial-author">— Jennifer L., Platform Manager</cite>
+                    </blockquote>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4 class="footer-title">For Customers</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">How to Shop</a></li>
+                        <li><a href="#">Return Policy</a></li>
+                        <li><a href="#">Customer Support</a></li>
+                        <li><a href="#">Local Pickup</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">For Sellers</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Seller Guide</a></li>
+                        <li><a href="#">Application Process</a></li>
+                        <li><a href="#">Fee Structure</a></li>
+                        <li><a href="#">Seller Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Community Impact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-title">Legal & Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Accessibility</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ShopLocal. Supporting local artisans and building stronger communities.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

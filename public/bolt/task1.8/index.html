@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>City of Riverside - Your City Services</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Skip Link for Screen Readers -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Emergency Alert Banner -->
+    <div id="emergency-banner" class="emergency-banner hidden" role="alert" aria-live="assertive">
+        <div class="emergency-content">
+            <span class="emergency-icon">🚨</span>
+            <div class="emergency-text">
+                <strong>Emergency Alert:</strong>
+                <span id="emergency-message">No current emergencies</span>
+            </div>
+            <button id="emergency-close" class="emergency-close" aria-label="Close emergency alert">×</button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-top">
+                <div class="logo-section">
+                    <h1 class="city-name">City of Riverside</h1>
+                    <p class="city-tagline">Serving 150,000 residents</p>
+                </div>
+                
+                <div class="header-actions">
+                    <!-- Language Toggle -->
+                    <div class="language-toggle">
+                        <button id="lang-toggle" class="lang-button" aria-label="Switch language">
+                            <span id="current-lang">EN</span> | <span id="alt-lang">ES</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Accessibility Options -->
+                    <div class="accessibility-options">
+                        <button id="text-size-toggle" class="accessibility-btn" aria-label="Increase text size">
+                            <span class="text-size-icon">A+</span>
+                        </button>
+                        <button id="high-contrast-toggle" class="accessibility-btn" aria-label="Toggle high contrast">
+                            <span class="contrast-icon">◐</span>
+                        </button>
+                    </div>
+                    
+                    <!-- User Account -->
+                    <div class="user-account">
+                        <button id="account-btn" class="account-button">
+                            <span class="account-icon">👤</span>
+                            <span data-en="My Account" data-es="Mi Cuenta">My Account</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Navigation -->
+    <nav class="main-nav" role="navigation" aria-label="Main navigation">
+        <div class="container">
+            <ul class="nav-list">
+                <li><a href="#pay-bills" data-en="Pay Bills" data-es="Pagar Facturas">Pay Bills</a></li>
+                <li><a href="#permits-licenses" data-en="Get Permits & Licenses" data-es="Obtener Permisos y Licencias">Get Permits & Licenses</a></li>
+                <li><a href="#report-issues" data-en="Report Issues" data-es="Reportar Problemas">Report Issues</a></li>
+                <li><a href="#find-services" data-en="Find Services" data-es="Encontrar Servicios">Find Services</a></li>
+                <li><a href="#city-info" data-en="City Information" data-es="Información de la Ciudad">City Information</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-content">
+        <div class="container">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <h2 data-en="What do you need to do today?" data-es="¿Qué necesita hacer hoy?">What do you need to do today?</h2>
+                    <div class="search-box">
+                        <input type="search" 
+                               id="search-input" 
+                               placeholder="Search services, forms, or information..." 
+                               data-placeholder-en="Search services, forms, or information..." 
+                               data-placeholder-es="Buscar servicios, formularios o información..."
+                               aria-label="Search city services">
+                        <button id="search-btn" class="search-button" aria-label="Search">
+                            <span class="search-icon">🔍</span>
+                        </button>
+                    </div>
+                    <div id="search-suggestions" class="search-suggestions hidden"></div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h2 data-en="Most Common Services" data-es="Servicios Más Comunes">Most Common Services</h2>
+                <div class="actions-grid">
+                    <div class="action-card">
+                        <div class="action-icon">💧</div>
+                        <h3 data-en="Pay Water Bill" data-es="Pagar Factura de Agua">Pay Water Bill</h3>
+                        <p data-en="View usage and pay your water/sewer bill" data-es="Ver uso y pagar su factura de agua/alcantarillado">View usage and pay your water/sewer bill</p>
+                        <button class="action-button" data-en="Pay Now" data-es="Pagar Ahora">Pay Now</button>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-icon">🏗️</div>
+                        <h3 data-en="Building Permits" data-es="Permisos de Construcción">Building Permits</h3>
+                        <p data-en="Apply for construction and renovation permits" data-es="Solicitar permisos de construcción y renovación">Apply for construction and renovation permits</p>
+                        <button class="action-button" data-en="Start Application" data-es="Iniciar Solicitud">Start Application</button>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-icon">🚧</div>
+                        <h3 data-en="Report Pothole" data-es="Reportar Bache">Report Pothole</h3>
+                        <p data-en="Report street maintenance issues" data-es="Reportar problemas de mantenimiento de calles">Report street maintenance issues</p>
+                        <button class="action-button" data-en="Report Issue" data-es="Reportar Problema">Report Issue</button>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-icon">🏛️</div>
+                        <h3 data-en="Business License" data-es="Licencia de Negocio">Business License</h3>
+                        <p data-en="Apply for or renew your business license" data-es="Solicitar o renovar su licencia de negocio">Apply for or renew your business license</p>
+                        <button class="action-button" data-en="Get Started" data-es="Comenzar">Get Started</button>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-icon">🗑️</div>
+                        <h3 data-en="Trash & Recycling" data-es="Basura y Reciclaje">Trash & Recycling</h3>
+                        <p data-en="Schedule pickup and find disposal information" data-es="Programar recogida y encontrar información de disposición">Schedule pickup and find disposal information</p>
+                        <button class="action-button" data-en="View Schedule" data-es="Ver Horario">View Schedule</button>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-icon">🏛️</div>
+                        <h3 data-en="City Council" data-es="Concejo Municipal">City Council</h3>
+                        <p data-en="Meeting agendas, minutes, and live streams" data-es="Agendas de reuniones, actas y transmisiones en vivo">Meeting agendas, minutes, and live streams</p>
+                        <button class="action-button" data-en="View Meetings" data-es="Ver Reuniones">View Meetings</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Service Categories -->
+            <section class="service-categories">
+                <h2 data-en="All Services by Topic" data-es="Todos los Servicios por Tema">All Services by Topic</h2>
+                <div class="categories-grid">
+                    <div class="category-card">
+                        <h3 data-en="Housing & Property" data-es="Vivienda y Propiedad">Housing & Property</h3>
+                        <ul>
+                            <li data-en="Building permits" data-es="Permisos de construcción">Building permits</li>
+                            <li data-en="Property tax information" data-es="Información de impuestos sobre la propiedad">Property tax information</li>
+                            <li data-en="Code enforcement" data-es="Cumplimiento de códigos">Code enforcement</li>
+                            <li data-en="Housing assistance" data-es="Asistencia de vivienda">Housing assistance</li>
+                        </ul>
+                        <a href="#housing" class="category-link" data-en="View all →" data-es="Ver todo →">View all →</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h3 data-en="Transportation" data-es="Transporte">Transportation</h3>
+                        <ul>
+                            <li data-en="Street maintenance" data-es="Mantenimiento de calles">Street maintenance</li>
+                            <li data-en="Parking permits" data-es="Permisos de estacionamiento">Parking permits</li>
+                            <li data-en="Traffic signals" data-es="Semáforos">Traffic signals</li>
+                            <li data-en="Public transit" data-es="Transporte público">Public transit</li>
+                        </ul>
+                        <a href="#transportation" class="category-link" data-en="View all →" data-es="Ver todo →">View all →</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h3 data-en="Recreation & Parks" data-es="Recreación y Parques">Recreation & Parks</h3>
+                        <ul>
+                            <li data-en="Park reservations" data-es="Reservas de parques">Park reservations</li>
+                            <li data-en="Recreation programs" data-es="Programas de recreación">Recreation programs</li>
+                            <li data-en="Sports facilities" data-es="Instalaciones deportivas">Sports facilities</li>
+                            <li data-en="Special events" data-es="Eventos especiales">Special events</li>
+                        </ul>
+                        <a href="#recreation" class="category-link" data-en="View all →" data-es="Ver todo →">View all →</a>
+                    </div>
+                    
+                    <div class="category-card">
+                        <h3 data-en="Business Services" data-es="Servicios Comerciales">Business Services</h3>
+                        <ul>
+                            <li data-en="Business licenses" data-es="Licencias comerciales">Business licenses</li>
+                            <li data-en="Zoning information" data-es="Información de zonificación">Zoning information</li>
+                            <li data-en="Economic development" data-es="Desarrollo económico">Economic development</li>
+                            <li data-en="Procurement opportunities" data-es="Oportunidades de adquisiciones">Procurement opportunities</li>
+                        </ul>
+                        <a href="#business" class="category-link" data-en="View all →" data-es="Ver todo →">View all →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Status Tracking -->
+            <section class="status-section">
+                <div class="status-container">
+                    <h2 data-en="Track Your Requests" data-es="Rastrear Sus Solicitudes">Track Your Requests</h2>
+                    <p data-en="Check the status of your applications, permits, and service requests" data-es="Verificar el estado de sus solicitudes, permisos y solicitudes de servicio">Check the status of your applications, permits, and service requests</p>
+                    <div class="tracking-input">
+                        <input type="text" 
+                               placeholder="Enter your tracking number" 
+                               data-placeholder-en="Enter your tracking number"
+                               data-placeholder-es="Ingrese su número de seguimiento"
+                               aria-label="Tracking number">
+                        <button class="track-button" data-en="Track Status" data-es="Rastrear Estado">Track Status</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 data-en="Contact Us" data-es="Contáctanos">Contact Us</h3>
+                    <p>3900 Main Street<br>Riverside, CA 92522</p>
+                    <p><strong data-en="Main:" data-es="Principal:">Main:</strong> (951) 826-5311</p>
+                    <p><strong data-en="Emergency:" data-es="Emergencia:">Emergency:</strong> 911</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 data-en="Quick Links" data-es="Enlaces Rápidos">Quick Links</h3>
+                    <ul>
+                        <li><a href="#employment" data-en="Employment" data-es="Empleo">Employment</a></li>
+                        <li><a href="#accessibility" data-en="Accessibility" data-es="Accesibilidad">Accessibility</a></li>
+                        <li><a href="#privacy" data-en="Privacy Policy" data-es="Política de Privacidad">Privacy Policy</a></li>
+                        <li><a href="#translate" data-en="Translation Services" data-es="Servicios de Traducción">Translation Services</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3 data-en="Office Hours" data-es="Horario de Oficina">Office Hours</h3>
+                    <p><strong data-en="Monday - Thursday:" data-es="Lunes - Jueves:">Monday - Thursday:</strong><br>7:30 AM - 5:30 PM</p>
+                    <p><strong data-en="Friday:" data-es="Viernes:">Friday:</strong><br>7:30 AM - 4:30 PM</p>
+                    <p><strong data-en="Weekends:" data-es="Fines de semana:">Weekends:</strong><br><span data-en="Closed" data-es="Cerrado">Closed</span></p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span data-en="City of Riverside. All rights reserved." data-es="Ciudad de Riverside. Todos los derechos reservados.">City of Riverside. All rights reserved.</span></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

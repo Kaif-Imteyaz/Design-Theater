@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Daily News - Local Journalism for Three Metro Areas</title>
+    <meta name="description" content="Metro Daily News delivers 40+ daily articles covering politics, business, sports, and community events across three metropolitan areas with premium investigative reporting.">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header class="header" role="banner">
+        <div class="header-container">
+            <div class="header-top">
+                <div class="weather-date">
+                    <span id="current-date"></span>
+                    <span class="weather">72°F | Partly Cloudy</span>
+                </div>
+                <div class="utility-nav">
+                    <button class="lang-toggle" id="lang-toggle" aria-label="Switch to Spanish">ES</button>
+                    <a href="#newsletter" class="newsletter-link">Newsletter</a>
+                    <button class="subscribe-btn">Subscribe</button>
+                </div>
+            </div>
+            
+            <div class="header-main">
+                <div class="logo-section">
+                    <h1 class="logo">
+                        <a href="#" aria-label="Metro Daily News Homepage">
+                            Metro Daily <span class="logo-accent">News</span>
+                        </a>
+                    </h1>
+                    <p class="tagline">Local Journalism • Three Metro Areas</p>
+                </div>
+                
+                <div class="search-section">
+                    <form class="search-form" role="search">
+                        <label for="search-input" class="sr-only">Search articles</label>
+                        <input type="search" id="search-input" placeholder="Search news..." aria-describedby="search-help">
+                        <button type="submit" aria-label="Search">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="21 21l-4.35-4.35"></path>
+                            </svg>
+                        </button>
+                    </form>
+                    <div id="search-help" class="sr-only">Press Enter or click search button to search articles</div>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Open navigation menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+            
+            <nav class="main-nav" id="main-nav" role="navigation" aria-label="Main navigation">
+                <ul class="nav-list">
+                    <li><a href="#breaking" class="nav-link active">Breaking</a></li>
+                    <li><a href="#politics" class="nav-link">Politics</a></li>
+                    <li><a href="#business" class="nav-link">Business</a></li>
+                    <li><a href="#sports" class="nav-link">Sports</a></li>
+                    <li><a href="#community" class="nav-link">Community</a></li>
+                    <li><a href="#investigative" class="nav-link premium">Investigative</a></li>
+                    <li><a href="#podcasts" class="nav-link">Podcasts</a></li>
+                    <li><a href="#opinion" class="nav-link">Opinion</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main-content" class="main-content">
+        <div class="breaking-banner" id="breaking-banner">
+            <div class="breaking-content">
+                <span class="breaking-label">BREAKING</span>
+                <marquee class="breaking-text" aria-live="polite">
+                    City Council approves $2.3B transit expansion plan for all three metro areas
+                </marquee>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <section class="hero-section" aria-label="Top Stories">
+                <article class="hero-story">
+                    <img src="https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                         alt="City council members voting on transit expansion" 
+                         class="hero-image">
+                    <div class="hero-content">
+                        <div class="story-meta">
+                            <span class="category politics">Politics</span>
+                            <time datetime="2025-01-27">2 hours ago</time>
+                        </div>
+                        <h2 class="hero-headline">
+                            <a href="#story1">Historic Transit Vote: $2.3B Plan Connects Three Metro Areas</a>
+                        </h2>
+                        <p class="hero-excerpt">After months of debate, city councils across all three metropolitan areas unanimously approved the largest public transit expansion in regional history...</p>
+                        <div class="story-actions">
+                            <button class="share-btn" aria-label="Share this story">Share</button>
+                            <button class="save-btn" aria-label="Save this story">Save</button>
+                        </div>
+                    </div>
+                </article>
+
+                <div class="secondary-stories">
+                    <article class="secondary-story">
+                        <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                             alt="Business district skyline" 
+                             class="secondary-image">
+                        <div class="secondary-content">
+                            <span class="category business">Business</span>
+                            <h3><a href="#story2">Tech Hub Expansion Brings 5,000 Jobs to Downtown</a></h3>
+                            <time datetime="2025-01-27">4 hours ago</time>
+                        </div>
+                    </article>
+                    
+                    <article class="secondary-story">
+                        <img src="https://images.pexels.com/photos/262506/pexels-photo-262506.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                             alt="High school basketball game" 
+                             class="secondary-image">
+                        <div class="secondary-content">
+                            <span class="category sports">Sports</span>
+                            <h3><a href="#story3">Metro Championship Finals Set for This Weekend</a></h3>
+                            <time datetime="2025-01-27">6 hours ago</time>
+                        </div>
+                    </article>
+                    
+                    <article class="secondary-story">
+                        <img src="https://images.pexels.com/photos/8112189/pexels-photo-8112189.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                             alt="Community volunteers at food drive" 
+                             class="secondary-image">
+                        <div class="secondary-content">
+                            <span class="category community">Community</span>
+                            <h3><a href="#story4">Winter Food Drive Exceeds Goal by 200%</a></h3>
+                            <time datetime="2025-01-27">8 hours ago</time>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <div class="content-grid">
+                <div class="main-content-area">
+                    <section class="content-section" id="latest-news">
+                        <div class="section-header">
+                            <h2>Latest News</h2>
+                            <div class="filter-controls">
+                                <button class="filter-btn active" data-filter="all">All</button>
+                                <button class="filter-btn" data-filter="politics">Politics</button>
+                                <button class="filter-btn" data-filter="business">Business</button>
+                                <button class="filter-btn" data-filter="sports">Sports</button>
+                                <button class="filter-btn" data-filter="community">Community</button>
+                            </div>
+                        </div>
+                        
+                        <div class="article-grid" id="article-grid">
+                            <article class="article-card" data-category="politics">
+                                <img src="https://images.pexels.com/photos/8828741/pexels-photo-8828741.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Mayor speaking at podium" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category politics">Politics</span>
+                                        <time datetime="2025-01-27">1 hour ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article1">Mayor Announces New Housing Initiative for Essential Workers</a>
+                                    </h3>
+                                    <p class="article-excerpt">A $50 million program will provide affordable housing options for teachers, first responders, and healthcare workers...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">3 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="business">
+                                <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Construction workers at job site" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category business">Business</span>
+                                        <time datetime="2025-01-27">2 hours ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article2">Green Building Standards Approved for Commercial District</a>
+                                    </h3>
+                                    <p class="article-excerpt">New regulations will require all commercial buildings to meet LEED certification standards...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">5 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="sports">
+                                <img src="https://images.pexels.com/photos/2834914/pexels-photo-2834914.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Soccer players on field" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category sports">Sports</span>
+                                        <time datetime="2025-01-27">3 hours ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article3">Metro United FC Secures Championship Playoff Spot</a>
+                                    </h3>
+                                    <p class="article-excerpt">The local soccer team's 3-1 victory last night clinched their first playoff berth in five seasons...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">4 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="community">
+                                <img src="https://images.pexels.com/photos/8112183/pexels-photo-8112183.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Students reading in library" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category community">Community</span>
+                                        <time datetime="2025-01-27">4 hours ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article4">Public Library System Launches Digital Learning Centers</a>
+                                    </h3>
+                                    <p class="article-excerpt">Free coding bootcamps and digital literacy classes now available at all three metro area libraries...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">6 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="politics">
+                                <img src="https://images.pexels.com/photos/8828818/pexels-photo-8828818.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Voters at polling station" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category politics">Politics</span>
+                                        <time datetime="2025-01-27">5 hours ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article5">School Board Elections: Key Races to Watch</a>
+                                    </h3>
+                                    <p class="article-excerpt">Five contested races across the metro areas could reshape education policy for the next four years...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">7 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+
+                            <article class="article-card" data-category="business">
+                                <img src="https://images.pexels.com/photos/3184636/pexels-photo-3184636.jpeg?auto=compress&cs=tinysrgb&w=400" 
+                                     alt="Small business owner in restaurant" 
+                                     class="article-image">
+                                <div class="article-content">
+                                    <div class="article-meta">
+                                        <span class="category business">Business</span>
+                                        <time datetime="2025-01-27">6 hours ago</time>
+                                    </div>
+                                    <h3 class="article-title">
+                                        <a href="#article6">Small Business Recovery Fund Distributes $10M in Grants</a>
+                                    </h3>
+                                    <p class="article-excerpt">Local restaurants, retailers, and service providers receive support to rebuild after challenging economic period...</p>
+                                    <div class="article-actions">
+                                        <button class="share-btn small" aria-label="Share">Share</button>
+                                        <span class="read-time">4 min read</span>
+                                    </div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <button class="load-more-btn" id="load-more">Load More Articles</button>
+                    </section>
+                </div>
+
+                <aside class="sidebar" role="complementary">
+                    <section class="premium-section">
+                        <h3>Premium Investigative</h3>
+                        <div class="premium-indicator">
+                            <span class="premium-badge">Subscribers Only</span>
+                        </div>
+                        <article class="premium-story">
+                            <h4><a href="#premium1">Inside the Metro Development Deal: A Six-Month Investigation</a></h4>
+                            <p>Our investigation reveals how a $500M development project was fast-tracked without proper environmental review...</p>
+                            <a href="#premium1" class="read-more">Read Full Investigation →</a>
+                        </article>
+                    </section>
+
+                    <section class="trending-section">
+                        <h3>Most Read Today</h3>
+                        <ol class="trending-list">
+                            <li>
+                                <a href="#trending1">Transit Vote Passes: What It Means for Your Commute</a>
+                                <span class="trending-views">15.2K views</span>
+                            </li>
+                            <li>
+                                <a href="#trending2">Weather Alert: Winter Storm Expected This Weekend</a>
+                                <span class="trending-views">12.8K views</span>
+                            </li>
+                            <li>
+                                <a href="#trending3">Restaurant Guide: New Openings Across All Three Cities</a>
+                                <span class="trending-views">9.4K views</span>
+                            </li>
+                            <li>
+                                <a href="#trending4">School Board Candidate Forums This Week</a>
+                                <span class="trending-views">7.1K views</span>
+                            </li>
+                            <li>
+                                <a href="#trending5">Metro FC Championship Coverage</a>
+                                <span class="trending-views">6.8K views</span>
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section class="podcast-section">
+                        <h3>Latest Podcast</h3>
+                        <div class="podcast-player">
+                            <img src="https://images.pexels.com/photos/7688367/pexels-photo-7688367.jpeg?auto=compress&cs=tinysrgb&w=300" 
+                                 alt="Metro Insider podcast cover" 
+                                 class="podcast-cover">
+                            <div class="podcast-info">
+                                <h4>Metro Insider</h4>
+                                <p>"Transit Vote Deep Dive"</p>
+                                <div class="podcast-controls">
+                                    <button class="play-btn" aria-label="Play podcast">▶</button>
+                                    <span class="podcast-duration">28:45</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="newsletter-section" id="newsletter">
+                        <h3>Stay Informed</h3>
+                        <p>Get the morning briefing delivered to your inbox</p>
+                        <form class="newsletter-form">
+                            <label for="email" class="sr-only">Email address</label>
+                            <input type="email" id="email" placeholder="Your email address" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                        <div class="newsletter-options">
+                            <label class="checkbox-label">
+                                <input type="checkbox" checked> Morning Briefing
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> Breaking News Alerts
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox"> Weekend Roundup
+                            </label>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>Metro Daily News</h4>
+                    <p>Independent journalism serving three metropolitan areas since 1985</p>
+                    <div class="social-links">
+                        <a href="#facebook" aria-label="Follow us on Facebook">Facebook</a>
+                        <a href="#twitter" aria-label="Follow us on Twitter">Twitter</a>
+                        <a href="#instagram" aria-label="Follow us on Instagram">Instagram</a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h5>Sections</h5>
+                    <ul>
+                        <li><a href="#politics">Politics</a></li>
+                        <li><a href="#business">Business</a></li>
+                        <li><a href="#sports">Sports</a></li>
+                        <li><a href="#community">Community</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h5>Services</h5>
+                    <ul>
+                        <li><a href="#subscribe">Subscribe</a></li>
+                        <li><a href="#newsletters">Newsletters</a></li>
+                        <li><a href="#podcasts">Podcasts</a></li>
+                        <li><a href="#archives">Archives</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h5>About</h5>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#careers">Careers</a></li>
+                        <li><a href="#ethics">Ethics Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <div class="legal-links">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#accessibility">Accessibility</a>
+                </div>
+                <p class="copyright">&copy; 2025 Metro Daily News. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
