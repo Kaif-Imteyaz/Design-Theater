@@ -13,11 +13,11 @@ export interface Task {
 export const categories = [
   { id: "chatgpt", name: "ChatGPT (complete)" },
   // { id: "lovable", name: "Lovable" }, No html css js code
+  { id: "claude", name: "Claude (Complete)" },
+  { id: "firebase", name: "Firebase (Complete)" },
   { id: "bolt", name: "Bolt (upto Task 1.6)" },
   { id: "v0", name: "v0" },
-  { id: "claude", name: "Claude (Complete)" },
   // { id: "uizard", name: "UIzard" },
-  { id: "firebase", name: "Firebase (Complete)" },
 ];
 
 // Base tasks for all categories
