@@ -1,639 +1,429 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morning Brew - Your Neighborhood Coffee Shop</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Morning Brew • Neighborhood Coffee Shop</title>
+  <meta name="description" content="Morning Brew is your cozy neighborhood coffee shop for artisanal espresso, fresh pastries, and a welcoming space to work or study." />
+  <meta name="theme-color" content="#2b3a2f" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Morning Brew • Neighborhood Coffee Shop" />
+  <meta property="og:description" content="Artisanal espresso, fresh pastries, and a cozy space for locals." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com" />
+  <meta property="og:image" content="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='630'%3E%3Crect width='100%25' height='100%25' fill='%232b3a2f'/%3E%3Ctext x='50%25' y='52%25' font-size='64' text-anchor='middle' fill='white' font-family='system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif'%3EMorning Brew%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect rx='12' width='64' height='64' fill='%232b3a2f'/%3E%3Ctext x='32' y='40' font-size='32' text-anchor='middle' fill='white' font-family='Arial'%3E%F0%9F%8D%B5%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root{
+      --bg:#faf7f2;        /* warm paper */
+      --text:#1f2520;      /* ink */
+      --muted:#5a6b5f;     /* sage */
+      --brand:#2b3a2f;     /* dark ever-green */
+      --accent:#c28b47;    /* latte */
+      --card:#ffffff;      /* white for cards */
+      --ring: 0 0 0 .2rem rgba(194,139,71,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font: 16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text); background:var(--bg);
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:focus{outline:none; box-shadow:var(--ring)}
 
-        body {
-            font-family: 'Georgia', serif;
-            line-height: 1.6;
-            color: #3a2b1a;
-            background-color: #faf8f5;
-        }
+    /* Announcement bar */
+    .announce{
+      background:linear-gradient(120deg,var(--brand),#3a4b3f);
+      color:#fff; text-align:center; padding:.5rem .75rem; font-weight:600; font-size:.95rem;
+    }
+    .announce small{opacity:.85; font-weight:500}
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
+    /* Header */
+    header{position:sticky; top:0; z-index:50; background:rgba(250,247,242,.9); backdrop-filter:saturate(180%) blur(6px); border-bottom:1px solid rgba(43,58,47,.08)}
+    .wrap{max-width:1100px; margin:auto; padding:0 1rem}
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:.75rem 0}
+    .brand{display:flex; align-items:center; gap:.6rem; font-weight:800; letter-spacing:.2px; color:var(--brand)}
+    .brand .logo{width:36px; height:36px; display:grid; place-items:center; background:var(--brand); color:#fff; border-radius:10px}
+    .brand .logo span{filter:drop-shadow(0 1px 0 rgba(0,0,0,.2))}
+    nav ul{list-style:none; display:flex; gap:1.25rem; margin:0; padding:0}
+    nav a{color:var(--text); font-weight:600}
+    nav a:hover{color:var(--accent)}
+    .menu-btn{display:none; background:none; border:none; font-size:1.25rem}
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #8b4513 0%, #a0522d 100%);
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+    /* Hero */
+    .hero{position:relative; overflow:hidden;}
+    .hero .inner{display:grid; grid-template-columns:1.1fr .9fr; gap:2rem; align-items:center; padding:3rem 0 2rem}
+    .hero h1{font-size:clamp(2rem, 4vw + .5rem, 3.25rem); line-height:1.1; margin:.25rem 0 1rem; color:var(--brand)}
+    .hero p{font-size:1.125rem; color:var(--muted); margin:0 0 1.25rem}
+    .cta{display:flex; gap:.75rem; flex-wrap:wrap}
+    .btn{display:inline-flex; align-items:center; gap:.5rem; padding:.7rem 1rem; border-radius:999px; border:1px solid rgba(0,0,0,.08); background:#fff; font-weight:700}
+    .btn.primary{background:var(--brand); color:#fff; border-color:transparent}
+    .btn:hover{transform:translateY(-1px)}
 
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    /* Decorative steam */
+    .steam{position:absolute; inset:auto -10% 0 auto; height:100%; pointer-events:none; opacity:.12}
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+    /* Sections */
+    section{padding:3rem 0}
+    .section-title{font-size:1.6rem; color:var(--brand); margin:0 0 1rem}
+    .muted{color:var(--muted)}
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+    /* Cards */
+    .grid{display:grid; gap:1rem}
+    .grid.cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+    .card{background:var(--card); border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:1rem; box-shadow:0 8px 24px rgba(43,58,47,.06)}
+    .card h3{margin:.25rem 0 .25rem}
+    .tag{font-size:.75rem; padding:.25rem .5rem; border-radius:999px; background:rgba(194,139,71,.14); color:#5b3c12; font-weight:700}
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-weight: 500;
-        }
+    /* Hours & location */
+    .hours{display:grid; grid-template-columns:1fr; gap:1rem}
+    .hours .when{display:flex; align-items:center; gap:.5rem; font-weight:800}
+    .open-badge{display:inline-flex; align-items:center; gap:.4rem; font-weight:800; padding:.25rem .5rem; border-radius:999px; background:rgba(43,58,47,.1); color:var(--brand)}
+    .timetable{width:100%; border-collapse:collapse; font-size:.95rem}
+    .timetable th,.timetable td{padding:.4rem .5rem; border-bottom:1px dashed rgba(43,58,47,.15); text-align:left}
 
-        .nav-links a:hover {
-            color: #f4e4bc;
-        }
+    /* Gallery */
+    .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:.6rem}
+    .ph{aspect-ratio:4/3; border-radius:14px; background:linear-gradient(135deg,#fff, #efe7dc 40%, #e0d6c8); border:1px solid rgba(0,0,0,.06); position:relative; overflow:hidden}
+    .ph::after{content:""; position:absolute; inset:0; background:radial-gradient(60% 80% at 30% 20%, rgba(255,255,255,.65), transparent 50%), radial-gradient(80% 60% at 70% 80%, rgba(194,139,71,.12), transparent 55%)}
+    .ph[role="img"]{display:block}
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(139, 69, 19, 0.7), rgba(160, 82, 45, 0.7)), 
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23d2b48c" width="1200" height="600"/><circle fill="%23a0522d" cx="200" cy="150" r="50" opacity="0.3"/><circle fill="%238b4513" cx="800" cy="300" r="80" opacity="0.2"/><circle fill="%23deb887" cx="1000" cy="100" r="60" opacity="0.4"/></svg>');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            margin-top: 70px;
-        }
+    /* Footer */
+    footer{background:#111; color:#ddd}
+    footer .colophon{display:grid; gap:1rem; grid-template-columns:1.2fr 1fr; padding:2rem 0}
+    footer a{color:#fff}
 
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            animation: fadeInUp 1s ease;
-        }
+    /* Utilities */
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
+    .kbd{font: 600 .85rem/1.1 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; background:#eee; padding:.15rem .35rem; border-radius:6px; border:1px solid rgba(0,0,0,.08)}
 
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            animation: fadeInUp 1s ease 0.3s both;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #f4e4bc;
-            color: #3a2b1a;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease 0.6s both;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .cta-button:hover {
-            background: #e6d199;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #8b4513;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background: #d2b48c;
-            margin: 20px auto;
-        }
-
-        /* About Section */
-        .about {
-            background: white;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
-        }
-
-        .about-image {
-            background: linear-gradient(45deg, #d2b48c, #deb887);
-            height: 400px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8b4513;
-            font-size: 1.2rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* Menu Section */
-        .menu {
-            background: #f9f6f0;
-        }
-
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .menu-category {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .menu-category:hover {
-            transform: translateY(-5px);
-        }
-
-        .menu-category h3 {
-            color: #8b4513;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-
-        .menu-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 0.8rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px dotted #d2b48c;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-        }
-
-        /* Atmosphere Section */
-        .atmosphere {
-            background: white;
-        }
-
-        .atmosphere-features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature {
-            text-align: center;
-            padding: 2rem;
-            background: #f9f6f0;
-            border-radius: 15px;
-            transition: transform 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #8b4513;
-        }
-
-        .feature h3 {
-            color: #8b4513;
-            margin-bottom: 1rem;
-        }
-
-        /* Location Section */
-        .location {
-            background: #8b4513;
-            color: white;
-        }
-
-        .location .section-title {
-            color: white;
-        }
-
-        .location .section-title::after {
-            background: #f4e4bc;
-        }
-
-        .location-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .location-info {
-            font-size: 1.1rem;
-        }
-
-        .location-info h3 {
-            color: #f4e4bc;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .location-info p {
-            margin-bottom: 1rem;
-        }
-
-        .map-placeholder {
-            background: #f4e4bc;
-            height: 300px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #8b4513;
-            font-size: 1.2rem;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            background: #3a2b1a;
-            color: white;
-            text-align: center;
-            padding: 2rem 0;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            color: #f4e4bc;
-            margin-bottom: 1rem;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-
-            .about-content,
-            .location-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .atmosphere-features {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    /* Responsive */
+    @media (max-width: 820px){
+      .hero .inner{grid-template-columns:1fr; padding:2rem 0 1rem}
+      .gallery{grid-template-columns:1fr 1fr}
+      .menu-btn{display:inline-block}
+      nav ul{display:none}
+      nav.open ul{display:flex; flex-direction:column; gap:.75rem; padding:.75rem 0}
+      footer .colophon{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <nav class="container">
-            <div class="logo">Morning Brew</div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#menu">Menu</a></li>
-                <li><a href="#atmosphere">Atmosphere</a></li>
-                <li><a href="#location">Visit Us</a></li>
+  <div class="announce" role="status" aria-live="polite">
+    ☕ Fall special: Pumpkin Spice Latte is back! <small>• Try our maple scone</small>
+  </div>
+
+  <header>
+    <div class="wrap nav">
+      <a href="#top" class="brand" aria-label="Morning Brew home">
+        <div class="logo" aria-hidden="true"><span>🍵</span></div>
+        <div>Morning Brew</div>
+      </a>
+      <nav id="primaryNav" aria-label="Primary">
+        <button class="menu-btn" aria-expanded="false" aria-controls="navList" id="menuBtn">☰</button>
+        <ul id="navList">
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#visit">Visit</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <svg class="steam" viewBox="0 0 600 300" aria-hidden="true">
+        <defs>
+          <linearGradient id="g" x1="0" x2="0" y1="1" y2="0">
+            <stop stop-color="#2b3a2f" stop-opacity="0" offset="0"/>
+            <stop stop-color="#2b3a2f" stop-opacity=".6" offset="1"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#g)" d="M0 300 C 80 240, 60 200, 120 120 S 220 40, 200 0 L 240 0 C 260 70, 200 130, 260 200 S 320 260, 320 300 Z"/>
+      </svg>
+      <div class="wrap inner">
+        <div>
+          <p class="tag" aria-label="Established">Serving our neighborhood since 2022</p>
+          <h1>Artisanal espresso, fresh pastries, and a cozy corner to call yours.</h1>
+          <p>Morning Brew is a small, independent coffee shop where locals work, study, and unwind. Pull up a chair—your table’s waiting.</p>
+          <div class="cta">
+            <a class="btn primary" href="#menu">View Menu</a>
+            <a class="btn" href="#visit">Hours & Location</a>
+          </div>
+        </div>
+        <div>
+          <div class="gallery" aria-label="Coffee and pastry images (stylized placeholders)">
+            <div class="ph" role="img" aria-label="A latte with leaf art in a ceramic cup"></div>
+            <div class="ph" role="img" aria-label="Freshly baked croissants on a rack"></div>
+            <div class="ph" role="img" aria-label="Sunlit corner table with notebook and coffee"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Highlights -->
+    <section id="menu">
+      <div class="wrap">
+        <h2 class="section-title">Menu Highlights</h2>
+        <p class="muted">A few favorites, made to order. Ask about seasonal specials.</p>
+        <div class="grid cards" role="list">
+          <article class="card" role="listitem">
+            <h3>Double Espresso</h3>
+            <p class="muted">Rich, balanced shot pulled from locally roasted beans.</p>
+            <p><strong>$3.50</strong></p>
+          </article>
+          <article class="card" role="listitem">
+            <h3>Flat White</h3>
+            <p class="muted">Velvety microfoam over a bold ristretto base.</p>
+            <p><strong>$4.50</strong></p>
+          </article>
+          <article class="card" role="listitem">
+            <h3>Cold Brew</h3>
+            <p class="muted">Slow-steeped 18 hours for a smooth, low-acid sip.</p>
+            <p><strong>$4.25</strong></p>
+          </article>
+          <article class="card" role="listitem">
+            <h3>House Pastries</h3>
+            <p class="muted">Morning bakes: croissants, muffins, scones—rotating daily.</p>
+            <p><strong>$2.25–$4.00</strong></p>
+          </article>
+        </div>
+        <p class="muted" style="margin-top:.75rem">Prices are examples—update to match your current menu.</p>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" aria-labelledby="about-title">
+      <div class="wrap">
+        <h2 class="section-title" id="about-title">About Morning Brew</h2>
+        <div class="grid" style="grid-template-columns:1.1fr .9fr; align-items:start; gap:1.25rem">
+          <p>We’re a small neighborhood shop built around craft and community. For three years, regulars have made this their go‑to spot to focus, meet up, and recharge. We source quality beans, bake pastries fresh each morning, and keep plenty of cozy corners—and outlets—ready for you.</p>
+          <div class="card">
+            <h3>Good to know</h3>
+            <ul>
+              <li>Free, fast Wi‑Fi (<span class="kbd">password</span>: <span id="wifiPassword">brew-local</span>)</li>
+              <li>Plenty of outlets & quiet nooks</li>
+              <li>Bring‑your‑own cup discount (‑$0.25)</li>
+              <li>Vegan & gluten‑free pastry options</li>
             </ul>
-        </nav>
-    </header>
-
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Morning Brew</h1>
-            <p>Your neighborhood coffee shop where community, comfort, and exceptional coffee come together. Serving artisanal drinks and fresh pastries for 3 wonderful years.</p>
-            <a href="#menu" class="cta-button">Explore Our Menu</a>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Story</h2>
-            <div class="about-content">
-                <div class="about-text fade-in">
-                    <p>For three years, Morning Brew has been more than just a coffee shop – we've been your neighborhood gathering place. What started as a dream to create the perfect local café has grown into a beloved community hub where friendships are made over lattes and big ideas are born over our signature espresso.</p>
-                    
-                    <p>We're passionate about crafting exceptional artisanal espresso drinks and serving fresh, locally-sourced pastries. But what truly sets us apart is our commitment to creating a space where everyone feels welcome – whether you're catching up with old friends, diving into a good book, or powering through your next big project.</p>
-                    
-                    <p>Every cup we serve and every smile we share is our way of saying thank you to this amazing community that has supported us from day one.</p>
-                </div>
-                <div class="about-image fade-in">
-                    <div>
-                        <strong>Cozy Coffee Shop Interior</strong><br>
-                        Warm lighting, comfortable seating,<br>
-                        and the perfect atmosphere for<br>
-                        work, study, or conversation
-                    </div>
-                </div>
+    <!-- Visit -->
+    <section id="visit" aria-labelledby="visit-title">
+      <div class="wrap">
+        <h2 class="section-title" id="visit-title">Hours & Location</h2>
+        <div class="grid" style="grid-template-columns:1fr .9fr; align-items:start">
+          <div class="card hours">
+            <div class="when">
+              <span class="open-badge" id="openBadge" aria-live="polite">Checking hours…</span>
             </div>
+            <table class="timetable" aria-describedby="visit-title">
+              <thead class="sr-only"><tr><th>Day</th><th>Hours</th></tr></thead>
+              <tbody id="hoursTable">
+                <!-- Populated by JS; edit the hours in the script below -->
+              </tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>Find us</h3>
+            <p id="address"><strong>123 Oak Street</strong><br>YourTown, ST 00000</p>
+            <p>
+              <a id="directions" class="btn" href="#">Get Directions</a>
+            </p>
+            <p>
+              <a class="btn" href="tel:+10000000000" aria-label="Call Morning Brew">Call</a>
+              <a class="btn" href="mailto:hello@morningbrew.local" aria-label="Email Morning Brew">Email</a>
+            </p>
+            <p class="muted">Street parking available • Bike rack out front</p>
+          </div>
         </div>
+      </div>
     </section>
 
-    <section id="menu" class="menu">
-        <div class="container">
-            <h2 class="section-title fade-in">Our Favorites</h2>
-            <div class="menu-grid">
-                <div class="menu-category fade-in">
-                    <h3>☕ Artisanal Espresso</h3>
-                    <div class="menu-item">
-                        <span>Morning Brew Signature Latte</span>
-                        <span>$4.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Vanilla Bean Cappuccino</span>
-                        <span>$4.25</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Caramel Macchiato</span>
-                        <span>$4.75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Classic Americano</span>
-                        <span>$3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>House Blend Pour Over</span>
-                        <span>$3.75</span>
-                    </div>
-                </div>
-                
-                <div class="menu-category fade-in">
-                    <h3>🥐 Fresh Pastries</h3>
-                    <div class="menu-item">
-                        <span>Butter Croissant</span>
-                        <span>$3.25</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Blueberry Muffin</span>
-                        <span>$3.50</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Cinnamon Roll</span>
-                        <span>$4.00</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Chocolate Chip Scone</span>
-                        <span>$3.75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Avocado Toast</span>
-                        <span>$6.50</span>
-                    </div>
-                </div>
-                
-                <div class="menu-category fade-in">
-                    <h3>🥤 Cold Beverages</h3>
-                    <div class="menu-item">
-                        <span>Iced Morning Brew Latte</span>
-                        <span>$4.75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Cold Brew Coffee</span>
-                        <span>$3.75</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Vanilla Iced Coffee</span>
-                        <span>$4.25</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Fresh Fruit Smoothie</span>
-                        <span>$5.25</span>
-                    </div>
-                    <div class="menu-item">
-                        <span>Herbal Iced Tea</span>
-                        <span>$3.25</span>
-                    </div>
-                </div>
-            </div>
+    <!-- Testimonials -->
+    <section aria-labelledby="love-title">
+      <div class="wrap">
+        <h2 class="section-title" id="love-title">What locals say</h2>
+        <div class="grid cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+          <blockquote class="card">“Best espresso in town and the friendliest baristas.”<br><small class="muted">— A regular</small></blockquote>
+          <blockquote class="card">“Perfect study spot. Outlets everywhere, chill playlist.”<br><small class="muted">— Grad student</small></blockquote>
+          <blockquote class="card">“The maple scone is a must. Cozy vibes for days.”<br><small class="muted">— Neighbor</small></blockquote>
         </div>
+      </div>
     </section>
 
-    <section id="atmosphere" class="atmosphere">
-        <div class="container">
-            <h2 class="section-title fade-in">Perfect for Work & Study</h2>
-            <p class="fade-in" style="text-align: center; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">Our cozy atmosphere is designed with you in mind. Whether you're working on your laptop, studying for exams, or meeting with friends, Morning Brew provides the perfect backdrop for productivity and connection.</p>
-            
-            <div class="atmosphere-features">
-                <div class="feature fade-in">
-                    <div class="feature-icon">📶</div>
-                    <h3>Free WiFi</h3>
-                    <p>Fast, reliable internet perfect for remote work, video calls, and streaming.</p>
-                </div>
-                
-                <div class="feature fade-in">
-                    <div class="feature-icon">🔌</div>
-                    <h3>Power Outlets</h3>
-                    <p>Plenty of charging stations throughout the café to keep your devices powered up.</p>
-                </div>
-                
-                <div class="feature fade-in">
-                    <div class="feature-icon">🪑</div>
-                    <h3>Comfortable Seating</h3>
-                    <p>Mix of cozy armchairs, communal tables, and quiet corners for every work style.</p>
-                </div>
-                
-                <div class="feature fade-in">
-                    <div class="feature-icon">🎵</div>
-                    <h3>Ambient Atmosphere</h3>
-                    <p>Carefully curated playlist and perfect lighting create an inspiring environment.</p>
-                </div>
+    <!-- Contact -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="wrap">
+        <h2 class="section-title" id="contact-title">Say hello</h2>
+        <div class="card" style="max-width:720px">
+          <form id="contactForm" aria-describedby="contactHelp">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:.75rem">
+              <label> Name
+                <input required name="name" type="text" placeholder="Your name" style="width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(0,0,0,.15)" />
+              </label>
+              <label> Email
+                <input required name="email" type="email" placeholder="you@example.com" style="width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(0,0,0,.15)" />
+              </label>
             </div>
+            <label style="display:block; margin-top:.75rem"> Message
+              <textarea required name="message" rows="4" placeholder="How can we help?" style="width:100%; padding:.6rem .7rem; border-radius:10px; border:1px solid rgba(0,0,0,.15)"></textarea>
+            </label>
+            <div style="display:flex; gap:.5rem; align-items:center; margin-top:.75rem">
+              <button class="btn primary" type="submit">Send</button>
+              <span id="contactHelp" class="muted">This opens your email app—no account needed.</span>
+            </div>
+          </form>
         </div>
+      </div>
     </section>
+  </main>
 
-    <section id="location" class="location">
-        <div class="container">
-            <h2 class="section-title fade-in">Visit Us</h2>
-            <div class="location-content">
-                <div class="location-info fade-in">
-                    <h3>📍 Location</h3>
-                    <p>123 Neighborhood Street<br>
-                    Coffee District, CD 12345<br>
-                    Easy street parking available</p>
-                    
-                    <h3>⏰ Hours</h3>
-                    <p>Monday - Friday: 6:30 AM - 8:00 PM<br>
-                    Saturday - Sunday: 7:00 AM - 9:00 PM<br>
-                    Open every day of the year</p>
-                    
-                    <h3>📞 Contact</h3>
-                    <p>Phone: (555) 123-BREW<br>
-                    Email: hello@morningbrewcafe.com</p>
-                </div>
-                <div class="map-placeholder fade-in">
-                    <div>
-                        <strong>Interactive Map</strong><br>
-                        📍 Find us in the heart of<br>
-                        the neighborhood<br><br>
-                        <em>Walking distance from<br>
-                        Metro Station & Main Library</em>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+  <footer>
+    <div class="wrap colophon">
+      <div>
+        <div class="brand" style="color:#fff"><div class="logo" aria-hidden="true" style="background:#fff; color:#111">🍵</div> Morning Brew</div>
+        <p style="margin:.5rem 0 0">Made with ❤️ in our neighborhood. © <span id="year"></span> Morning Brew.</p>
+      </div>
+      <div>
+        <p><strong>Follow</strong></p>
+        <p><a href="#" aria-label="Instagram">Instagram</a> · <a href="#" aria-label="Facebook">Facebook</a> · <a href="#" aria-label="X / Twitter">X</a></p>
+        <p class="muted">Replace with your actual social links.</p>
+      </div>
+    </div>
+  </footer>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Morning Brew</h3>
-                    <p>Your neighborhood coffee shop since 2022. Where community and exceptional coffee meet.</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <p>Menu | Hours | Location | Contact<br>
-                    Catering | Events | Gift Cards</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Connect With Us</h3>
-                    <p>Follow us for daily specials, events, and community updates on social media.</p>
-                </div>
-            </div>
-            <p>&copy; 2025 Morning Brew Coffee Shop. Made with ❤️ for our community.</p>
-        </div>
-    </footer>
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Morning Brew",
+    "image": "https://example.com/og-image.png",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "123 Oak Street",
+      "addressLocality": "YourTown",
+      "addressRegion": "ST",
+      "postalCode": "00000"
+    },
+    "telephone": "+1-000-000-0000",
+    "url": "https://example.com",
+    "servesCuisine": ["Coffee", "Pastries"],
+    "openingHoursSpecification": [
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"07:00","closes":"19:00"},
+      {"@type":"OpeningHoursSpecification","dayOfWeek":["Saturday","Sunday"],"opens":"08:00","closes":"18:00"}
+    ]
+  }
+  </script>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+  <script>
+    // ===== CONFIG: EDIT THESE TO MATCH YOUR SHOP =====
+    const CONFIG = {
+      shopName: 'Morning Brew',
+      address: '123 Oak Street, YourTown, ST 00000',
+      lat: null, // Add latitude if known
+      lng: null, // Add longitude if known
+      phone: '+1 000 000 0000',
+      email: 'hello@morningbrew.local',
+      mapsQuery: 'Morning Brew 123 Oak Street YourTown',
+      wifiPassword: 'brew-local',
+      hours: [
+        // 0 = Sunday ... 6 = Saturday
+        { days: [1,2,3,4,5], open: '07:00', close: '19:00' },
+        { days: [0,6],       open: '08:00', close: '18:00' }
+      ]
+    };
 
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+    // ===== Helper functions =====
+    const $ = sel => document.querySelector(sel);
+    const pad = n => String(n).padStart(2,'0');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+    function isOpenNow(hoursSpec, now=new Date()){
+      const day = now.getDay();
+      const match = hoursSpec.find(h => h.days.includes(day));
+      if(!match) return false;
+      const [oH,oM] = match.open.split(':').map(Number);
+      const [cH,cM] = match.close.split(':').map(Number);
+      const openTime = new Date(now); openTime.setHours(oH,oM,0,0);
+      const closeTime = new Date(now); closeTime.setHours(cH,cM,0,0);
+      return now >= openTime && now <= closeTime;
+    }
 
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+    function renderHoursTable(){
+      const tbody = $('#hoursTable');
+      const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+      const map = new Map();
+      CONFIG.hours.forEach(h => h.days.forEach(d => map.set(d, h)));
+      const rows = days.map((name, idx) => {
+        const spec = map.get(idx);
+        const today = (new Date()).getDay() === idx ? ' style="font-weight:700"' : '';
+        if(!spec) return `<tr${today}><td>${name}</td><td>Closed</td></tr>`;
+        return `<tr${today}><td>${name}</td><td>${spec.open} – ${spec.close}</td></tr>`;
+      }).join('');
+      tbody.innerHTML = rows;
+    }
 
-        // Header background change on scroll
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.background = 'linear-gradient(135deg, rgba(139, 69, 19, 0.95) 0%, rgba(160, 82, 45, 0.95) 100%)';
-            } else {
-                header.style.background = 'linear-gradient(135deg, #8b4513 0%, #a0522d 100%)';
-            }
-        });
+    function updateOpenBadge(){
+      const badge = $('#openBadge');
+      const open = isOpenNow(CONFIG.hours);
+      badge.textContent = open ? 'Open now' : 'Closed now';
+      badge.style.background = open ? 'rgba(59, 179, 97, .18)' : 'rgba(179, 59, 59, .14)';
+      badge.style.color = open ? '#1b5e20' : '#7a2222';
+    }
 
-        // Add hover effects to menu items
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.addEventListener('mouseenter', function() {
-                this.style.backgroundColor = '#f4e4bc';
-                this.style.padding = '0.5rem';
-                this.style.borderRadius = '8px';
-                this.style.transition = 'all 0.3s ease';
-            });
-            
-            item.addEventListener('mouseleave', function() {
-                this.style.backgroundColor = 'transparent';
-                this.style.padding = '0';
-                this.style.borderRadius = '0';
-            });
-        });
-    </script>
+    function setupDirections(){
+      const a = $('#directions');
+      const q = encodeURIComponent(CONFIG.mapsQuery || CONFIG.address || CONFIG.shopName);
+      // Deep links work cross‑platform; users choose their preferred app.
+      const google = `https://www.google.com/maps/search/?api=1&query=${q}`;
+      a.href = google;
+    }
+
+    function setupContact(){
+      const form = $('#contactForm');
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+        const name = data.get('name');
+        const email = data.get('email');
+        const message = data.get('message');
+        const subject = encodeURIComponent(`Website message for ${CONFIG.shopName}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+        window.location.href = `mailto:${CONFIG.email}?subject=${subject}&body=${body}`;
+      });
+    }
+
+    function setupMobileNav(){
+      const btn = $('#menuBtn');
+      const nav = $('#primaryNav');
+      btn.addEventListener('click', () => {
+        const open = nav.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+    }
+
+    function init(){
+      // Inject config
+      $('#year').textContent = new Date().getFullYear();
+      $('#wifiPassword').textContent = CONFIG.wifiPassword;
+      $('#address').innerHTML = `<strong>${CONFIG.address.split(',')[0]}</strong><br>${CONFIG.address.split(',').slice(1).join(',')}`;
+      renderHoursTable();
+      updateOpenBadge();
+      setupDirections();
+      setupContact();
+      setupMobileNav();
+      // Update open/closed on the minute
+      setInterval(updateOpenBadge, 60*1000);
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
 </body>
 </html>
