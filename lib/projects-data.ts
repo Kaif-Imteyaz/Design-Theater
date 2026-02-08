@@ -16,7 +16,7 @@ export const categories = [
   { id: "claude", name: "Claude (Complete)" },
   { id: "firebase", name: "Firebase (Complete)" },
   { id: "bolt", name: "Bolt (upto Task 2.2)" },
-  { id: "v0", name: "v0 ()" },
+  { id: "v0", name: "v0 (upto Task 2.5)" },
   // { id: "uizard", name: "UIzard" },
 ];
 
