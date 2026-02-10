@@ -27,7 +27,7 @@ export const categories: Category[] = [
   { id: "claude", name: "Claude (Complete)", modelName: "Sonnet 4 Thinking " },
   { id: "firebase", name: "Firebase (Complete)", modelName: "Gemini 2.5 Pro" },
   { id: "bolt", name: "Bolt (upto Task 2.2)", modelName: "v1 agent(legacy)" },
-  { id: "v0", name: "v0 (upto Task 2.5)", modelName: "v0 Mini; powered by Claude Haiku" },
+  { id: "v0", name: "v0 (Complete)", modelName: "v0 Mini; powered by Claude Haiku" },
   // { id: "uizard", name: "UIzard" },
 ];
 
