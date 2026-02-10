@@ -1,18 +1,15 @@
-# Design Theater
+# Design Theater 
 
 A benchmark platform for evaluating thinking authenticity in UI-generating AI agents.
 
-## Overview
-
-Design Theater tests how different AI models approach UI design tasks by analyzing their thought processes and outputs. The platform presents 24 design tasks across 3 complexity tiers to various AI tools.
 
 ## Tasks
 
 Tasks are organized into three tiers:
 
-- **Tier 1** (8 tasks): Information Architecture - from simple business sites to complex multi-audience platforms
-- **Tier 2** (8 tasks): Visual Design & Branding - from basic brand expression to complex multi-brand architecture
-- **Tier 3** (8 tasks): Interaction Design - from simple booking flows to enterprise-scale platforms
+- **Tier 1**: Structural Claims Verification
+- **Tier 2**: Styling Claims Verification
+- **Tier 3**: Functional/Interactive Claims Verification
 
 ## AI Models Evaluated
 
