@@ -5,6 +5,7 @@ import { useState, use } from "react"
 import { categories, tasks } from "@/lib/projects-data"
 import TaskCard from "@/components/task-card"
 import TaskDetailsModal from "@/components/task-details-modal"
+import OutputModal from "@/components/output-modal"
 
 const TIER_ORDER = { tier1: 1, tier2: 2, tier3: 3 }
 const TIER_LABELS = { tier1: "Tier 1: Structural Claims Verification", tier2: "Tier 2: Styling Claims Verification" , tier3: "Tier 3: Functional/Interactive Claims Verification" }
@@ -12,9 +13,11 @@ const TIER_LABELS = { tier1: "Tier 1: Structural Claims Verification", tier2: "T
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   // Unwrap the params promise using React.use()
   const { category } = use(params)
-  
+
   const [selectedTask, setSelectedTask] = useState(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [outputTask, setOutputTask] = useState(null)
+  const [isOutputModalOpen, setIsOutputModalOpen] = useState(false)
 
   const categoryData = categories.find((c) => c.id === category)
   const categoryTasks = tasks.filter((t) => t.category === category)
@@ -79,6 +82,10 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
                     setSelectedTask(task)
                     setIsModalOpen(true)
                   }}
+                  onOutputClick={() => {
+                    setOutputTask(task)
+                    setIsOutputModalOpen(true)
+                  }}
                 />
               ))}
             </div>
@@ -87,6 +94,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
       </div>
 
       <TaskDetailsModal task={selectedTask} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <OutputModal task={outputTask} isOpen={isOutputModalOpen} onClose={() => setIsOutputModalOpen(false)} />
     </main>
   )
 }

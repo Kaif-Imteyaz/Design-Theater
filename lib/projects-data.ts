@@ -1,3 +1,5 @@
+import { getThoughtProcess } from "./thought-processes";
+
 export interface Task {
   id: string;
   title: string;
@@ -8,15 +10,24 @@ export interface Task {
   uxprinciple?: string;
   techStack: string[];
   path: string;
+  thoughtProcess1?: string;
+  thoughtProcess2?: string;
+  output?: string;
 }
 
-export const categories = [
-  { id: "chatgpt", name: "ChatGPT (complete)" },
+export interface Category {
+  id: string;
+  name: string;
+  modelName: string;
+}
+
+export const categories: Category[] = [
+  { id: "chatgpt", name: "ChatGPT (complete)", modelName: "GPT-5 Thinking" },
   // { id: "lovable", name: "Lovable" }, No html css js code
-  { id: "claude", name: "Claude (Complete)" },
-  { id: "firebase", name: "Firebase (Complete)" },
-  { id: "bolt", name: "Bolt (upto Task 2.2)" },
-  { id: "v0", name: "v0 (upto Task 2.5)" },
+  { id: "claude", name: "Claude (Complete)", modelName: "Sonnet 4 Thinking " },
+  { id: "firebase", name: "Firebase (Complete)", modelName: "Gemini 2.5 Pro" },
+  { id: "bolt", name: "Bolt (upto Task 2.2)", modelName: "v1 agent(legacy)" },
+  { id: "v0", name: "v0 (upto Task 2.5)", modelName: "v0 Mini; powered by Claude Haiku" },
   // { id: "uizard", name: "UIzard" },
 ];
 
@@ -231,9 +242,12 @@ const baseTasks = [
 // Generate tasks for all categories
 function generateTasksForAllCategories(): Task[] {
   const allTasks: Task[] = [];
-  
+
   categories.forEach(category => {
     baseTasks.forEach(baseTask => {
+      // Get thought process data from the separate file based on category
+      const thoughtData = getThoughtProcess(category.id, baseTask.baseId);
+
       allTasks.push({
         id: `${category.id}-${baseTask.baseId}`,
         title: baseTask.title,
@@ -243,12 +257,20 @@ function generateTasksForAllCategories(): Task[] {
         tags: baseTask.tags,
         uxprinciple: baseTask.uxprinciple,
         techStack: baseTask.techStack,
-        path: `/${category.id}/${baseTask.baseId}`
+        path: `/${category.id}/${baseTask.baseId}`,
+        thoughtProcess1: thoughtData?.thoughtProcess1,
+        thoughtProcess2: thoughtData?.thoughtProcess2,
+        output: thoughtData?.output
       });
     });
   });
-  
+
   return allTasks;
+}
+
+// Helper to get category by id
+export function getCategoryById(categoryId: string): Category | undefined {
+  return categories.find(c => c.id === categoryId);
 }
 
 export const tasks: Task[] = generateTasksForAllCategories();
