@@ -572,6 +572,39 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
   const [codeLoading, setCodeLoading] = useState(false)
   const [copiedFile, setCopiedFile] = useState<string | null>(null)
   const [isEvalOpen, setIsEvalOpen] = useState(false)
+  const [thoughtContents, setThoughtContents] = useState<Record<string, string>>({})
+
+  // Fetch thought contents from HTML file based on task category
+  useEffect(() => {
+    if (!task) return
+
+    // Map category to tool name for HTML file
+    const toolMap: Record<string, string> = {
+      'chatgpt': 'chatgpt',
+      'claude': 'claude',
+      'firebase': 'firebase',
+      'bolt': 'bolt',
+      'v0': 'v0'
+    }
+
+    const toolName = toolMap[task.category] || task.category
+
+    fetch(`/thoughts/${toolName}.html`)
+      .then(r => r.text())
+      .then(html => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(html, 'text/html')
+        const contents: Record<string, string> = {}
+
+        // Get all divs with IDs and store their innerHTML
+        doc.querySelectorAll('div[id]').forEach(div => {
+          contents[div.id] = div.innerHTML
+        })
+
+        setThoughtContents(contents)
+      })
+      .catch(console.error)
+  }, [task])
 
   // All available files for code tabs
   const allCodeFiles = useMemo(() => {
@@ -926,7 +959,12 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
                     <div className="space-y-2">
                       <h3 className="text-sm font-medium text-zinc-400">Part 1</h3>
                       <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                        <p className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm">{task.thoughtProcess1}</p>
+                        <div
+                          className="text-zinc-300 leading-relaxed text-sm"
+                          dangerouslySetInnerHTML={{
+                            __html: thoughtContents[task.thoughtProcess1] || task.thoughtProcess1
+                          }}
+                        />
                       </div>
                     </div>
                   )}
@@ -934,7 +972,12 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
                     <div className="space-y-2">
                       <h3 className="text-sm font-medium text-zinc-400">Part 2</h3>
                       <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                        <p className="text-zinc-300 leading-relaxed whitespace-pre-wrap text-sm">{task.thoughtProcess2}</p>
+                        <div
+                          className="text-zinc-300 leading-relaxed text-sm"
+                          dangerouslySetInnerHTML={{
+                            __html: thoughtContents[task.thoughtProcess2] || task.thoughtProcess2
+                          }}
+                        />
                       </div>
                     </div>
                   )}
@@ -945,11 +988,16 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
               <div className="space-y-4">
                 <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2">
                   <FileOutput className="w-5 h-5 text-green-400" />
-                  Model Output
+                  Output/Explanation (in chat)
                 </h2>
                 {task.output ? (
                   <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                    <p className="text-zinc-300 leading-relaxed whitespace-pre-wrap">{task.output}</p>
+                    <div
+                      className="text-zinc-300 leading-relaxed"
+                      dangerouslySetInnerHTML={{
+                        __html: thoughtContents[task.output] || task.output
+                      }}
+                    />
                   </div>
                 ) : (
                   <div className="p-8 bg-zinc-900 border border-zinc-800 rounded-lg text-center">

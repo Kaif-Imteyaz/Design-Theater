@@ -12,6 +12,7 @@ export interface Task {
   path: string;
   thoughtProcess1?: string;
   thoughtProcess2?: string;
+  thoughtProcess3?: string;
   output?: string;
 }
 

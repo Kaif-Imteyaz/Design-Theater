@@ -1,5 +1,6 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import type { Task } from "@/lib/projects-data"
 import { getCategoryById } from "@/lib/projects-data"
 import { X, Brain, Lightbulb, FileOutput, Cpu } from "lucide-react"
@@ -11,12 +12,50 @@ interface OutputModalProps {
 }
 
 export default function OutputModal({ task, isOpen, onClose }: OutputModalProps) {
+  const [thoughtContents, setThoughtContents] = useState<Record<string, string>>({})
+
+  // Fetch thought contents from HTML file based on task category
+  useEffect(() => {
+    if (!isOpen || !task) return
+
+    const toolMap: Record<string, string> = {
+      'chatgpt': 'chatgpt',
+      'claude': 'claude',
+      'firebase': 'firebase',
+      'bolt': 'bolt',
+      'v0': 'v0'
+    }
+
+    const toolName = toolMap[task.category] || task.category
+
+    fetch(`/thoughts/${toolName}.html`)
+      .then(r => r.text())
+      .then(html => {
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(html, 'text/html')
+        const contents: Record<string, string> = {}
+
+        doc.querySelectorAll('div[id]').forEach(div => {
+          contents[div.id] = div.innerHTML
+        })
+
+        setThoughtContents(contents)
+      })
+      .catch(console.error)
+  }, [isOpen, task])
+
   if (!isOpen || !task) return null
 
   const category = getCategoryById(task.category)
-  const hasThoughtProcess1 = !!task.thoughtProcess1
-  const hasThoughtProcess2 = !!task.thoughtProcess2
-  const hasOutput = !!task.output
+
+  // Get content from HTML or show empty if not found
+  const thought1Content = task.thoughtProcess1 ? (thoughtContents[task.thoughtProcess1] || '') : ''
+  const thought2Content = task.thoughtProcess2 ? (thoughtContents[task.thoughtProcess2] || '') : ''
+  const outputContent = task.output ? (thoughtContents[task.output] || '') : ''
+
+  const hasThoughtProcess1 = !!thought1Content.trim()
+  const hasThoughtProcess2 = !!thought2Content.trim()
+  const hasOutput = !!outputContent.trim()
 
   return (
     <div
@@ -55,9 +94,10 @@ export default function OutputModal({ task, isOpen, onClose }: OutputModalProps)
                 <h3 className="text-sm font-semibold text-blue-500">Thought Process 1</h3>
               </div>
               <div className="p-4">
-                <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
-                  {task.thoughtProcess1}
-                </p>
+                <div
+                  className="text-foreground text-sm leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: thought1Content }}
+                />
               </div>
             </div>
           )}
@@ -70,9 +110,10 @@ export default function OutputModal({ task, isOpen, onClose }: OutputModalProps)
                 <h3 className="text-sm font-semibold text-green-500">Thought Process 2</h3>
               </div>
               <div className="p-4">
-                <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
-                  {task.thoughtProcess2}
-                </p>
+                <div
+                  className="text-foreground text-sm leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: thought2Content }}
+                />
               </div>
             </div>
           )}
@@ -82,12 +123,13 @@ export default function OutputModal({ task, isOpen, onClose }: OutputModalProps)
             <div className="border border-border rounded-lg overflow-hidden">
               <div className="flex items-center gap-2 px-4 py-3 bg-amber-500/10 border-b border-border">
                 <FileOutput className="w-5 h-5 text-amber-500" />
-                <h3 className="text-sm font-semibold text-amber-500">Output Summary</h3>
+                <h3 className="text-sm font-semibold text-amber-500">Output/Explanation (in chat)</h3>
               </div>
               <div className="p-4">
-                <p className="text-foreground text-sm leading-relaxed whitespace-pre-wrap">
-                  {task.output}
-                </p>
+                <div
+                  className="text-foreground text-sm leading-relaxed"
+                  dangerouslySetInnerHTML={{ __html: outputContent }}
+                />
               </div>
             </div>
           )}

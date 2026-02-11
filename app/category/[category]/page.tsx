@@ -1,11 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { useState, use } from "react"
+import { useState, useEffect, use } from "react"
 import { categories, tasks } from "@/lib/projects-data"
 import TaskCard from "@/components/task-card"
 import TaskDetailsModal from "@/components/task-details-modal"
 import OutputModal from "@/components/output-modal"
+import { ThemeToggle } from "@/components/theme-toggle"
 
 const TIER_ORDER = { tier1: 1, tier2: 2, tier3: 3 }
 const TIER_LABELS = { tier1: "Tier 1: Structural Claims Verification", tier2: "Tier 2: Styling Claims Verification" , tier3: "Tier 3: Functional/Interactive Claims Verification" }
@@ -18,6 +19,18 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [outputTask, setOutputTask] = useState(null)
   const [isOutputModalOpen, setIsOutputModalOpen] = useState(false)
+  const [showFirebasePopup, setShowFirebasePopup] = useState(false)
+
+  // Show popup for firebase category
+  useEffect(() => {
+    if (category === "firebase") {
+      setShowFirebasePopup(true)
+      const timer = setTimeout(() => {
+        setShowFirebasePopup(false)
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [category])
 
   const categoryData = categories.find((c) => c.id === category)
   const categoryTasks = tasks.filter((t) => t.category === category)
@@ -45,12 +58,24 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-background via-background to-background">
+      {/* Firebase Popup */}
+      {showFirebasePopup && (
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="bg-orange-500 text-white px-6 py-3 rounded-lg shadow-lg font-medium">
+            Blueprint is thought process
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="border-b border-border">
         <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
-          <Link href="/" className="inline-block text-sm text-muted-foreground hover:text-foreground mb-4">
-            ← Back
-          </Link>
+          <div className="flex items-center justify-between mb-4">
+            <Link href="/" className="text-sm text-muted-foreground hover:text-foreground">
+              ← Back
+            </Link>
+            <ThemeToggle />
+          </div>
           <div className={`inline-block w-4 h-4 rounded-full ${categoryData.color} mb-4`} />
           <h1 className="text-4xl font-bold text-foreground mb-2">{categoryData.name} Projects</h1>
           <p className="text-muted-foreground">
