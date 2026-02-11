@@ -261,6 +261,7 @@ function generateTasksForAllCategories(): Task[] {
         path: `/${category.id}/${baseTask.baseId}`,
         thoughtProcess1: thoughtData?.thoughtProcess1,
         thoughtProcess2: thoughtData?.thoughtProcess2,
+        thoughtProcess3: thoughtData?.thoughtProcess3,
         output: thoughtData?.output
       });
     });

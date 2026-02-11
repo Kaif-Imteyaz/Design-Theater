@@ -100,6 +100,7 @@ export const claudeThoughts: Record<string, ThoughtProcessData> = {
   "task3.4": {
     thoughtProcess1: "claude-task3.4-thought1",
     thoughtProcess2: "claude-task3.4-thought2",
+    thoughtProcess3: "claude-task3.4-thought3",
     output: "claude-task3.4-output"
   },
   "task3.5": {

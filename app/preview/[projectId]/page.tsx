@@ -6,6 +6,7 @@ import { tasks, getCategoryById } from "@/lib/projects-data"
 import { useState, use, useEffect, useMemo } from "react"
 import { X, Home, ArrowLeft, Eye, Code, Copy, Check, ClipboardCheck, FileCode2, FileJson, Network, ChevronRight, ChevronDown, ChevronLeft, List, Info, FileOutput } from "lucide-react"
 import EvaluationPanel from "@/components/evaluation-panel"
+import DesignLoader from "@/components/design-loader"
 import * as parse5 from "parse5"
 
 type ViewTab = "preview" | "code" | "ast" | "dom" | "about" | "output"
@@ -573,10 +574,14 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
   const [copiedFile, setCopiedFile] = useState<string | null>(null)
   const [isEvalOpen, setIsEvalOpen] = useState(false)
   const [thoughtContents, setThoughtContents] = useState<Record<string, string>>({})
+  const [thoughtsLoading, setThoughtsLoading] = useState(false)
 
   // Fetch thought contents from HTML file based on task category
   useEffect(() => {
     if (!task) return
+
+    setThoughtsLoading(true)
+    setThoughtContents({})
 
     // Map category to tool name for HTML file
     const toolMap: Record<string, string> = {
@@ -590,7 +595,10 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
     const toolName = toolMap[task.category] || task.category
 
     fetch(`/thoughts/${toolName}.html`)
-      .then(r => r.text())
+      .then(r => {
+        if (!r.ok) throw new Error(`Failed to fetch: ${r.status}`)
+        return r.text()
+      })
       .then(html => {
         const parser = new DOMParser()
         const doc = parser.parseFromString(html, 'text/html')
@@ -604,6 +612,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
         setThoughtContents(contents)
       })
       .catch(console.error)
+      .finally(() => setThoughtsLoading(false))
   }, [task])
 
   // All available files for code tabs
@@ -947,66 +956,72 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
         {/* Output Tab */}
         {activeTab === "output" && (
           <div className="h-full overflow-auto bg-zinc-950">
-            <div className="max-w-4xl mx-auto p-6 space-y-6">
-              {/* Thought Process Section */}
-              {(task.thoughtProcess1 || task.thoughtProcess2) && (
+            {thoughtsLoading ? (
+              <div className="flex items-center justify-center h-full">
+                <DesignLoader />
+              </div>
+            ) : (
+              <div className="max-w-4xl mx-auto p-6 space-y-6">
+                {/* Thought Process Section */}
+                {(task.thoughtProcess1 || task.thoughtProcess2) && (
+                  <div className="space-y-4">
+                    <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2">
+                      <Info className="w-5 h-5 text-purple-400" />
+                      Thought Process
+                    </h2>
+                    {task.thoughtProcess1 && thoughtContents[task.thoughtProcess1] && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-zinc-400">Part 1</h3>
+                        <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
+                          <div
+                            className="text-zinc-300 leading-relaxed text-sm"
+                            dangerouslySetInnerHTML={{
+                              __html: thoughtContents[task.thoughtProcess1]
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                    {task.thoughtProcess2 && thoughtContents[task.thoughtProcess2] && (
+                      <div className="space-y-2">
+                        <h3 className="text-sm font-medium text-zinc-400">Part 2</h3>
+                        <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
+                          <div
+                            className="text-zinc-300 leading-relaxed text-sm"
+                            dangerouslySetInnerHTML={{
+                              __html: thoughtContents[task.thoughtProcess2]
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* Model Output Section */}
                 <div className="space-y-4">
                   <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2">
-                    <Info className="w-5 h-5 text-purple-400" />
-                    Thought Process
+                    <FileOutput className="w-5 h-5 text-green-400" />
+                    Output/Explanation (in chat)
                   </h2>
-                  {task.thoughtProcess1 && (
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-medium text-zinc-400">Part 1</h3>
-                      <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                        <div
-                          className="text-zinc-300 leading-relaxed text-sm"
-                          dangerouslySetInnerHTML={{
-                            __html: thoughtContents[task.thoughtProcess1] || task.thoughtProcess1
-                          }}
-                        />
-                      </div>
+                  {task.output && thoughtContents[task.output] ? (
+                    <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
+                      <div
+                        className="text-zinc-300 leading-relaxed"
+                        dangerouslySetInnerHTML={{
+                          __html: thoughtContents[task.output]
+                        }}
+                      />
                     </div>
-                  )}
-                  {task.thoughtProcess2 && (
-                    <div className="space-y-2">
-                      <h3 className="text-sm font-medium text-zinc-400">Part 2</h3>
-                      <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                        <div
-                          className="text-zinc-300 leading-relaxed text-sm"
-                          dangerouslySetInnerHTML={{
-                            __html: thoughtContents[task.thoughtProcess2] || task.thoughtProcess2
-                          }}
-                        />
-                      </div>
+                  ) : (
+                    <div className="p-8 bg-zinc-900 border border-zinc-800 rounded-lg text-center">
+                      <FileOutput className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
+                      <p className="text-zinc-500">No output available for this task</p>
                     </div>
                   )}
                 </div>
-              )}
-
-              {/* Model Output Section */}
-              <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-zinc-200 flex items-center gap-2">
-                  <FileOutput className="w-5 h-5 text-green-400" />
-                  Output/Explanation (in chat)
-                </h2>
-                {task.output ? (
-                  <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-lg">
-                    <div
-                      className="text-zinc-300 leading-relaxed"
-                      dangerouslySetInnerHTML={{
-                        __html: thoughtContents[task.output] || task.output
-                      }}
-                    />
-                  </div>
-                ) : (
-                  <div className="p-8 bg-zinc-900 border border-zinc-800 rounded-lg text-center">
-                    <FileOutput className="w-12 h-12 text-zinc-600 mx-auto mb-3" />
-                    <p className="text-zinc-500">No output available for this task</p>
-                  </div>
-                )}
               </div>
-            </div>
+            )}
           </div>
         )}
 
@@ -1015,10 +1030,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
           <>
             {!iframeLoaded && (
               <div className="absolute inset-0 bg-black flex items-center justify-center z-20 pt-12">
-                <div className="text-center">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3" />
-                  <p className="text-sm text-muted-foreground">Loading preview...</p>
-                </div>
+                <DesignLoader />
               </div>
             )}
             <iframe
@@ -1036,10 +1048,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
           <div className="h-full flex flex-col bg-zinc-950">
             {codeLoading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3" />
-                  <p className="text-sm text-muted-foreground">Loading code files...</p>
-                </div>
+                <DesignLoader />
               </div>
             ) : (
               <>
@@ -1099,10 +1108,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
           <div className="h-full flex flex-col bg-zinc-950">
             {codeLoading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3" />
-                  <p className="text-sm text-muted-foreground">Parsing HTML...</p>
-                </div>
+                <DesignLoader />
               </div>
             ) : (
               <>
@@ -1130,10 +1136,7 @@ export default function PreviewPage({ params }: { params: Promise<{ projectId: s
           <div className="h-full flex flex-col bg-zinc-950">
             {codeLoading ? (
               <div className="flex items-center justify-center h-full">
-                <div className="text-center">
-                  <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary mb-3" />
-                  <p className="text-sm text-muted-foreground">Building DOM Tree...</p>
-                </div>
+                <DesignLoader />
               </div>
             ) : (
               <>
